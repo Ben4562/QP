@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e9afd2161e70417890b1ddc2e58e5bfc" Name="Diagram1">
+        <EntityTypeShape EntityType="QP_Management_Model.Focus_Area" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QP_Management_Model.Info_Repository" Width="1.5" PointX="7.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QP_Management_Model.Module" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QP_Management_Model.QP_Final_Pool" Width="1.5" PointX="9.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="QP_Management_Model.QP_Version_Pool" Width="1.5" PointX="9.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QP_Management_Model.Role" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QP_Management_Model.sysdiagram" Width="1.5" PointX="5.625" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QP_Management_Model.Track" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QP_Management_Model.User" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <AssociationConnector Association="QP_Management_Model.fk_FAId" ManuallyRouted="false" />
+        <AssociationConnector Association="QP_Management_Model.fk_TrackId" ManuallyRouted="false" />
+        <AssociationConnector Association="QP_Management_Model.fk_Author" ManuallyRouted="false" />
+        <AssociationConnector Association="QP_Management_Model.fk_DocInfoId" ManuallyRouted="false" />
+        <AssociationConnector Association="QP_Management_Model.fk_DocInfoId_QP" ManuallyRouted="false" />
+        <AssociationConnector Association="QP_Management_Model.fk_ModuleId" ManuallyRouted="false" />
+        <AssociationConnector Association="QP_Management_Model.fk_Reviewer" ManuallyRouted="false" />
+        <AssociationConnector Association="QP_Management_Model.fk_QAnchor" ManuallyRouted="false" />
+        <AssociationConnector Association="QP_Management_Model.fk_TrackId_Users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
