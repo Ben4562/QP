@@ -12,13 +12,16 @@ namespace QP_Management_DataAccessLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class QP_Final_Pool
+    public partial class QPVersion
     {
-        public int DocInfoId { get; set; }
-        public int QualityAnchor { get; set; }
-        public System.DateTime AcceptanceTime { get; set; }
+        public string DocId { get; set; }
+        public byte[] Document { get; set; }
+        public string DocumentName { get; set; }
+        public float VersionId { get; set; }
+        public System.DateTime CreationLog { get; set; }
+        public Nullable<System.DateTime> UpdationLog { get; set; }
+        public string Comments { get; set; }
     
-        public virtual Info_Repository Info_Repository { get; set; }
-        public virtual User User { get; set; }
+        public virtual QPMasterPool QPMasterPool { get; set; }
     }
 }

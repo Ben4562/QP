@@ -13,10 +13,10 @@ namespace QP_Management_DataAccessLayer
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class QP_Management_System_DBContext : DbContext
+    public partial class QP_ManagementDBContext : DbContext
     {
-        public QP_Management_System_DBContext()
-            : base("name=QP_Management_System_DBContext")
+        public QP_ManagementDBContext()
+            : base("name=QP_ManagementDBContext")
         {
         }
     
@@ -25,13 +25,11 @@ namespace QP_Management_DataAccessLayer
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Focus_Area> Focus_Area { get; set; }
-        public virtual DbSet<Info_Repository> Info_Repository { get; set; }
+        public virtual DbSet<FocusArea> FocusAreas { get; set; }
         public virtual DbSet<Module> Modules { get; set; }
-        public virtual DbSet<QP_Final_Pool> QP_Final_Pool { get; set; }
-        public virtual DbSet<QP_Version_Pool> QP_Version_Pool { get; set; }
+        public virtual DbSet<QPMasterPool> QPMasterPools { get; set; }
+        public virtual DbSet<QPVersion> QPVersions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Track> Tracks { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }

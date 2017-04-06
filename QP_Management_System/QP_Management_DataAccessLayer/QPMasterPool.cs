@@ -12,28 +12,31 @@ namespace QP_Management_DataAccessLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class Info_Repository
+    public partial class QPMasterPool
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Info_Repository()
+        public QPMasterPool()
         {
-            this.QP_Final_Pool = new HashSet<QP_Final_Pool>();
-            this.QP_Version_Pool = new HashSet<QP_Version_Pool>();
+            this.QPVersions = new HashSet<QPVersion>();
         }
     
-        public int DocInfoId { get; set; }
-        public int Author { get; set; }
-        public Nullable<int> Reviewer { get; set; }
-        public string Comments { get; set; }
+        public string QPDocId { get; set; }
+        public byte[] Document { get; set; }
+        public string DocumentName { get; set; }
+        public string Author { get; set; }
+        public string Reviewer { get; set; }
+        public string QualityAnchor { get; set; }
+        public string Status { get; set; }
         public Nullable<int> ModuleId { get; set; }
-        public System.DateTime CreationDate { get; set; }
+        public System.DateTime CreationLog { get; set; }
+        public Nullable<System.DateTime> UpdationLog { get; set; }
+        public string Comments { get; set; }
     
+        public virtual Module Module { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QP_Final_Pool> QP_Final_Pool { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QP_Version_Pool> QP_Version_Pool { get; set; }
-        public virtual Module Module { get; set; }
+        public virtual ICollection<QPVersion> QPVersions { get; set; }
         public virtual User User1 { get; set; }
+        public virtual User User2 { get; set; }
     }
 }

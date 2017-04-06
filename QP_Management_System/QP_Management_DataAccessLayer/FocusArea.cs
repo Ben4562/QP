@@ -12,17 +12,21 @@ namespace QP_Management_DataAccessLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class Focus_Area
+    public partial class FocusArea
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Focus_Area()
+        public FocusArea()
         {
             this.Modules = new HashSet<Module>();
         }
     
         public int FAId { get; set; }
         public string FAName { get; set; }
+        public Nullable<float> TotalMarks { get; set; }
         public Nullable<int> TrackId { get; set; }
+        public System.DateTime CreationLog { get; set; }
+        public Nullable<System.DateTime> UpdationLog { get; set; }
+        public string Comments { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Module> Modules { get; set; }
