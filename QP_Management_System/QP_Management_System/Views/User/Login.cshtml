@@ -7,7 +7,7 @@
 <h2 style="padding-left:485px;padding-top:50px" >Login</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("PostLogin","User",Model)) 
 {
     @Html.AntiForgeryToken()
 

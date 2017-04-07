@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using QP_Management_System.Repository;
+using AutoMapper;
+using QP_Management_DataAccessLayer;
 
 namespace QP_Management_System.Controllers
 {
@@ -11,7 +14,7 @@ namespace QP_Management_System.Controllers
         // GET: User
         public ActionResult Index()
         {
-            return View();
+            return View(); 
         }
 
         // GET: User/Details/5
@@ -89,6 +92,22 @@ namespace QP_Management_System.Controllers
         public ActionResult Login()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult PostLogin(Models.Users user)
+        {
+            QPMapper<Models.Users, User> mapObj = new QPMapper<Models.Users, QP_Management_DataAccessLayer.User>();
+            var dal = new QP_Repository();
+            if(dal.CheckLogin(mapObj.Translate(user)))
+            {
+                return View("Success");
+            }
+            else
+            {
+                return View("Error");
+            }
+            
         }
     }
 }

@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QP_Management_ModelStoreContainer" CdmEntityContainer="QP_ManagementDBContext">
+    <EntitySetMapping Name="FocusAreas">
+      <EntityTypeMapping TypeName="QP_Management_Model.FocusArea">
+        <MappingFragment StoreEntitySet="FocusArea">
+          <ScalarProperty Name="FAId" ColumnName="FAId" />
+          <ScalarProperty Name="FAName" ColumnName="FAName" />
+          <ScalarProperty Name="TotalMarks" ColumnName="TotalMarks" />
+          <ScalarProperty Name="TrackId" ColumnName="TrackId" />
+          <ScalarProperty Name="CreationLog" ColumnName="CreationLog" />
+          <ScalarProperty Name="UpdationLog" ColumnName="UpdationLog" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Modules">
+      <EntityTypeMapping TypeName="QP_Management_Model.Module">
+        <MappingFragment StoreEntitySet="Modules">
+          <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="FAId" ColumnName="FAId" />
+          <ScalarProperty Name="Marks" ColumnName="Marks" />
+          <ScalarProperty Name="CreationLog" ColumnName="CreationLog" />
+          <ScalarProperty Name="UpdationLog" ColumnName="UpdationLog" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QPMasterPools">
+      <EntityTypeMapping TypeName="QP_Management_Model.QPMasterPool">
+        <MappingFragment StoreEntitySet="QPMasterPool">
+          <ScalarProperty Name="QPDocId" ColumnName="QPDocId" />
+          <ScalarProperty Name="Document" ColumnName="Document" />
+          <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="Reviewer" ColumnName="Reviewer" />
+          <ScalarProperty Name="QualityAnchor" ColumnName="QualityAnchor" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+          <ScalarProperty Name="CreationLog" ColumnName="CreationLog" />
+          <ScalarProperty Name="UpdationLog" ColumnName="UpdationLog" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QPVersions">
+      <EntityTypeMapping TypeName="QP_Management_Model.QPVersion">
+        <MappingFragment StoreEntitySet="QPVersion">
+          <ScalarProperty Name="DocId" ColumnName="DocId" />
+          <ScalarProperty Name="Document" ColumnName="Document" />
+          <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
+          <ScalarProperty Name="VersionId" ColumnName="VersionId" />
+          <ScalarProperty Name="CreationLog" ColumnName="CreationLog" />
+          <ScalarProperty Name="UpdationLog" ColumnName="UpdationLog" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="QP_Management_Model.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="CreationLog" ColumnName="CreationLog" />
+          <ScalarProperty Name="UpdationLog" ColumnName="UpdationLog" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tracks">
+      <EntityTypeMapping TypeName="QP_Management_Model.Track">
+        <MappingFragment StoreEntitySet="Track">
+          <ScalarProperty Name="TrackId" ColumnName="TrackId" />
+          <ScalarProperty Name="TrackName" ColumnName="TrackName" />
+          <ScalarProperty Name="CreationLog" ColumnName="CreationLog" />
+          <ScalarProperty Name="UpdationLog" ColumnName="UpdationLog" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="QP_Management_Model.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="TrackId" ColumnName="TrackId" />
+          <ScalarProperty Name="CreationLog" ColumnName="CreationLog" />
+          <ScalarProperty Name="UpdationLog" ColumnName="UpdationLog" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QP_Management_Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QP_Management_Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="FocusArea">
           <Key>
             <PropertyRef Name="FAId" />
@@ -22,7 +22,7 @@
             <PropertyRef Name="ModuleId" />
           </Key>
           <Property Name="ModuleId" Type="int" Nullable="false" />
-          <Property Name="ModuleName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ModuleName" Type="varchar" MaxLength="50" />
           <Property Name="FAId" Type="int" />
           <Property Name="Marks" Type="real" />
           <Property Name="CreationLog" Type="datetime" Nullable="false" />
@@ -243,8 +243,7 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QP_Management_Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -267,7 +266,7 @@
             <PropertyRef Name="ModuleId" />
           </Key>
           <Property Name="ModuleId" Type="Int32" Nullable="false" />
-          <Property Name="ModuleName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ModuleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FAId" Type="Int32" />
           <Property Name="Marks" Type="Single" />
           <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
