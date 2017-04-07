@@ -150,6 +150,7 @@
     <Content Include="Views\User\Upload.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Shared\Homepage.cshtml" />
+    <Content Include="Views\User\Download.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

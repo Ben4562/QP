@@ -66,12 +66,57 @@ namespace QP_Management_DataAccessLayer
                 Context.SaveChanges();
                 status = true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 status = false;
                 
             }
             return status;
+        }
+
+        public List<QPMasterPool> GetDocuments(string author)
+        {
+            List<QPMasterPool> doc = null;
+            try
+            {
+                doc = (from d in Context.QPMasterPools where d.Author == author select d).ToList<QPMasterPool>();
+            }
+            catch (Exception)
+            {
+
+                doc = null;
+            }
+            return doc;
+        }
+
+        //public byte[] DownloadDocument(string QPDocId)
+        //{
+        //    byte[] doc = null;
+        //    try
+        //    {
+        //        doc = (from d in Context.QPMasterPools where d.QPDocId == QPDocId select d.Document).FirstOrDefault();
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        doc = null;
+        //    }
+        //    return doc;
+        //}
+
+        public QPMasterPool DocumentDetails(string QPDocId)
+        {
+            QPMasterPool doc = null;
+            try
+            {
+                doc = (from d in Context.QPMasterPools where d.QPDocId == QPDocId select d).FirstOrDefault();
+            }
+            catch (Exception)
+            {
+
+                doc = null;
+            }
+            return doc;
         }
     }
 }

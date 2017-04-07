@@ -111,7 +111,7 @@ namespace QP_Management_System.Controllers
                 }
                 else if(status=="reviewer")
                 {
-                    return View();
+                    return RedirectToAction("Reviewer");
                 }
                 else if(status=="quality anchor")
                 {
@@ -189,6 +189,29 @@ namespace QP_Management_System.Controllers
             {
                 return View("Error"); 
             }
+        }
+
+        public ActionResult Download()
+        {
+            QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
+            var dal = new QP_Repository();
+            var doc = dal.GetDocuments(Session["UserName"].ToString());
+            List<Models.QPMasterPool> documentList = new List<Models.QPMasterPool>();
+            if(doc.Any())
+            {
+                foreach (var item in doc)
+                {
+                    documentList.Add(mapObj.Translate(item));
+                }
+            }
+            return View(documentList);
+        }
+
+        public ActionResult DownloadDoc(string QPDocId)
+        {
+            var dal = new QP_Repository();
+            var docDetails = dal.DocumentDetails(QPDocId);
+            return File(docDetails.Document,System.Net.Mime.MediaTypeNames.Application.Rtf,docDetails.DocumentName+".docx");  
         }
 
     }
