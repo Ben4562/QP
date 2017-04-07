@@ -17,23 +17,26 @@ namespace QP_Management_DataAccessLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            this.Info_Repository = new HashSet<Info_Repository>();
-            this.Info_Repository1 = new HashSet<Info_Repository>();
-            this.QP_Final_Pool = new HashSet<QP_Final_Pool>();
+            this.QPMasterPools = new HashSet<QPMasterPool>();
+            this.QPMasterPools1 = new HashSet<QPMasterPool>();
+            this.QPMasterPools2 = new HashSet<QPMasterPool>();
         }
     
-        public int UserId { get; set; }
         public string UserName { get; set; }
         public string UserPassword { get; set; }
-        public System.DateTime LastLogin { get; set; }
+        public Nullable<int> RoleId { get; set; }
         public Nullable<int> TrackId { get; set; }
+        public System.DateTime CreationLog { get; set; }
+        public Nullable<System.DateTime> UpdationLog { get; set; }
+        public string Comments { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Info_Repository> Info_Repository { get; set; }
+        public virtual ICollection<QPMasterPool> QPMasterPools { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Info_Repository> Info_Repository1 { get; set; }
+        public virtual ICollection<QPMasterPool> QPMasterPools1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QP_Final_Pool> QP_Final_Pool { get; set; }
+        public virtual ICollection<QPMasterPool> QPMasterPools2 { get; set; }
+        public virtual Role Role { get; set; }
         public virtual Track Track { get; set; }
     }
 }

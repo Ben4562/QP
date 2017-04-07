@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QP_Management_Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="FocusArea">
+    <Key>
+      <PropertyRef Name="FAId" />
+    </Key>
+    <Property Name="FAId" Type="Int32" Nullable="false" />
+    <Property Name="FAName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TotalMarks" Type="Single" />
+    <Property Name="TrackId" Type="Int32" />
+    <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdationLog" Type="DateTime" Precision="3" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Modules" Relationship="Self.fk_FAId_Modules" FromRole="FocusArea" ToRole="Modules" />
+    <NavigationProperty Name="Track" Relationship="Self.fk_TrackId_FocusArea" FromRole="FocusArea" ToRole="Track" />
+  </EntityType>
+  <EntityType Name="Module">
+    <Key>
+      <PropertyRef Name="ModuleId" />
+    </Key>
+    <Property Name="ModuleId" Type="Int32" Nullable="false" />
+    <Property Name="ModuleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FAId" Type="Int32" />
+    <Property Name="Marks" Type="Single" />
+    <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdationLog" Type="DateTime" Precision="3" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="FocusArea" Relationship="Self.fk_FAId_Modules" FromRole="Modules" ToRole="FocusArea" />
+    <NavigationProperty Name="QPMasterPools" Relationship="Self.fk_ModuleId_QPMasterPool" FromRole="Modules" ToRole="QPMasterPool" />
+  </EntityType>
+  <EntityType Name="QPMasterPool">
+    <Key>
+      <PropertyRef Name="QPDocId" />
+    </Key>
+    <Property Name="QPDocId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Document" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="DocumentName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Reviewer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="QualityAnchor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="ModuleId" Type="Int32" />
+    <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdationLog" Type="DateTime" Precision="3" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Module" Relationship="Self.fk_ModuleId_QPMasterPool" FromRole="QPMasterPool" ToRole="Modules" />
+    <NavigationProperty Name="User" Relationship="Self.fk_Author_QPMasterPool" FromRole="QPMasterPool" ToRole="Users" />
+    <NavigationProperty Name="QPVersions" Relationship="Self.fk_DocID_QPVersion" FromRole="QPMasterPool" ToRole="QPVersion" />
+    <NavigationProperty Name="User1" Relationship="Self.fk_QualityAnchor_QPMasterPool" FromRole="QPMasterPool" ToRole="Users" />
+    <NavigationProperty Name="User2" Relationship="Self.fk_Reviewer_QPMasterPool" FromRole="QPMasterPool" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="QPVersion">
+    <Key>
+      <PropertyRef Name="DocId" />
+      <PropertyRef Name="VersionId" />
+    </Key>
+    <Property Name="DocId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Document" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="DocumentName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="VersionId" Type="Single" Nullable="false" />
+    <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdationLog" Type="DateTime" Precision="3" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="QPMasterPool" Relationship="Self.fk_DocID_QPVersion" FromRole="QPVersion" ToRole="QPMasterPool" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="RoleName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdationLog" Type="DateTime" Precision="3" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Users" Relationship="Self.fk_RoleId_Users" FromRole="Roles" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Track">
+    <Key>
+      <PropertyRef Name="TrackId" />
+    </Key>
+    <Property Name="TrackId" Type="Int32" Nullable="false" />
+    <Property Name="TrackName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdationLog" Type="DateTime" Precision="3" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="FocusAreas" Relationship="Self.fk_TrackId_FocusArea" FromRole="Track" ToRole="FocusArea" />
+    <NavigationProperty Name="Users" Relationship="Self.fk_TrackId_Users" FromRole="Track" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserName" />
+    </Key>
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserPassword" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RoleId" Type="Int32" />
+    <Property Name="TrackId" Type="Int32" />
+    <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdationLog" Type="DateTime" Precision="3" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="QPMasterPools" Relationship="Self.fk_Author_QPMasterPool" FromRole="Users" ToRole="QPMasterPool" />
+    <NavigationProperty Name="QPMasterPools1" Relationship="Self.fk_QualityAnchor_QPMasterPool" FromRole="Users" ToRole="QPMasterPool" />
+    <NavigationProperty Name="QPMasterPools2" Relationship="Self.fk_Reviewer_QPMasterPool" FromRole="Users" ToRole="QPMasterPool" />
+    <NavigationProperty Name="Role" Relationship="Self.fk_RoleId_Users" FromRole="Users" ToRole="Roles" />
+    <NavigationProperty Name="Track" Relationship="Self.fk_TrackId_Users" FromRole="Users" ToRole="Track" />
+  </EntityType>
+  <Association Name="fk_FAId_Modules">
+    <End Role="FocusArea" Type="Self.FocusArea" Multiplicity="0..1" />
+    <End Role="Modules" Type="Self.Module" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FocusArea">
+        <PropertyRef Name="FAId" />
+      </Principal>
+      <Dependent Role="Modules">
+        <PropertyRef Name="FAId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TrackId_FocusArea">
+    <End Role="Track" Type="Self.Track" Multiplicity="0..1" />
+    <End Role="FocusArea" Type="Self.FocusArea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Track">
+        <PropertyRef Name="TrackId" />
+      </Principal>
+      <Dependent Role="FocusArea">
+        <PropertyRef Name="TrackId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ModuleId_QPMasterPool">
+    <End Role="Modules" Type="Self.Module" Multiplicity="0..1" />
+    <End Role="QPMasterPool" Type="Self.QPMasterPool" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modules">
+        <PropertyRef Name="ModuleId" />
+      </Principal>
+      <Dependent Role="QPMasterPool">
+        <PropertyRef Name="ModuleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Author_QPMasterPool">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="QPMasterPool" Type="Self.QPMasterPool" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="QPMasterPool">
+        <PropertyRef Name="Author" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_DocID_QPVersion">
+    <End Role="QPMasterPool" Type="Self.QPMasterPool" Multiplicity="1" />
+    <End Role="QPVersion" Type="Self.QPVersion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QPMasterPool">
+        <PropertyRef Name="QPDocId" />
+      </Principal>
+      <Dependent Role="QPVersion">
+        <PropertyRef Name="DocId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_QualityAnchor_QPMasterPool">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="QPMasterPool" Type="Self.QPMasterPool" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="QPMasterPool">
+        <PropertyRef Name="QualityAnchor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Reviewer_QPMasterPool">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="QPMasterPool" Type="Self.QPMasterPool" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="QPMasterPool">
+        <PropertyRef Name="Reviewer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_RoleId_Users">
+    <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TrackId_Users">
+    <End Role="Track" Type="Self.Track" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Track">
+        <PropertyRef Name="TrackId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="TrackId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QP_ManagementDBContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="FocusAreas" EntityType="Self.FocusArea" />
+    <EntitySet Name="Modules" EntityType="Self.Module" />
+    <EntitySet Name="QPMasterPools" EntityType="Self.QPMasterPool" />
+    <EntitySet Name="QPVersions" EntityType="Self.QPVersion" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Tracks" EntityType="Self.Track" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="fk_FAId_Modules" Association="Self.fk_FAId_Modules">
+      <End Role="FocusArea" EntitySet="FocusAreas" />
+      <End Role="Modules" EntitySet="Modules" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TrackId_FocusArea" Association="Self.fk_TrackId_FocusArea">
+      <End Role="Track" EntitySet="Tracks" />
+      <End Role="FocusArea" EntitySet="FocusAreas" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ModuleId_QPMasterPool" Association="Self.fk_ModuleId_QPMasterPool">
+      <End Role="Modules" EntitySet="Modules" />
+      <End Role="QPMasterPool" EntitySet="QPMasterPools" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Author_QPMasterPool" Association="Self.fk_Author_QPMasterPool">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="QPMasterPool" EntitySet="QPMasterPools" />
+    </AssociationSet>
+    <AssociationSet Name="fk_DocID_QPVersion" Association="Self.fk_DocID_QPVersion">
+      <End Role="QPMasterPool" EntitySet="QPMasterPools" />
+      <End Role="QPVersion" EntitySet="QPVersions" />
+    </AssociationSet>
+    <AssociationSet Name="fk_QualityAnchor_QPMasterPool" Association="Self.fk_QualityAnchor_QPMasterPool">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="QPMasterPool" EntitySet="QPMasterPools" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Reviewer_QPMasterPool" Association="Self.fk_Reviewer_QPMasterPool">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="QPMasterPool" EntitySet="QPMasterPools" />
+    </AssociationSet>
+    <AssociationSet Name="fk_RoleId_Users" Association="Self.fk_RoleId_Users">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TrackId_Users" Association="Self.fk_TrackId_Users">
+      <End Role="Track" EntitySet="Tracks" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

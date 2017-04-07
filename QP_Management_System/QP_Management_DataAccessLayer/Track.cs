@@ -17,15 +17,18 @@ namespace QP_Management_DataAccessLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Track()
         {
-            this.Focus_Area = new HashSet<Focus_Area>();
+            this.FocusAreas = new HashSet<FocusArea>();
             this.Users = new HashSet<User>();
         }
     
         public int TrackId { get; set; }
         public string TrackName { get; set; }
+        public System.DateTime CreationLog { get; set; }
+        public Nullable<System.DateTime> UpdationLog { get; set; }
+        public string Comments { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Focus_Area> Focus_Area { get; set; }
+        public virtual ICollection<FocusArea> FocusAreas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
     }

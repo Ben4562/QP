@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\kvinodh.TRN\Desktop\QP_Management_System\QP_Management_DataAccessLayer\QP_Management_Model.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\QP_Management_Model.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

@@ -17,15 +17,19 @@ namespace QP_Management_DataAccessLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Module()
         {
-            this.Info_Repository = new HashSet<Info_Repository>();
+            this.QPMasterPools = new HashSet<QPMasterPool>();
         }
     
         public int ModuleId { get; set; }
         public string ModuleName { get; set; }
         public Nullable<int> FAId { get; set; }
+        public Nullable<float> Marks { get; set; }
+        public System.DateTime CreationLog { get; set; }
+        public Nullable<System.DateTime> UpdationLog { get; set; }
+        public string Comments { get; set; }
     
-        public virtual Focus_Area Focus_Area { get; set; }
+        public virtual FocusArea FocusArea { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Info_Repository> Info_Repository { get; set; }
+        public virtual ICollection<QPMasterPool> QPMasterPools { get; set; }
     }
 }
