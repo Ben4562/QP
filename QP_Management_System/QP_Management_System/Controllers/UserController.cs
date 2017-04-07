@@ -97,11 +97,34 @@ namespace QP_Management_System.Controllers
         [HttpPost]
         public ActionResult PostLogin(Models.Users user)
         {
-            QPMapper<Models.Users, User> mapObj = new QPMapper<Models.Users, QP_Management_DataAccessLayer.User>();
+            QPMapper<Models.Users, User> mapObj = new QPMapper<Models.Users, QP_Management_DataAccessLayer.User>(); 
             var dal = new QP_Repository();
-            if(dal.CheckLogin(mapObj.Translate(user)))
+            string status = null;
+            status = dal.CheckLogin(mapObj.Translate(user));
+            if(status!=null)
             {
-                return View("Success");
+                Session["UserName"] = user.UserName;
+                if(status=="author")
+                {
+                    Session["Role"] = status;
+                    return RedirectToAction("Author");
+                }
+                else if(status=="reviewer")
+                {
+                    return View();
+                }
+                else if(status=="quality anchor")
+                {
+                    return View();
+                }
+                else
+                {
+                    return View("Error"); 
+                }
+            }
+            else if(status=="wrong")
+            {
+                return View("WrongPassword");
             }
             else
             {
@@ -109,5 +132,64 @@ namespace QP_Management_System.Controllers
             }
             
         }
+
+        public ActionResult Author()
+        {
+            if(Session["UserName"]==null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+
+        public ActionResult LogOut()
+        {
+            Session.Clear();
+            return RedirectToAction("Login");
+        }
+
+        public ActionResult Upload()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Upload(Models.QPMasterPool qpObj,HttpPostedFileBase uploadFile)
+        {
+            qpObj.CreationLog = DateTime.Now;
+            qpObj.Author = Session["UserName"].ToString();
+            var dal = new QP_Repository();
+            QPMapper<Models.QPMasterPool, QPMasterPool> mapObj = new QPMapper<Models.QPMasterPool, QPMasterPool>();
+            try
+            {
+                if(uploadFile!= null)
+                {
+                    qpObj.Document = new byte[uploadFile.ContentLength];
+                    uploadFile.InputStream.Read(qpObj.Document, 0, uploadFile.ContentLength);
+                    bool status = dal.AddDocument(mapObj.Translate(qpObj));
+                    if(status)
+                    {
+                        return View("Success");
+                    }
+                    else
+                    {
+                        return View("Error");
+                    }
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+        }
+
     }
 }

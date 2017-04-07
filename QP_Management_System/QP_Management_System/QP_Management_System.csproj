@@ -129,6 +129,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\QPMasterPool.cs" />
+    <Compile Include="Models\QPVersion.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\QPMapper.cs" />
@@ -142,6 +144,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\Success.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\WrongPassword.cshtml" />
+    <Content Include="Views\Shared\AuthorLayout.cshtml" />
+    <Content Include="Views\User\Author.cshtml" />
+    <Content Include="Views\User\Upload.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

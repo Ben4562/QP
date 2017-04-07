@@ -15,9 +15,9 @@ namespace QP_Management_DataAccessLayer
             Context = new QP_ManagementDBContext();
         }
 
-        public bool CheckLogin(User usr)
+        public string CheckLogin(User usr)
         {
-            bool status=false;
+            string status = null;
             try
             {
                 var UserDetails = (from u in Context.Users where u.UserName == usr.UserName select u).FirstOrDefault<User>();
@@ -25,23 +25,51 @@ namespace QP_Management_DataAccessLayer
                 {
                     if(UserDetails.UserPassword==usr.UserPassword)
                     {
-                        status = true;
+                        if(UserDetails.RoleId==1)
+                        {
+                            status = "author";
+                        }
+                        else if(UserDetails.RoleId==2)
+                        {
+                            status = "reviewer";
+                        }
+                        else if(UserDetails.RoleId==3)
+                        {
+                            status = "quality anchor"; 
+                        }
                     }
                     else
                     {
-                        status = false;
+                        status = "wrong";
                     }
                 }
                 else
                 {
-                    status = false;
+                    status = "not exists";
                 }
                 
             }
             catch (Exception)
             {
 
+                status = null;
+            }
+            return status;
+        }
+
+        public bool AddDocument(QPMasterPool qpObj)
+        {
+            bool status = false;
+            try
+            {
+                Context.QPMasterPools.Add(qpObj);
+                Context.SaveChanges();
+                status = true;
+            }
+            catch (Exception ex)
+            {
                 status = false;
+                
             }
             return status;
         }

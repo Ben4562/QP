@@ -13,9 +13,13 @@ namespace QP_Management_System.Repository
         {
             //Entity-Model
             Mapper.CreateMap<User, Models.Users>();
+            Mapper.CreateMap<QPVersion, Models.QPVersion>();
+            Mapper.CreateMap<QPMasterPool, Models.QPMasterPool>();
 
             //Model-Entity
             Mapper.CreateMap<Models.Users, User>();
+            Mapper.CreateMap<Models.QPVersion, QPVersion>();
+            Mapper.CreateMap<Models.QPMasterPool,QPMasterPool>();
         }
 
         public Destination Translate(Source obj)
