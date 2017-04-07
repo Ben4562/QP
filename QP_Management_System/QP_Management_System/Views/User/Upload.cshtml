@@ -13,7 +13,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>QPMasterPool</h4>
+        @*<h4>QPMasterPool</h4>*@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -87,17 +87,18 @@
                 @Html.ValidationMessageFor(model => model.UpdationLog, "", new { @class = "text-danger" })
             </div>
         </div>*@
-        <div class="form-group">
-            <div class="col-md-10">
-                <input type="file" id="uploadFile", name="uploadFile" />
-            </div>
-        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Document, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" id="uploadFile" , name="uploadFile" />
             </div>
         </div>
 

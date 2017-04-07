@@ -148,6 +148,8 @@
     <Content Include="Views\Shared\AuthorLayout.cshtml" />
     <Content Include="Views\User\Author.cshtml" />
     <Content Include="Views\User\Upload.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Shared\Homepage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -149,7 +149,7 @@ namespace QP_Management_System.Controllers
         public ActionResult LogOut()
         {
             Session.Clear();
-            return RedirectToAction("Login");
+            return RedirectToAction("Login"); 
         }
 
         public ActionResult Upload()
@@ -187,7 +187,7 @@ namespace QP_Management_System.Controllers
             }
             catch (Exception)
             {
-                return View("Error");
+                return View("Error"); 
             }
         }
 
