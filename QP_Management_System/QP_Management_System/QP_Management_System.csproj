@@ -129,8 +129,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\FocusArea.cs" />
+    <Compile Include="Models\Modules.cs" />
     <Compile Include="Models\QPMasterPool.cs" />
     <Compile Include="Models\QPVersion.cs" />
+    <Compile Include="Models\Track.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\QPMapper.cs" />
@@ -145,12 +148,12 @@
     <Content Include="Views\Shared\Success.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\WrongPassword.cshtml" />
-    <Content Include="Views\Shared\AuthorLayout.cshtml" />
     <Content Include="Views\User\Author.cshtml" />
     <Content Include="Views\User\Upload.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Shared\Homepage.cshtml" />
-    <Content Include="Views\User\Download.cshtml" />
+    <Content Include="Views\User\ReUpload.cshtml" />
+    <Content Include="Views\User\QPAnchor.cshtml" />
+    <Content Include="Views\User\CreateQP.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

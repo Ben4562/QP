@@ -1,10 +1,105 @@
-﻿
+﻿@model IEnumerable<QP_Management_System.Models.QPMasterPool>
+
 @{
-    ViewBag.Title = "Author";
-    Layout = "~/Views/Shared/AuthorLayout.cshtml";
+    ViewBag.Title = "Download";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{ 
-    <h2>@Session["Role"]</h2>
-}
 
+<h4>Welcome @Session["UserName"]</h4>
+
+
+<br />
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table class="table">
+    <tr>
+        @*<th>
+                @Html.DisplayNameFor(model => model.QPDocId)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.DocumentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reviewer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QualityAnchor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModuleId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreationLog)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdationLog)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comments)
+        </th>
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.QPDocId)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.DocumentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reviewer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QualityAnchor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModuleId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationLog)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdationLog)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comments)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                @Html.ActionLink("Download", "DownloadDoc", new { QPDocId = item.QPDocId })
+            </td>
+            <td>
+                @Html.ActionLink("Upload", "ReUpload", new { QPDocId = item.QPDocId , @*Document=item.Document,*@ DocumentName=item.DocumentName, Author=item.Author, Reviewer=item.Reviewer, QualityAnchor=item.QualityAnchor , Status=item.Status, ModuleId=item.ModuleId, CreationLog=item.CreationLog, UpdationLog=item.UpdationLog, Comments=item.Comments })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@*<div>
+    @Html.ActionLink("Back", "Author", "User")
+</div>*@

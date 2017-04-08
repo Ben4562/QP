@@ -1,19 +1,19 @@
 ﻿@model QP_Management_System.Models.QPMasterPool
 
 @{
-    ViewBag.Title = "Upload";
+    ViewBag.Title = "ReUpload";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Upload</h2>
+<h2>ReUpload</h2>
 
 
-@using (Html.BeginForm("Upload", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("ReUploadDoc", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        @*<h4>QPMasterPool</h4>*@
+        <h4>QPMasterPool</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -32,29 +32,29 @@
             </div>
         </div>
 
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.Reviewer, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Reviewer, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Reviewer, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.QualityAnchor, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.QualityAnchor, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.QualityAnchor, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -72,21 +72,21 @@
             </div>
         </div>
 
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.CreationLog, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CreationLog, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CreationLog, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.UpdationLog, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.UpdationLog, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.UpdationLog, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -95,10 +95,11 @@
                 @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.Document, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="file" id="uploadFile" , name="uploadFile" />
+                <input type="file" id="reUpload" name="reUpload" />
             </div>
         </div>
 
@@ -111,7 +112,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back", "Author","User")
+    @Html.ActionLink("Back to List", "Author")
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

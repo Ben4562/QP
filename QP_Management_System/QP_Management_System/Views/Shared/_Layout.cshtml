@@ -21,7 +21,56 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    
+                    @{
+                        if (Session["Role"] == null)
+                        {
+                            if (ViewBag.Title != "Login")
+                            {
+                                <li>
+                                    @Html.ActionLink("Login", "Login", "User")
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+
+                                </li>
+                            }
+                        }
+                        else if (Session["Role"].ToString().ToLower() == "qp anchor")
+                        {
+                            <li>
+                                @Html.ActionLink("Create", "CreateQP", "User")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Download", "CreateQP", "User")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Select", "CreateQP", "User")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Logout", "LogOut", "User")
+                            </li>
+                        }
+                        else if (Session["Role"].ToString().ToLower() == "author")
+                        {
+                            <li>
+                                @Html.ActionLink("Logout", "LogOut", "User")
+                            </li>
+                        }
+                        else if (Session["Role"].ToString().ToLower() == "reviewer")
+                        {
+                            <li>
+                                @Html.ActionLink("Logout", "LogOut", "User")
+                            </li>
+                        }
+                        else if (Session["Role"].ToString().ToLower() == "quality anchor")
+                        {
+                            <li>
+                                @Html.ActionLink("Logout", "LogOut", "User")
+                            </li>
+                        }
+                    }
                 </ul>
             </div>
         </div>

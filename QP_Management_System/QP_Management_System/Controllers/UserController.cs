@@ -11,84 +11,10 @@ namespace QP_Management_System.Controllers
 {
     public class UserController : Controller
     {
-        // GET: User
         public ActionResult Index()
         {
-            return View(); 
-        }
-
-        // GET: User/Details/5
-        public ActionResult Details(int id)
-        {
             return View();
         }
-
-        // GET: User/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: User/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: User/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: User/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: User/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: User/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         public ActionResult Login()
         {
             return View();
@@ -104,27 +30,27 @@ namespace QP_Management_System.Controllers
             if(status!=null)
             {
                 Session["UserName"] = user.UserName;
-                if(status=="author")
+                Session["Role"] = status;
+                if (status == "author")
                 {
-                    Session["Role"] = status;
                     return RedirectToAction("Author");
                 }
-                else if(status=="reviewer")
+                else if (status == "reviewer")
                 {
                     return RedirectToAction("Reviewer");
                 }
-                else if(status=="quality anchor")
+                else if (status == "quality anchor")
                 {
                     return View();
                 }
+                else if(status == "qp anchor")
+                {
+                    return RedirectToAction("QPAnchor"); 
+                }
                 else
                 {
-                    return View("Error"); 
+                    return View("WrongPassword"); 
                 }
-            }
-            else if(status=="wrong")
-            {
-                return View("WrongPassword");
             }
             else
             {
@@ -141,9 +67,32 @@ namespace QP_Management_System.Controllers
             }
             else
             {
-                return View();
+                QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
+                var dal = new QP_Repository();
+                var doc = dal.GetDocuments(Session["UserName"].ToString());
+                List<Models.QPMasterPool> documentList = new List<Models.QPMasterPool>();
+                if (doc.Any())
+                {
+                    foreach (var item in doc)
+                    {
+                        documentList.Add(mapObj.Translate(item));
+                    }
+                }
+                return View(documentList);
             }
 
+        }
+
+        public ActionResult QPAnchor()
+        {
+            if (Session["UserName"] == null || Session["Role"].ToString().ToLower() != "qp anchor" )
+            { 
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                return View(); 
+            }
         }
 
         public ActionResult LogOut()
@@ -189,30 +138,164 @@ namespace QP_Management_System.Controllers
             {
                 return View("Error"); 
             }
-        }
+        }  
 
-        public ActionResult Download()
-        {
-            QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
-            var dal = new QP_Repository();
-            var doc = dal.GetDocuments(Session["UserName"].ToString());
-            List<Models.QPMasterPool> documentList = new List<Models.QPMasterPool>();
-            if(doc.Any())
-            {
-                foreach (var item in doc)
-                {
-                    documentList.Add(mapObj.Translate(item));
-                }
-            }
-            return View(documentList);
-        }
-
-        public ActionResult DownloadDoc(string QPDocId)
+        public ActionResult DownloadDoc(string qpDocId)
         {
             var dal = new QP_Repository();
-            var docDetails = dal.DocumentDetails(QPDocId);
+            var docDetails = dal.DocumentDetails(qpDocId);
             return File(docDetails.Document,System.Net.Mime.MediaTypeNames.Application.Rtf,docDetails.DocumentName+".docx");  
         }
+
+        public ActionResult ReUpload(Models.QPMasterPool qpDoc)
+        {
+            return View(qpDoc);
+        }
+
+        public ActionResult ReUploadDoc(Models.QPMasterPool qpObj, HttpPostedFileBase reUpload)
+        {
+            qpObj.UpdationLog = DateTime.Now;
+            var dal = new QP_Repository();
+            QPMapper<Models.QPMasterPool, QPMasterPool> mapObj = new QPMapper<Models.QPMasterPool, QPMasterPool>();
+            try
+            {
+                if (reUpload != null)
+                {
+                    qpObj.Document = new byte[reUpload.ContentLength];
+                    reUpload.InputStream.Read(qpObj.Document, 0, reUpload.ContentLength);
+                    bool status = dal.UpdateDocumentMaster(mapObj.Translate(qpObj));
+                    if (status)
+                    {
+                        return View("Success");
+                    }
+                    else
+                    {
+                        return View("Error");
+                    }
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+        }
+
+       public ActionResult CreateQP()
+        {
+            QP_ManagementDBContext db = new QP_ManagementDBContext();
+            ViewBag.Track = new SelectList(db.Tracks, "TrackId", "TrackName");
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateQP(FormCollection frm)
+        {
+            QPMapper<Models.QPMasterPool, QPMasterPool> mapObj = new QPMapper<Models.QPMasterPool, QPMasterPool>();
+            int trackId = Convert.ToInt32(frm["Track"]);
+            int focusAreaId = Convert.ToInt32(frm["FocusArea"]);
+            int moduleId = Convert.ToInt32(frm["Module"]);
+            byte[] newdoc = null;
+            var dal = new QP_Repository();
+            Models.QPMasterPool obj = new Models.QPMasterPool();
+            obj.Author = frm["Author"];
+            obj.Comments = frm["Comments"];
+            obj.CreationLog = DateTime.Now;
+            obj.Document = newdoc;
+            obj.DocumentName = dal.GetDocName(trackId,focusAreaId,moduleId);
+            obj.ModuleId = moduleId;
+            obj.QPDocId = dal.GetDocId();
+            obj.QualityAnchor = frm["QualityAnchor"];
+            obj.Reviewer = frm["Reviewer"];
+            obj.Status = "A";
+            obj.UpdationLog = null;
+            bool status = dal.AddDocument(mapObj.Translate(obj));
+            if(status)
+            {
+                return View("Success");
+            }
+            else
+            {
+                return View("Error");
+            }
+        }
+
+        #region
+        public JsonResult GetFocusAreas(int id)
+        {
+            ViewBag.TrackId = id;
+            List<SelectListItem> focusArea = new List<SelectListItem>();
+            var focusAreaList = this.GetFocusArea(id);
+            var focusAreaData = focusAreaList.Select(m => new SelectListItem() { Text = m.FAName, Value = m.FAId.ToString() });
+            return Json(focusAreaData, JsonRequestBehavior.AllowGet);
+        }
+
+        public IList<FocusArea> GetFocusArea(int trackId)
+        {
+            QP_ManagementDBContext db = new QP_ManagementDBContext();
+            return db.FocusAreas.Where(f => f.TrackId == trackId).ToList();
+        }
+
+        public JsonResult GetModules(string id)
+        {
+            ViewBag.FocusAreaId = id;
+            List<SelectListItem> modules = new List<SelectListItem>();
+            var moduleList = this.GetModule(Convert.ToInt32(id));
+            var moduleData = moduleList.Select(m => new SelectListItem() { Text = m.ModuleName, Value = m.ModuleId.ToString() });
+            return Json(moduleData, JsonRequestBehavior.AllowGet);
+        }
+
+        public IList<Module> GetModule(int focusAreaId)
+        {
+            QP_ManagementDBContext db = new QP_ManagementDBContext();
+            return db.Modules.Where(f => f.FAId == focusAreaId).ToList();
+        }
+
+        public JsonResult GetAuthors(int id)
+        {
+            List<SelectListItem> authors = new List<SelectListItem>();
+            var authorList = this.GetAuthor(id);
+            var authorData = authorList.Select(a => new SelectListItem() { Text = a.UserName, Value = a.UserName });
+            return Json(authorData, JsonRequestBehavior.AllowGet);
+        }
+
+        public IList<User> GetAuthor(int trackId)
+        {
+            QP_ManagementDBContext db = new QP_ManagementDBContext();
+            return db.Users.Where(a => a.TrackId == trackId && a.RoleId == 1).ToList();
+        }
+        public JsonResult GetReviewers(int id)
+        {
+            List<SelectListItem> reviewers = new List<SelectListItem>();
+            var reviewerList = this.GetReviewer(id);
+            var reviewerData = reviewerList.Select(a => new SelectListItem() { Text = a.UserName, Value = a.UserName });
+            return Json(reviewerData, JsonRequestBehavior.AllowGet);
+        }
+
+        public IList<User> GetReviewer(int trackId)
+        {
+            QP_ManagementDBContext db = new QP_ManagementDBContext();
+            return db.Users.Where(a => a.TrackId == trackId && a.RoleId == 2).ToList();
+        }
+
+        public JsonResult GetQualityAnchors(int id)
+        {
+            List<SelectListItem> qualityAnchors = new List<SelectListItem>();
+            var qualityAnchorList = this.GetQualityAnchor(id);
+            var qualityAnchorData = qualityAnchorList.Select(a => new SelectListItem() { Text = a.UserName, Value = a.UserName });
+            return Json(qualityAnchorData, JsonRequestBehavior.AllowGet);
+        }
+
+        public IList<User> GetQualityAnchor(int trackId)
+        {
+            QP_ManagementDBContext db = new QP_ManagementDBContext();
+            return db.Users.Where(q => q.TrackId == trackId && q.RoleId == 3).ToList();
+        }
+        #endregion
 
     }
 }

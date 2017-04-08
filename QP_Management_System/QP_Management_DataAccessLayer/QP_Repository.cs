@@ -20,22 +20,26 @@ namespace QP_Management_DataAccessLayer
             string status = null;
             try
             {
-                var UserDetails = (from u in Context.Users where u.UserName == usr.UserName select u).FirstOrDefault<User>();
-                if(UserDetails!=null)
+                var userDetails = (from u in Context.Users where u.UserName == usr.UserName select u).FirstOrDefault<User>();
+                if(userDetails!=null)
                 {
-                    if(UserDetails.UserPassword==usr.UserPassword)
+                    if(userDetails.UserPassword==usr.UserPassword)
                     {
-                        if(UserDetails.RoleId==1)
+                        if(userDetails.RoleId==1)
                         {
                             status = "author";
                         }
-                        else if(UserDetails.RoleId==2)
+                        else if(userDetails.RoleId==2)
                         {
                             status = "reviewer";
                         }
-                        else if(UserDetails.RoleId==3)
+                        else if(userDetails.RoleId==3)
                         {
                             status = "quality anchor"; 
+                        }
+                        else if(userDetails.RoleId==4)
+                        {
+                            status = "qp anchor";
                         }
                     }
                     else
@@ -104,12 +108,12 @@ namespace QP_Management_DataAccessLayer
         //    return doc;
         //}
 
-        public QPMasterPool DocumentDetails(string QPDocId)
+        public QPMasterPool DocumentDetails(string qpDocId)
         {
             QPMasterPool doc = null;
             try
             {
-                doc = (from d in Context.QPMasterPools where d.QPDocId == QPDocId select d).FirstOrDefault();
+                doc = (from d in Context.QPMasterPools where d.QPDocId == qpDocId select d).FirstOrDefault();
             }
             catch (Exception)
             {
@@ -117,6 +121,58 @@ namespace QP_Management_DataAccessLayer
                 doc = null;
             }
             return doc;
+        }
+
+        public bool UpdateDocumentMaster(QPMasterPool doc)
+        {
+            bool status = false;
+            try
+            {
+                var oldDoc = (from d in Context.QPMasterPools where d.QPDocId == doc.QPDocId select d).FirstOrDefault<QPMasterPool>();
+                oldDoc.Document = doc.Document;
+                oldDoc.Comments = doc.Comments;
+                oldDoc.UpdationLog = doc.UpdationLog;
+                Context.SaveChanges();
+                status = true;
+            }
+            catch (Exception)
+            {
+                status = false;
+            }
+            return status;
+        }
+
+        public string GetDocName(int trackId, int faId, int moduleId)
+        {
+            string docName = null;
+            try
+            {
+                var trackName = (from t in Context.Tracks where t.TrackId == trackId select t.TrackName).FirstOrDefault();
+                var focusAreaName = (from f in Context.FocusAreas where f.FAId == faId select f.FAName).FirstOrDefault();
+                var moduleName = (from m in Context.Modules where m.ModuleId == moduleId select m.ModuleName).FirstOrDefault();
+                docName = trackName+"-" + focusAreaName+ "-" + moduleName;
+            }
+            catch (Exception)
+            {
+
+                docName = null;
+            }
+            return docName;
+        }
+
+        public string GetDocId()
+        {
+            string docId = null;
+            try
+            {
+                docId = Context.Database.SqlQuery<string>("select dbo.ufn_GenerateDocId()").FirstOrDefault();
+            }
+            catch (Exception)
+            {
+
+                docId = null;
+            }
+            return docId;
         }
     }
 }

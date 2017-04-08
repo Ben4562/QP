@@ -1,0 +1,242 @@
+﻿@model Tuple< QP_Management_System.Models.Track , QP_Management_System.Models.FocusArea , QP_Management_System.Models.Modules >
+
+@{
+    ViewBag.Title = "CreateQP";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CreateQP</h2>
+
+
+@using (Html.BeginForm("CreateQP","User")) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            @Html.Label("Track", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Track", ViewBag.Track as SelectList , "Please select a Track" )
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("FocusArea", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("FocusArea", new SelectList(string.Empty,"Value","Text"), "Please select a Track", new { @class="DropDownFocusArea" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Module", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Module", new SelectList(string.Empty, "Value", "Text"), "Please select a Module", new { @class = "DropDownModule" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Author", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Author", new SelectList(string.Empty, "Value", "Text"), "Select an Author" , new { @class = "DropDownAuthor" } )
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Reviewer", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Reviewer", new SelectList(string.Empty, "Value", "Text"), "Select an Reviewer", new { @class = "DropDownReviewer" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("QualityAnchor", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("QualityAnchor", new SelectList(string.Empty, "Value", "Text"), "Select an QualityAnchor", new { @class = "DropDownAuthor" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Comments", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                 @Html.TextArea("Comments", new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10" >
+                <input type="submit" value="Assign" class="btn btn-default" />
+            </div>
+        </div>
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script type="text/javascript">
+
+    //to get focus area
+    $(document).ready(function () {
+        $("#Track").change(function () {
+            $("#FocusArea").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetFocusAreas")', // Calling json method
+                dataType: 'json',
+                data: { id: $("#Track").val() },
+                // Get Selected track ID.
+                success: function (focusAreas) {
+                    $("#FocusArea").append('<option value="' + "Select FocusArea" + '">' + "Select FocusArea"
+                             + '</option>');
+                    $.each(focusAreas, function (i, focusArea) {
+                        $("#FocusArea").append('<option value="' + focusArea.Value + '">' +
+                             focusArea.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+
+    //to get modules
+    $(document).ready(function () {
+
+        $("#FocusArea").change(function () {
+            $("#Module").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetModules")', // Calling json method
+                dataType: 'json',
+                data: { id: $("#FocusArea").val() },
+                // Get Selected Focus Area ID.
+                success: function (modules) {
+                    $("#Module").append('<option value="' + "Select Module" + '">' + "Select Module"
+                             + '</option>');
+                    $.each(modules, function (i, module) {
+                        $("#Module").append('<option value="' + module.Value + '">' +
+                             module.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+    //to clear
+    $(document).ready(function () {
+
+        $("#Track").change(function () {
+            $("#Module").empty();
+            $("#Author").empty();
+            $("#Reviewer").empty();
+            $("#QualityAnchor").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetModules")', // Calling json method
+                dataType: 'json',
+                data: { id: $("#Track").val() },
+                // Get Selected Focus Area ID.
+                success: function (modules) {
+                    $("#Module").append('<option value="' + "Select Module" + '">' + "Select Module"
+                             + '</option>');
+                    //$.each(modules, function (i, module) {
+                    //    $("#Module").append('<option value="' + module.Value + '">' +
+                    //         module.Text + '</option>');
+                    //});
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+
+    //to get authors
+    $(document).ready(function () {
+
+        $("#Track").change(function () {
+            $("#Author").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetAuthors")', // Calling json method
+                dataType: 'json',
+                data: { id: $("#Track").val() },
+                // Get Selected Focus Area ID.
+                success: function (authors) {
+                    $("#Author").append('<option value="' + "Select Author" + '">' + "Select Author"
+                             + '</option>');
+                    $.each(authors, function (i, author) {
+                        $("#Author").append('<option value="' + author.Value + '">' +
+                             author.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+    // to get reviewer
+    $(document).ready(function () {
+
+        $("#Track").change(function () {
+            $("#Reviewer").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetReviewers")', // Calling json method
+                dataType: 'json',
+                data: { id: $("#Track").val() },
+                // Get Selected Focus Area ID.
+                success: function (reviewers) {
+                    $("#Reviewer").append('<option value="' + "Select Reviewer" + '">' + "Select Reviewer"
+                             + '</option>');
+                    $.each(reviewers, function (i, reviewer) {
+                        $("#Reviewer").append('<option value="' + reviewer.Value + '">' +
+                             reviewer.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+
+    //to get quality anchor
+    $(document).ready(function () {
+
+        $("#Track").change(function () {
+            $("#QualityAnchor").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetQualityAnchors")', // Calling json method
+                dataType: 'json',
+                data: { id: $("#Track").val() },
+                // Get Selected Focus Area ID.
+                success: function (qualityAnchors) {
+                    $("#QualityAnchor").append('<option value="' + "Select QualityAnchor" + '">' + "Select QualityAnchor"
+                             + '</option>');
+                    $.each(qualityAnchors, function (i, qualityanchor) {
+                        $("#QualityAnchor").append('<option value="' + qualityanchor.Value + '">' +
+                             qualityanchor.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script>
