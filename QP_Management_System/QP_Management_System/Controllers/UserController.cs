@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using QP_Management_System.Repository;
 using AutoMapper;
 using QP_Management_DataAccessLayer;
+using Spire.Doc;
+using Spire.Doc.Documents;
 
 namespace QP_Management_System.Controllers
 {
@@ -41,7 +43,7 @@ namespace QP_Management_System.Controllers
                 }
                 else if (status == "quality anchor")
                 {
-                    return View();
+                    return RedirectToAction("QualityAnchor");
                 }
                 else if(status == "qp anchor")
                 {
@@ -69,7 +71,7 @@ namespace QP_Management_System.Controllers
             {
                 QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
                 var dal = new QP_Repository();
-                var doc = dal.GetDocuments(Session["UserName"].ToString());
+                var doc = dal.GetDocumentsAuthor(Session["UserName"].ToString());
                 List<Models.QPMasterPool> documentList = new List<Models.QPMasterPool>();
                 if (doc.Any())
                 {
@@ -92,6 +94,29 @@ namespace QP_Management_System.Controllers
             else
             {
                 return View(); 
+            }
+        }
+
+        public ActionResult QualityAnchor()
+        {
+            if (Session["UserName"] == null )
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
+                var dal = new QP_Repository();
+                var doc = dal.GetDocumentsQualityAnchor(Session["UserName"].ToString());
+                List<Models.QPMasterPool> documentList = new List<Models.QPMasterPool>();
+                if (doc.Any())
+                {
+                    foreach (var item in doc)
+                    {
+                        documentList.Add(mapObj.Translate(item));
+                    }
+                }
+                return View(documentList);
             }
         }
 
@@ -144,7 +169,7 @@ namespace QP_Management_System.Controllers
         {
             var dal = new QP_Repository();
             var docDetails = dal.DocumentDetails(qpDocId);
-            return File(docDetails.Document,System.Net.Mime.MediaTypeNames.Application.Rtf,docDetails.DocumentName+".docx");  
+            return File(docDetails.Document,System.Net.Mime.MediaTypeNames.Application.Octet,docDetails.DocumentName+".Docx");  
         }
 
         public ActionResult ReUpload(Models.QPMasterPool qpDoc)
@@ -296,6 +321,26 @@ namespace QP_Management_System.Controllers
             return db.Users.Where(q => q.TrackId == trackId && q.RoleId == 3).ToList();
         }
         #endregion
+
+        public ActionResult Editor()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Editor(Models.Editor doc)
+        {           
+            Session["Content"] = doc.HtmlContent.ToString();
+            return View(doc); 
+        }
+
+        public ActionResult ViewDoc(string qpDocId)
+        {
+            Document document = new Document();
+            document.LoadFromFile(@"C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\JAVA-FocusArea1-Fundamentals of Java Programming (1).docx");
+            Session["File"] = document.LastParagraph;
+            return View();
+        }
 
     }
 }

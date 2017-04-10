@@ -103,3 +103,9 @@ C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\b
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\obj\Debug\QP_Management_System.csprojResolveAssemblyReference.cache
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\obj\Debug\QP_Management_System.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\obj\Debug\QP_Management_System.pdb
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Spire.Doc.dll
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Spire.License.dll
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Spire.Pdf.dll
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Microsoft.mshtml.dll
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Spire.Doc.xml
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Spire.License.xml

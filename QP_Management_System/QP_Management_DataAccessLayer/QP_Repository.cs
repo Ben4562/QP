@@ -78,12 +78,27 @@ namespace QP_Management_DataAccessLayer
             return status;
         }
 
-        public List<QPMasterPool> GetDocuments(string author)
+        public List<QPMasterPool> GetDocumentsAuthor(string author)
         {
             List<QPMasterPool> doc = null;
             try
             {
                 doc = (from d in Context.QPMasterPools where d.Author == author select d).ToList<QPMasterPool>();
+            }
+            catch (Exception)
+            {
+
+                doc = null;
+            }
+            return doc;
+        }
+
+        public List<QPMasterPool> GetDocumentsQualityAnchor(string qualityanchor)
+        {
+            List<QPMasterPool> doc = null;
+            try
+            {
+                doc = (from d in Context.QPMasterPools where d.QualityAnchor == qualityanchor select d).ToList<QPMasterPool>();
             }
             catch (Exception)
             {
