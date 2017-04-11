@@ -342,10 +342,11 @@ namespace QP_Management_System.Controllers
 
         public ActionResult ViewDoc(string qpDocId)
         {
-            return View();
+            return View(); 
         }
 
         //Method to convert
+        #region
         public static byte[] HtmlToWord(String html)
         {
             //const string filename = "test.docx";
@@ -379,6 +380,9 @@ namespace QP_Management_System.Controllers
                 return generatedDocument.ToArray();
             }
         }
+        #endregion
+
+
 
     }
 }
