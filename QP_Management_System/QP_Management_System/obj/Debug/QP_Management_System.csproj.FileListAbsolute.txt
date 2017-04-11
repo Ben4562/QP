@@ -79,10 +79,6 @@ C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\b
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\QP_Management_System.dll.config
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\QP_Management_System.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\QP_Management_System.pdb
-C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\AutoMapper.dll
-C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\AutoMapper.Net4.dll
-C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\EntityFramework.dll
-C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\EntityFramework.SqlServer.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\QP_Management_DataAccessLayer.dll
@@ -109,3 +105,6 @@ C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\b
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Microsoft.mshtml.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Spire.Doc.xml
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Spire.License.xml
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\DocumentFormat.OpenXml.dll
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\HtmlToOpenXml.dll
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\HtmlToOpenXml.pdb
