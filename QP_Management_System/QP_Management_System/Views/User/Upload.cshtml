@@ -6,12 +6,18 @@
 }
 
 <h2>Upload</h2>
+<script src="~/jquery.js" type="text/javascript"></script>
+<script src="~/jquery.form.min.js" type="text/javascript"></script>
 
 
-@using (Html.BeginForm("Upload", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
+
+
+@using (Ajax.BeginForm("Upload", "User", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+{ 
+@*@using (Html.BeginForm("Upload", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{*@
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         @*<h4>QPMasterPool</h4>*@
         <hr />
@@ -108,7 +114,79 @@
             </div>
         </div>
     </div>
+
+  
 }
+
+<div class="progress">
+    <div class="progress-bar">0%</div>
+</div>
+<div id="status"></div>
+<div id="loading" class="loader">Loading...</div>
+<style>
+    .progress {
+        position: relative;
+        width: 400px;
+        border: 1px solid #ddd;
+        padding: 1px;
+    }
+
+    .progress-bar {
+        width: 0px;
+        height: 20px;
+        background-color: #57be65;
+    }
+</style>
+ @section scripts{
+<script src="~/Scripts/jquery.form.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.js" type="text/javascript"></script>
+
+         
+    
+    <script>
+    $(document).ready(function () {
+        (function () {
+            var bar = $('.progress-bar');
+            var percent = $('.progress-bar');
+            var status = $('#status');
+            $('#loading').hide();
+            $('form').ajaxForm({
+                beforeSend: function () {
+                    status.empty();
+                    var percentValue = '0%';
+                    bar.width(percentValue);
+                    percent.html(percentValue);
+                },
+                uploadProgress: function (event, position, total, percentComplete) {
+                    var percentValue = percentComplete + '%';
+                    bar.width(percentValue);
+                    percent.html(percentValue);
+                    $('#loading').show();
+                },
+                success: function (d) {
+                    var percentValue = '100%';
+                    bar.width(percentValue);
+                    percent.html(percentValue);
+                    $('#uploadFile').val('');
+                    $('#loading').hide();
+                  //alert(d);
+                },
+                complete: function (xhr) {
+                    status.html(xhr.responseText);
+                }
+            });
+        })();
+    });
+
+    </script>
+}
+    
+
+
+
+
+
+
 
 <div>
     @Html.ActionLink("Back", "Author","User")

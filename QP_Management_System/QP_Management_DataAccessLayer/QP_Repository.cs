@@ -81,9 +81,14 @@ namespace QP_Management_DataAccessLayer
         public List<QPMasterPool> GetDocumentsAuthor(string author)
         {
             List<QPMasterPool> doc = null;
+        
             try
             {
-                doc = (from d in Context.QPMasterPools where d.Author == author select d).ToList<QPMasterPool>();
+                
+                
+                    doc = (from d in Context.QPMasterPools where d.Author == author select d).ToList<QPMasterPool>();
+                
+              
             }
             catch (Exception)
             {
@@ -147,6 +152,7 @@ namespace QP_Management_DataAccessLayer
                 oldDoc.Document = doc.Document;
                 oldDoc.Comments = doc.Comments;
                 oldDoc.UpdationLog = doc.UpdationLog;
+                oldDoc.Status = doc.Status;
                 Context.SaveChanges();
                 status = true;
             }

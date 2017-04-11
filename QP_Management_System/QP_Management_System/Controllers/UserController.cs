@@ -126,44 +126,44 @@ namespace QP_Management_System.Controllers
             return RedirectToAction("Login"); 
         }
 
-        public ActionResult Upload()
-        {
-            return View();
-        }
+        //public ActionResult Upload()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public ActionResult Upload(Models.QPMasterPool qpObj,HttpPostedFileBase uploadFile)
-        {
-            qpObj.CreationLog = DateTime.Now;
-            qpObj.Author = Session["UserName"].ToString();
-            var dal = new QP_Repository();
-            QPMapper<Models.QPMasterPool, QPMasterPool> mapObj = new QPMapper<Models.QPMasterPool, QPMasterPool>();
-            try
-            {
-                if(uploadFile!= null)
-                {
-                    qpObj.Document = new byte[uploadFile.ContentLength];
-                    uploadFile.InputStream.Read(qpObj.Document, 0, uploadFile.ContentLength);
-                    bool status = dal.AddDocument(mapObj.Translate(qpObj));
-                    if(status)
-                    {
-                        return View("Success");
-                    }
-                    else
-                    {
-                        return View("Error");
-                    }
-                }
-                else
-                {
-                    return View();
-                }
-            }
-            catch (Exception)
-            {
-                return View("Error"); 
-            }
-        }  
+        //[HttpPost]
+        //public ActionResult Upload(Models.QPMasterPool qpObj,HttpPostedFileBase uploadFile)
+        //{
+        //    qpObj.CreationLog = DateTime.Now;
+        //    qpObj.Author = Session["UserName"].ToString();
+        //    var dal = new QP_Repository();
+        //    QPMapper<Models.QPMasterPool, QPMasterPool> mapObj = new QPMapper<Models.QPMasterPool, QPMasterPool>();
+        //    try
+        //    {
+        //        if(uploadFile!= null)
+        //        {
+        //            qpObj.Document = new byte[uploadFile.ContentLength];
+        //            uploadFile.InputStream.Read(qpObj.Document, 0, uploadFile.ContentLength);
+        //            bool status = dal.AddDocument(mapObj.Translate(qpObj));
+        //            if(status)
+        //            {
+        //                return View("Success");
+        //            }
+        //            else
+        //            {
+        //                return View("Error");
+        //            }
+        //        }
+        //        else
+        //        {
+        //            return View();
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return View("Error"); 
+        //    }
+        //}  
 
         public ActionResult DownloadDoc(string qpDocId)
         {
@@ -176,6 +176,8 @@ namespace QP_Management_System.Controllers
         {
             return View(qpDoc);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
 
         public ActionResult ReUploadDoc(Models.QPMasterPool qpObj, HttpPostedFileBase reUpload)
         {
@@ -186,12 +188,15 @@ namespace QP_Management_System.Controllers
             {
                 if (reUpload != null)
                 {
+                
                     qpObj.Document = new byte[reUpload.ContentLength];
                     reUpload.InputStream.Read(qpObj.Document, 0, reUpload.ContentLength);
                     bool status = dal.UpdateDocumentMaster(mapObj.Translate(qpObj));
                     if (status)
                     {
+
                         return View("Success");
+                        
                     }
                     else
                     {
