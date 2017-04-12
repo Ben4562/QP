@@ -133,6 +133,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
+    <Content Include="Scripts\ckeditor\viewer_config.js" />
     <Content Include="Scripts\ckeditor\config.js" />
     <Content Include="Scripts\ckeditor\contents.css" />
     <Content Include="Scripts\ckeditor\lang\af.js" />
@@ -295,6 +296,12 @@
     <Content Include="Scripts\ckeditor\plugins\icons_hidpi.png" />
     <Content Include="Scripts\ckeditor\plugins\iframe\dialogs\iframe.js" />
     <Content Include="Scripts\ckeditor\plugins\iframe\images\placeholder.png" />
+    <Content Include="Scripts\ckeditor\plugins\imagebrowser\browser\browser.css" />
+    <Content Include="Scripts\ckeditor\plugins\imagebrowser\browser\browser.html" />
+    <Content Include="Scripts\ckeditor\plugins\imagebrowser\browser\browser.js" />
+    <Content Include="Scripts\ckeditor\plugins\imagebrowser\browser\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\ckeditor\plugins\imagebrowser\LICENSE.txt" />
+    <Content Include="Scripts\ckeditor\plugins\imagebrowser\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\image\dialogs\image.js" />
     <Content Include="Scripts\ckeditor\plugins\image\images\noimage.png" />
     <Content Include="Scripts\ckeditor\plugins\link\dialogs\anchor.js" />
@@ -432,6 +439,7 @@
     <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template1.gif" />
     <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template2.gif" />
     <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template3.gif" />
+    <Content Include="Scripts\ckeditor\plugins\uploadimage\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\ciframe.html" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.css" />
@@ -469,9 +477,24 @@
     <Content Include="Scripts\ckeditor\package.json" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
+    <Content Include="Scripts\ckeditor\plugins\imagebrowser\README.rst" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\ckeditor\skins\office2013\dialog.css" />
+    <Content Include="Scripts\ckeditor\skins\office2013\editor.css" />
+    <Content Include="Scripts\ckeditor\skins\office2013\icons.png" />
+    <Content Include="Scripts\ckeditor\skins\office2013\icons_hidpi.png" />
+    <Content Include="Scripts\ckeditor\skins\office2013\images\arrow.png" />
+    <Content Include="Scripts\ckeditor\skins\office2013\images\close.png" />
+    <Content Include="Scripts\ckeditor\skins\office2013\images\hidpi\close.png" />
+    <Content Include="Scripts\ckeditor\skins\office2013\images\hidpi\lock-open.png" />
+    <Content Include="Scripts\ckeditor\skins\office2013\images\hidpi\lock.png" />
+    <Content Include="Scripts\ckeditor\skins\office2013\images\hidpi\refresh.png" />
+    <Content Include="Scripts\ckeditor\skins\office2013\images\lock-open.png" />
+    <Content Include="Scripts\ckeditor\skins\office2013\images\lock.png" />
+    <Content Include="Scripts\ckeditor\skins\office2013\images\refresh.png" />
+    <Content Include="Scripts\ckeditor\skins\office2013\skin.js" />
     <Content Include="Scripts\ckeditor\styles.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -689,6 +712,7 @@
     <Content Include="Views\User\Editor.cshtml" />
     <Content Include="Views\User\QualityAnchor.cshtml" />
     <Content Include="Views\User\ViewDoc.cshtml" />
+    <Content Include="Views\User\ViewerEditor.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

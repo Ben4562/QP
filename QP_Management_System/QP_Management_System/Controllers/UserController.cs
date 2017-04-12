@@ -330,14 +330,19 @@ namespace QP_Management_System.Controllers
 
         public ActionResult Editor()
         {
-            return View();
+            return View(); 
         }
 
         [HttpPost]
         [ValidateInput(false)]
         public FileResult Editor(Models.Editor doc)
         {
-            return File(HtmlToWord(doc.HtmlContent), "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            return File(HtmlToWord(doc.HtmlContent), "application/vnd.openxmlformats-officedocument.wordprocessingml.document"); 
+        }
+
+        public ActionResult ViewerEditor()
+        {
+            return View();
         }
 
         public ActionResult ViewDoc(string qpDocId)
@@ -380,9 +385,9 @@ namespace QP_Management_System.Controllers
                 return generatedDocument.ToArray();
             }
         }
-        #endregion
+        #endregion 
 
-
+        
 
     }
 }

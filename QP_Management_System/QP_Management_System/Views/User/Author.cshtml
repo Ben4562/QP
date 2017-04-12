@@ -90,7 +90,7 @@
             <td>
                 @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                     @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-                @Html.ActionLink("Download", "DownloadDoc", new { QPDocId = item.QPDocId })
+                @Html.ActionLink("Download", "DownloadDoc", new { QPDocId = item.QPDocId }) 
             </td>
             <td>
                 @Html.ActionLink("Upload", "ReUpload", new { QPDocId = item.QPDocId , @*Document=item.Document,*@ DocumentName=item.DocumentName, Author=item.Author, Reviewer=item.Reviewer, QualityAnchor=item.QualityAnchor , Status=item.Status, ModuleId=item.ModuleId, CreationLog=item.CreationLog, UpdationLog=item.UpdationLog, Comments=item.Comments })
