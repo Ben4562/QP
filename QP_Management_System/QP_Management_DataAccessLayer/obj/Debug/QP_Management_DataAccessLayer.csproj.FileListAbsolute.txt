@@ -7,4 +7,13 @@ C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_DataAcce
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\obj\Debug\QP_Management_DataAccessLayer.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\obj\Debug\QP_Management_DataAccessLayer.pdb
-C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\obj\Debug\QP_Management_DataAccessLayer.csprojResolveAssemblyReference.cache
+C:\Users\pagidipala.trn\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\bin\Debug\QP_Management_DataAccessLayer.dll.config
+C:\Users\pagidipala.trn\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\bin\Debug\QP_Management_DataAccessLayer.dll
+C:\Users\pagidipala.trn\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\bin\Debug\QP_Management_DataAccessLayer.pdb
+C:\Users\pagidipala.trn\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\bin\Debug\EntityFramework.dll
+C:\Users\pagidipala.trn\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\pagidipala.trn\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\bin\Debug\EntityFramework.xml
+C:\Users\pagidipala.trn\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\pagidipala.trn\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\obj\Debug\QP_Management_DataAccessLayer.dll
+C:\Users\pagidipala.trn\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\obj\Debug\QP_Management_DataAccessLayer.pdb
+C:\Users\pagidipala.trn\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\obj\Debug\QP_Management_DataAccessLayer.csprojResolveAssemblyReference.cache
