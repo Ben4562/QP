@@ -19,6 +19,9 @@ namespace QP_Management_System.Controllers
         {
             return View();
         }
+
+        //Login Page
+        #region
         public ActionResult Login()
         {
             if(Session["UserName"]==null)
@@ -45,7 +48,6 @@ namespace QP_Management_System.Controllers
                 }
             }
         }
-
         [HttpPost]
         public ActionResult PostLogin(Models.Users user)
         {
@@ -91,6 +93,16 @@ namespace QP_Management_System.Controllers
             }
         }
 
+        public ActionResult LogOut()
+        {
+            Session.Clear();
+            return RedirectToAction("Login");
+        }
+
+        #endregion
+
+
+        //Author Page
         public ActionResult Author()
         {
             if(Session["UserName"]==null || Session["Role"].ToString().ToLower()!= "author" )
@@ -115,6 +127,8 @@ namespace QP_Management_System.Controllers
 
         }
 
+
+        //QP-Anchor
         public ActionResult QPAnchor()
         {
             if(Session["UserName"]==null || Session["Role"].ToString().ToLower()!= "qp anchor")
@@ -127,6 +141,8 @@ namespace QP_Management_System.Controllers
             }
         }
 
+        
+        //Quality Anchor
         public ActionResult QualityAnchor()
         {
             if (Session["UserName"] == null )
@@ -150,12 +166,33 @@ namespace QP_Management_System.Controllers
             }
         }
 
-        public ActionResult LogOut()
+        //Reviewer
+        #region
+        public ActionResult Reviewer()
         {
-            Session.Clear();
-            return RedirectToAction("Login"); 
+            if (Session["UserName"] == null || Session["Role"].ToString().ToLower() != "reviewer")
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
+                var dal = new QP_Repository();
+                var doc = dal.GetDocumentsReviewer(Session["UserName"].ToString());
+                List<Models.QPMasterPool> documentList = new List<Models.QPMasterPool>();
+                if (doc.Any())
+                {
+                    foreach (var item in doc)
+                    {
+                        documentList.Add(mapObj.Translate(item));
+                    }
+                }
+                return View(documentList);
+            }
         }
+        #endregion
 
+        #region
         //public ActionResult Upload()
         //{
         //    return View();
@@ -195,6 +232,10 @@ namespace QP_Management_System.Controllers
         //    }
         //}  
 
+        #endregion
+
+
+        //Download-Method
         public ActionResult DownloadDoc(string qpDocId)
         {
             var dal = new QP_Repository();
@@ -202,6 +243,8 @@ namespace QP_Management_System.Controllers
             return File(docDetails.Document,System.Net.Mime.MediaTypeNames.Application.Octet,docDetails.DocumentName+".Docx");  
         }
 
+        //Upload-Method 
+        #region
         public ActionResult ReUpload(Models.QPMasterPool qpDoc)
         {
             return View(qpDoc);
@@ -244,8 +287,12 @@ namespace QP_Management_System.Controllers
                 return View("Error");
             }
         }
+        #endregion
 
-       public ActionResult CreateQP()
+
+        //Create QP - QP Anchor
+        #region
+        public ActionResult CreateQP()
         {
             QP_ManagementDBContext db = new QP_ManagementDBContext();
             ViewBag.Track = new SelectList(db.Tracks, "TrackId", "TrackName");
@@ -284,7 +331,10 @@ namespace QP_Management_System.Controllers
                 return View("Error");
             }
         }
+        #endregion
 
+
+        //Methods for cascading dropdown
         #region
         public JsonResult GetFocusAreas(int id)
         {
@@ -358,6 +408,9 @@ namespace QP_Management_System.Controllers
         }
         #endregion
 
+
+        //Editor
+        #region
         public ActionResult Editor()
         {
             return View(); 
@@ -370,6 +423,9 @@ namespace QP_Management_System.Controllers
             return File(HtmlToWord(doc.HtmlContent), "application/vnd.openxmlformats-officedocument.wordprocessingml.document"); 
         }
 
+        #endregion
+
+        //Misc
         public ActionResult ViewerEditor()
         {
             return View();
@@ -378,6 +434,16 @@ namespace QP_Management_System.Controllers
         public ActionResult ViewDoc(string qpDocId)
         {
             return View(); 
+        }
+
+        public ActionResult ContactUs()
+        {
+            return View();
+        }
+
+        public ActionResult AboutUs()
+        {
+            return View();
         }
 
         //Method to convert
@@ -415,40 +481,7 @@ namespace QP_Management_System.Controllers
                 return generatedDocument.ToArray();
             }
         }
-        #endregion 
-
-        public ActionResult ContactUs()
-        {
-            return View();
-        }
-
-        public ActionResult AboutUs()
-        {
-            return View();
-        }
-
-        public ActionResult Reviewer()
-        {
-            if (Session["UserName"]== null || Session["Role"].ToString().ToLower() != "reviewer")
-            {
-                return RedirectToAction("Login");
-            }
-            else
-            {
-                QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
-                var dal = new QP_Repository();
-                var doc = dal.GetDocumentsReviewer(Session["UserName"].ToString());
-                List<Models.QPMasterPool> documentList = new List<Models.QPMasterPool>();
-                if (doc.Any())
-                {
-                    foreach (var item in doc)
-                    {
-                        documentList.Add(mapObj.Translate(item));
-                    }
-                }
-                return View(documentList);
-            }
-        }
+        #endregion
 
 
     }
