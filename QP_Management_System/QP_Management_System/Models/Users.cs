@@ -9,7 +9,12 @@ namespace QP_Management_System.Models
     public class Users
     {
         [Required(ErrorMessage ="UserName is Mandatory")]
+        [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$",
+
+            ErrorMessage = "Invalid email address.")]
         public string UserName { get; set; }
+
+        [Required(ErrorMessage ="Password is Mandatory")]
         public string UserPassword { get; set; }
         public Nullable<int> RoleId { get; set; }
         public Nullable<int> TrackId { get; set; }

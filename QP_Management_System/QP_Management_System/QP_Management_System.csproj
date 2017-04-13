@@ -699,7 +699,6 @@
     <Content Include="Views\User\Upload.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\ReUpload.cshtml" />
-    <Content Include="Views\User\QPAnchor.cshtml" />
     <Content Include="Views\User\CreateQP.cshtml" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
@@ -715,7 +714,9 @@
     <Content Include="Views\User\QualityAnchor.cshtml" />
     <Content Include="Views\User\ViewDoc.cshtml" />
     <Content Include="Views\User\ViewerEditor.cshtml" />
-    <Content Include="Views\User\LoginNew.cshtml" />
+    <Content Include="Views\User\AboutUs.cshtml" />
+    <Content Include="Views\User\ContactUs.cshtml" />
+    <Content Include="Views\User\QPAnchor.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -725,6 +726,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QP_Management_DataAccessLayer\QP_Management_DataAccessLayer.csproj">

@@ -9,6 +9,7 @@ namespace QP_Management_System.Models
     public class QPMasterPool
     {
         public string QPDocId { get; set; }
+        [Required(ErrorMessage ="Document is Mandatory")]
         public byte[] Document { get; set; }
         public string DocumentName { get; set; }
         public string Author { get; set; }

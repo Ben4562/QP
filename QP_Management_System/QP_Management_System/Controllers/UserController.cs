@@ -4,11 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using QP_Management_System.Repository;
-using AutoMapper;
 using QP_Management_DataAccessLayer;
-//using Spire.Doc;
-//using Spire.Doc.Documents;
-using DocumentFormat;
 using NotesFor.HtmlToOpenXml;
 using System.IO;
 using DocumentFormat.OpenXml.Packaging;
@@ -25,51 +21,79 @@ namespace QP_Management_System.Controllers
         }
         public ActionResult Login()
         {
-            return View();
+            if(Session["UserName"]==null)
+            {
+                return View();
+            }
+            else
+            {
+                if(Session["Role"].ToString().ToLower()=="author")
+                {
+                    return RedirectToAction("Author");
+                }
+                else if(Session["Role"].ToString().ToLower() == "qp anchor")
+                {
+                    return RedirectToAction("QPAnchor");
+                }
+                else if(Session["Role"].ToString().ToLower() == "reviewer")
+                {
+                    return RedirectToAction("");
+                }
+                else
+                {
+                    return View();
+                }
+            }
         }
 
         [HttpPost]
         public ActionResult PostLogin(Models.Users user)
         {
-            QPMapper<Models.Users, User> mapObj = new QPMapper<Models.Users, QP_Management_DataAccessLayer.User>(); 
-            var dal = new QP_Repository();
-            string status = null;
-            status = dal.CheckLogin(mapObj.Translate(user));
-            if(status!=null)
+            if(ModelState.IsValid)
             {
-                Session["UserName"] = user.UserName;
-                Session["Role"] = status;
-                if (status == "author")
+                QPMapper<Models.Users, User> mapObj = new QPMapper<Models.Users, QP_Management_DataAccessLayer.User>();
+                var dal = new QP_Repository();
+                string status = null;
+                status = dal.CheckLogin(mapObj.Translate(user));
+                if (status != null)
                 {
-                    return RedirectToAction("Author");
-                }
-                else if (status == "reviewer")
-                {
-                    return RedirectToAction("Reviewer");
-                }
-                else if (status == "quality anchor")
-                {
-                    return RedirectToAction("QualityAnchor");
-                }
-                else if(status == "qp anchor")
-                {
-                    return RedirectToAction("QPAnchor"); 
+                    Session["UserName"] = user.UserName;
+                    Session["Role"] = status;
+                    if (status == "author")
+                    {
+                        return RedirectToAction("Author");
+                    }
+                    else if (status == "reviewer")
+                    {
+                        return RedirectToAction("Reviewer");
+                    }
+                    else if (status == "quality anchor")
+                    {
+                        return RedirectToAction("QualityAnchor");
+                    }
+                    else if (status == "qp anchor")
+                    {
+                        return RedirectToAction("QPAnchor");
+                    }
+                    else
+                    {
+                        return View("WrongPassword");
+                    }
                 }
                 else
                 {
-                    return View("WrongPassword"); 
+                    return View("Error");
                 }
             }
             else
             {
-                return View("Error");
+                return View();
             }
-            
         }
 
         public ActionResult Author()
         {
-            if(Session["UserName"]==null)
+            if(Session["UserName"]==null || Session["Role"].ToString().ToLower()!= "author" )
             {
                 return RedirectToAction("Login");
             }
@@ -93,13 +117,13 @@ namespace QP_Management_System.Controllers
 
         public ActionResult QPAnchor()
         {
-            if (Session["UserName"] == null || Session["Role"].ToString().ToLower() != "qp anchor" )
-            { 
+            if(Session["UserName"]==null || Session["Role"].ToString().ToLower()!= "qp anchor")
+            {
                 return RedirectToAction("Login");
             }
             else
             {
-                return View(); 
+                return View();
             }
         }
 
@@ -212,7 +236,7 @@ namespace QP_Management_System.Controllers
                 }
                 else
                 {
-                    return View();
+                    return View("Error");
                 }
             }
             catch (Exception)
@@ -393,7 +417,12 @@ namespace QP_Management_System.Controllers
         }
         #endregion 
 
-        public ActionResult LoginNew()
+        public ActionResult ContactUs()
+        {
+            return View();
+        }
+
+        public ActionResult AboutUs()
         {
             return View();
         }

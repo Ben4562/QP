@@ -19,73 +19,129 @@
                     <span class="icon-bar"></span>
                 </button>
                 @*@Html.ActionLink("QP Management System","","", new { area=" " }, new { @class="navbar-brand" } )*@
-                <div class="navbar-brand" >
+                <div class="navbar-brand">
                     QP Management System
                 </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+            <div class="collapse navbar-collapse">
                     @{
                         if (Session["Role"] == null)
                         {
                             if (ViewBag.Title != "Login")
                             {
-                                <li>
-                                    @Html.ActionLink("Login", "Login", "User")
-                                </li>
-                            }
-                            else
-                            {
-                                <li>
+                                <ul class="nav navbar-nav">
+                                    <li>
+                                        @Html.ActionLink("Login", "Login", "User")
+                                    </li>
+                                </ul>
+                                    }
+                                    else
+                                    {
+                                <ul class="nav navbar-nav">
+                                    <li>
 
-                                </li>
+                                    </li>
+                                </ul>
                             }
                         }
                         else if (Session["Role"].ToString().ToLower() == "qp anchor")
                         {
-                            <li>
-                                @Html.ActionLink("Create", "CreateQP", "User")
-                            </li>
-                            <li>
-                                @Html.ActionLink("Download", "CreateQP", "User")
-                            </li>
-                            <li>
-                                @Html.ActionLink("Select", "CreateQP", "User")
-                            </li>
-                            <li>
-                                @Html.ActionLink("Logout", "LogOut", "User")
-                            </li>
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    @Html.ActionLink("Create", "CreateQP", "User")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Download", "CreateQP", "User")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Select", "CreateQP", "User")
+                                </li>
+                            </ul>
+
+                            //------------------------------------------------
+
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@Session["UserName"] <span class="caret"></span></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">View Profile</a></li>
+                                                <li><a href="#">Settings</a></li>
+                                                <li class="divider"></li>
+                                                <li>@Html.ActionLink("Logout", "LogOut", "User")</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                            //------------------------------------------------
+
+
+
                         }
                         else if (Session["Role"].ToString().ToLower() == "author")
                         {
-                            <li>
-                                @Html.ActionLink("Logout", "LogOut", "User")
-                            </li>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@Session["UserName"] <span class="caret"></span></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">View Profile</a></li>
+                                                <li><a href="#">Settings</a></li>
+                                                <li class="divider"></li>
+                                                <li>@Html.ActionLink("Logout", "LogOut", "User")</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
                         }
-                        else if (Session["Role"].ToString().ToLower() == "reviewer")
-                        {
-                            <li>
-                                @Html.ActionLink("Logout", "LogOut", "User")
-                            </li>
-                        }
-                        else if (Session["Role"].ToString().ToLower() == "quality anchor")
-                        {
-                            <li>
-                                @Html.ActionLink("Logout", "LogOut", "User")
-                            </li>
-                        }
-                    }
-                </ul>
-            </div>
+                                    else if (Session["Role"].ToString().ToLower() == "reviewer")
+                                    {
+                                    <ul class="nav navbar-nav">
+                                        <li>
+                                            @Html.ActionLink("Logout", "LogOut", "User")
+                                        </li>
+                                    </ul>
+                                    }
+                                    else if (Session["Role"].ToString().ToLower() == "quality anchor")
+                                    {
+                                    <ul class="nav navbar-nav">
+                                        <li>
+                                            @Html.ActionLink("Logout", "LogOut", "User")
+                                        </li>
+                                    </ul>
+                                    }
+                                    }
+</div>
         </div>
+
     </div>
 
     <div class="container body-content">
         @RenderBody()
         @RenderSection("scripts", required:false )
-        <footer>
-            @*<p>&copy; @DateTime.Now.Year - </p>*@
-        </footer>
+        <div class="navbar-fixed-bottom panel-footer">
+            <footer style="text-align:center;">
+                @{
+                    if (ViewBag.Title != "ContactUs" && ViewBag.Title != "AboutUs")
+                    {
+                        <p> @Html.ActionLink("Contact", "ContactUs", "User") - QP Management System&copy; @DateTime.Now.Year - @Html.ActionLink("About", "AboutUs", "User")</p>
+                    }
+                    else
+                    {
+                        <p> QP Management System&copy; @DateTime.Now.Year - @Html.ActionLink("HomePage", "Login", "User")  </p>
+                    }
+                }
+
+            </footer>
+        </div>
+
     </div>
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
