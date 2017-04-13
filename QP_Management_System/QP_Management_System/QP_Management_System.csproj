@@ -122,6 +122,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-flatly.css" />
+    <Content Include="Content\bootstrap-lumen.css" />
     <Content Include="Content\bootstrap-yeti.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -713,6 +715,7 @@
     <Content Include="Views\User\QualityAnchor.cshtml" />
     <Content Include="Views\User\ViewDoc.cshtml" />
     <Content Include="Views\User\ViewerEditor.cshtml" />
+    <Content Include="Views\User\LoginNew.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

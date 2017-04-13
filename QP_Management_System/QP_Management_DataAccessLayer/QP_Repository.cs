@@ -86,7 +86,7 @@ namespace QP_Management_DataAccessLayer
             {
                 
                 
-                    doc = (from d in Context.QPMasterPools where d.Author == author select d).ToList<QPMasterPool>();
+                    doc = (from d in Context.QPMasterPools where d.Author == author && d.Status=="A" select d).ToList<QPMasterPool>();
                 
               
             }
@@ -103,7 +103,7 @@ namespace QP_Management_DataAccessLayer
             List<QPMasterPool> doc = null;
             try
             {
-                doc = (from d in Context.QPMasterPools where d.QualityAnchor == qualityanchor select d).ToList<QPMasterPool>();
+                doc = (from d in Context.QPMasterPools where d.QualityAnchor == qualityanchor && d.Status=="R" select d).ToList<QPMasterPool>();
             }
             catch (Exception)
             {

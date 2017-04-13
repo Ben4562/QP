@@ -86,7 +86,7 @@ namespace QP_Management_System.Controllers
                         documentList.Add(mapObj.Translate(item));
                     }
                 }
-                return View(documentList);
+                return View(documentList); 
             }
 
         }
@@ -188,6 +188,7 @@ namespace QP_Management_System.Controllers
         public ActionResult ReUploadDoc(Models.QPMasterPool qpObj, HttpPostedFileBase reUpload)
         {
             qpObj.UpdationLog = DateTime.Now;
+            qpObj.Status = "R";
             var dal = new QP_Repository();
             QPMapper<Models.QPMasterPool, QPMasterPool> mapObj = new QPMapper<Models.QPMasterPool, QPMasterPool>();
             try
@@ -392,7 +393,10 @@ namespace QP_Management_System.Controllers
         }
         #endregion 
 
-        
+        public ActionResult LoginNew()
+        {
+            return View();
+        }
 
     }
 }

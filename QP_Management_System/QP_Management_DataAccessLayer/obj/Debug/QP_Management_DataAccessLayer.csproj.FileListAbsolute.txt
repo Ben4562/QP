@@ -17,3 +17,4 @@ C:\Users\pagidipala.trn\Source\Repos\QP\QP_Management_System\QP_Management_DataA
 C:\Users\pagidipala.trn\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\obj\Debug\QP_Management_DataAccessLayer.dll
 C:\Users\pagidipala.trn\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\obj\Debug\QP_Management_DataAccessLayer.pdb
 C:\Users\pagidipala.trn\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\obj\Debug\QP_Management_DataAccessLayer.csprojResolveAssemblyReference.cache
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_DataAccessLayer\obj\Debug\QP_Management_DataAccessLayer.csprojResolveAssemblyReference.cache
