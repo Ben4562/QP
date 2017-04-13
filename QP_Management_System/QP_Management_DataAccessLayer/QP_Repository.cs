@@ -114,6 +114,20 @@ namespace QP_Management_DataAccessLayer
         }
 
 
+        public List<QPMasterPool> GetDocumentsReviewer(string reviewer)
+        {
+            List<QPMasterPool> doc = null;
+            try
+            {
+                doc = (from d in Context.QPMasterPools where d.Reviewer == reviewer && d.Status == "R" select d).ToList<QPMasterPool>();
+            }
+            catch (Exception)
+            {
+                doc = null;
+            }
+            return doc;
+        }
+
         //public byte[] DownloadDocument(string QPDocId)
         //{
         //    byte[] doc = null;

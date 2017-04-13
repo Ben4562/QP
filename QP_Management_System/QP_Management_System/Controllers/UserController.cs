@@ -427,5 +427,29 @@ namespace QP_Management_System.Controllers
             return View();
         }
 
+        public ActionResult Reviewer()
+        {
+            if (Session["UserName"]== null || Session["Role"].ToString().ToLower() != "reviewer")
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
+                var dal = new QP_Repository();
+                var doc = dal.GetDocumentsReviewer(Session["UserName"].ToString());
+                List<Models.QPMasterPool> documentList = new List<Models.QPMasterPool>();
+                if (doc.Any())
+                {
+                    foreach (var item in doc)
+                    {
+                        documentList.Add(mapObj.Translate(item));
+                    }
+                }
+                return View(documentList);
+            }
+        }
+
+
     }
 }

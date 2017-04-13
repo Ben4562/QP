@@ -101,23 +101,45 @@
                                 </li>
                             </ul>
                         }
-                                    else if (Session["Role"].ToString().ToLower() == "reviewer")
-                                    {
-                                    <ul class="nav navbar-nav">
+                        else if (Session["Role"].ToString().ToLower() == "reviewer")
+                        {
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <ul class="nav navbar-nav navbar-right">
                                         <li>
-                                            @Html.ActionLink("Logout", "LogOut", "User")
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@Session["UserName"] <span class="caret"></span></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">View Profile</a></li>
+                                                <li><a href="#">Settings</a></li>
+                                                <li class="divider"></li>
+                                                <li>@Html.ActionLink("Logout", "LogOut", "User")</li>
+                                            </ul>
                                         </li>
                                     </ul>
-                                    }
-                                    else if (Session["Role"].ToString().ToLower() == "quality anchor")
-                                    {
-                                    <ul class="nav navbar-nav">
+                                </li>
+                            </ul>
+                        }
+                        else if (Session["Role"].ToString().ToLower() == "quality anchor")
+                        {
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <ul class="nav navbar-nav navbar-right">
                                         <li>
-                                            @Html.ActionLink("Logout", "LogOut", "User")
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@Session["UserName"] <span class="caret"></span></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">View Profile</a></li>
+                                                <li><a href="#">Settings</a></li>
+                                                <li class="divider"></li>
+                                                <li>@Html.ActionLink("Logout", "LogOut", "User")</li>
+                                            </ul>
                                         </li>
                                     </ul>
-                                    }
-                                    }
+                                </li>
+                            </ul>
+                        }
+                    }
 </div>
         </div>
 

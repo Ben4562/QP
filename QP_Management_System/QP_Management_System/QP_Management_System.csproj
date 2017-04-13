@@ -717,6 +717,7 @@
     <Content Include="Views\User\AboutUs.cshtml" />
     <Content Include="Views\User\ContactUs.cshtml" />
     <Content Include="Views\User\QPAnchor.cshtml" />
+    <Content Include="Views\User\Reviewer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
