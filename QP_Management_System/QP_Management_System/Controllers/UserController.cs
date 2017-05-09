@@ -564,5 +564,108 @@ namespace QP_Management_System.Controllers
         #endregion
 
 
+
+        //QP-Anchor Functions
+        #region
+        public ActionResult QPAnchorDownload()
+        {
+            QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
+            var dal = new QP_Repository();
+            var doc = dal.QPAnchorDownload();
+            List<Models.QPMasterPool> downloadDoc = new List<Models.QPMasterPool>();
+            if(doc.Any())
+            {
+                foreach (var item in doc)
+                {
+                    downloadDoc.Add(mapObj.Translate(item));
+                }
+            }
+            return View(downloadDoc);
+        }
+
+        public ActionResult QPAnchorDownloadPost(string qpDocId)
+        {
+            try
+            {
+                var dal = new QP_Repository();
+                var docDetails = dal.DocumentDetails(qpDocId);
+                return File(docDetails.Document, System.Net.Mime.MediaTypeNames.Application.Octet, docDetails.DocumentName + ".Docx");
+            }
+            catch (Exception)
+            {
+                return View("SomeError"); 
+            }
+        }
+
+        public ActionResult QPAnchorSelect()
+        {
+            QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
+            var dal = new QP_Repository();
+            var doc = dal.QPAnchorSelect();
+            List<Models.QPMasterPool> downloadDoc = new List<Models.QPMasterPool>();
+            if (doc.Any())
+            {
+                foreach (var item in doc)
+                {
+                    downloadDoc.Add(mapObj.Translate(item));
+                }
+            }
+            return View(downloadDoc);
+        }
+
+        public ActionResult QPAnchorSelectPost(string qpDocId)
+        {
+            var dal = new QP_Repository();
+            bool status = dal.QPAnchorSelectDoc(qpDocId);
+            if(status)
+            {
+                return View("Success");
+            }
+            else
+            {
+                return View("Error"); 
+            }
+        }
+        #endregion
+
+        public ActionResult ReviewerAccept(string qpDocId)
+        {
+            QPMapper<Models.QPMasterPool, QPMasterPool> mapObj = new QPMapper<Models.QPMasterPool, QPMasterPool>();
+            var dal = new QP_Repository();
+            Models.QPMasterPool doc = new Models.QPMasterPool();
+            doc.QPDocId = qpDocId;
+            doc.Status = "Q";
+            doc.UpdationLog = DateTime.Now;
+            bool status = dal.ReviewerAccept(mapObj.Translate(doc));
+            if(status)
+            {
+                return View("Success");
+            }
+            else
+            {
+                return View("Error");
+            }
+
+        }
+
+        public ActionResult QualityAnchorAccept(string qpDocId)
+        {
+            QPMapper<Models.QPMasterPool, QPMasterPool> mapObj = new QPMapper<Models.QPMasterPool, QPMasterPool>();
+            var dal = new QP_Repository();
+            Models.QPMasterPool doc = new Models.QPMasterPool();
+            doc.QPDocId = qpDocId;
+            doc.Status = "F";
+            doc.UpdationLog = DateTime.Now;
+            bool status = dal.QualityAnchorAccept(mapObj.Translate(doc));
+            if (status)
+            {
+                return View("Success");
+            }
+            else
+            {
+                return View("Error");
+            }
+        }
+
     }
 }

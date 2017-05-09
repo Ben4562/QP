@@ -4,179 +4,226 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{
+    int aCount = 0, rCount = 0, fCount = 0;
+    foreach (var item in Model)
+    {
+        if (item.Status == "A")
+        {
+            aCount += 1;
+        }
+        else if (item.Status == "R" || item.Status == "Q")
+        {
+            rCount += 1;
+        }
+        else if (item.Status == "F")
+        {
+            fCount += 1;
+        }
+    }
+}
+
 
 @*<h4>Welcome @Session["UserName"]</h4>*@
 <h3>Dashboard</h3>
 
 <ul class="nav nav-tabs">
-    <li class="active"><a href="#ad" data-toggle="tab" aria-expanded="true">Assigned Documents</a></li>
-    <li class=""><a href="#rd" data-toggle="tab" aria-expanded="false">Reviewing Documents</a></li>
-    <li class=""><a href="#acd" data-toggle="tab" aria-expanded="false">Accepted Documents</a></li>
+    <li class="active"><a href="#ad" data-toggle="tab" aria-expanded="true">Assigned Documents <span class="badge">@aCount</span> </a></li>
+    <li class=""><a href="#rd" data-toggle="tab" aria-expanded="false">Reviewing Documents <span class="badge">@rCount</span>  </a></li>
+    <li class=""><a href="#acd" data-toggle="tab" aria-expanded="false">Accepted Documents <span class="badge">@fCount</span> </a></li>
     @*<li class="disabled"><a>Disabled</a></li>*@
     <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
             Others <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-            <li class=""><a href="#dropdown1" data-toggle="tab" aria-expanded="false">Action</a></li>
+            <li class=""><a href="#dropdown1" data-toggle="tab" aria-expanded="false">Remove Document</a></li>
             <li class="divider"></li>
-            <li class=""><a href="#dropdown2" data-toggle="tab" aria-expanded="false">Another action</a></li>
+            <li class=""><a href="#dropdown2" data-toggle="tab" aria-expanded="false">Advanced</a></li>
         </ul>
     </li>
 </ul>
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade active in" id="ad">
         <br />
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayName("DocumentName")
-                </th>
-                <th>
-                    @Html.DisplayName("Author")
-                </th>
-                <th>
-                    @Html.DisplayName("Reviewer")
-                </th>
-                <th>
-                    @Html.DisplayName("QualityAnchor")
-                </th>
-                <th>
-                    @Html.DisplayName("Comments")
-                </th>
-            </tr>
-            @{
-                foreach (var item1 in Model)
-                {
-                    if (item1.Status == "A")
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.DocumentName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.Author)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.Reviewer)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.QualityAnchor)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.Comments)
-                            </td>
-                        </tr>
+        @{
+            if (aCount != 0)
+            {
+                <table class="table">
+                    <tr class="active">
+                        <th>
+                            @Html.DisplayName("DocumentName")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Author")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Reviewer")
+                        </th>
+                        <th>
+                            @Html.DisplayName("QualityAnchor")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Comments")
+                        </th>
+                    </tr>
+                    @{
+                        foreach (var item1 in Model)
+                        {
+                            if (item1.Status == "A")
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.DocumentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Author)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Reviewer)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.QualityAnchor)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Comments)
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
                     }
-                    else
-                    {
-                        continue;
-                    }
-                }
+                </table>
             }
-        </table>
+            else
+            {
+                <p>No documents assigned</p>
+            }
+        }
     </div>
     <div class="tab-pane fade" id="rd">
         <br />
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayName("DocumentName")
-                </th>
-                <th>
-                    @Html.DisplayName("Author")
-                </th>
-                <th>
-                    @Html.DisplayName("Reviewer")
-                </th>
-                <th>
-                    @Html.DisplayName("QualityAnchor")
-                </th>
-                <th>
-                    @Html.DisplayName("Comments")
-                </th>
-            </tr>
-            @{
-                foreach (var item1 in Model)
-                {
-                    if (item1.Status == "R")
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.DocumentName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.Author)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.Reviewer)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.QualityAnchor)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.Comments)
-                            </td>
-                        </tr>
+        @{
+            if (rCount != 0)
+            {
+                <table class="table">
+                    <tr class="active">
+                        <th>
+                            @Html.DisplayName("DocumentName")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Author")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Reviewer")
+                        </th>
+                        <th>
+                            @Html.DisplayName("QualityAnchor")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Comments")
+                        </th>
+                    </tr>
+                    @{
+                        foreach (var item1 in Model)
+                        {
+                            if (item1.Status == "R" || item1.Status == "Q")
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.DocumentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Author)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Reviewer)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.QualityAnchor)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Comments)
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
                     }
-                    else
-                    {
-                        continue;
-                    }
-                }
-            }
-        </table>
+                </table>
+                        }
+                        else
+                        {
+                            <p>No documents for reviewing</p>
+                        }
+        }
     </div>
     <div class="tab-pane fade" id="acd">
         <br />
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayName("DocumentName")
-                </th>
-                <th>
-                    @Html.DisplayName("Author")
-                </th>
-                <th>
-                    @Html.DisplayName("Reviewer")
-                </th>
-                <th>
-                    @Html.DisplayName("QualityAnchor")
-                </th>
-                <th>
-                    @Html.DisplayName("Comments")
-                </th>
-            </tr>
-    @{
-        foreach (var item1 in Model)
-        {
-            if (item1.Status == "F")
+        @{
+            if (fCount != 0)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item1.DocumentName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item1.Author)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item1.Reviewer)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item1.QualityAnchor)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item1.Comments)
-                    </td>
-                </tr>
-                }
-                else
-                {
-                    continue;
-                }
+                <table class="table">
+                    <tr class="active">
+                        <th>
+                            @Html.DisplayName("DocumentName")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Author")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Reviewer")
+                        </th>
+                        <th>
+                            @Html.DisplayName("QualityAnchor")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Comments")
+                        </th>
+                    </tr>
+                    @{
+                        foreach (var item1 in Model)
+                        {
+                            if (item1.Status == "F")
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.DocumentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Author)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Reviewer)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.QualityAnchor)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Comments)
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                </table>
+            }
+            else
+            {
+                <p>No finalised Documents</p>
             }
         }
-            </table>
+
     </div>
     @*<div class="tab-pane fade" id="dropdown1">
             <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>

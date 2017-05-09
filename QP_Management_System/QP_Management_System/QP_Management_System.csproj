@@ -741,6 +741,8 @@
     <Content Include="Views\User\Reviewer.cshtml" />
     <Content Include="Views\Shared\SomeError.cshtml" />
     <Content Include="Views\Shared\DocumentError.cshtml" />
+    <Content Include="Views\User\QPAnchorDownload.cshtml" />
+    <Content Include="Views\User\QPAnchorSelect.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

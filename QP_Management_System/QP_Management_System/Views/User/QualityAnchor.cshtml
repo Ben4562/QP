@@ -25,6 +25,9 @@
         <th>
             @Html.DisplayName("Action")
         </th>
+        <th>
+
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -46,6 +49,9 @@
         </td>
         <td>
             @Html.ActionLink("Download", "DownloadDoc", new { QPDocId = item.QPDocId })
+        </td>
+        <td>
+            @Html.ActionLink("Accept", "QualityAnchorAccept", new { QPDocId = item.QPDocId })
         </td>
     </tr>
 }

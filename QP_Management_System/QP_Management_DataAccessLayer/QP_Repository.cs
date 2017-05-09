@@ -103,7 +103,7 @@ namespace QP_Management_DataAccessLayer
             List<QPMasterPool> doc = null;
             try
             {
-                doc = (from d in Context.QPMasterPools where d.QualityAnchor == qualityanchor select d).ToList<QPMasterPool>();
+                doc = (from d in Context.QPMasterPools where d.QualityAnchor == qualityanchor && d.Status=="Q" select d).ToList<QPMasterPool>();
             }
             catch (Exception)
             {
@@ -223,6 +223,91 @@ namespace QP_Management_DataAccessLayer
                 assigneddoc = null;
             }
             return assigneddoc;
+        }
+
+        public List<QPMasterPool> QPAnchorDownload()
+        {
+            List<QPMasterPool> doc = new List<QPMasterPool>();
+            try
+            {
+                doc = (from d in Context.QPMasterPools where d.Status == "F" select d).ToList<QPMasterPool>();
+            }
+            catch (Exception)
+            {
+                doc = null;
+            }
+            return doc;
+        }
+
+        public List<QPMasterPool> QPAnchorSelect()
+        {
+            List<QPMasterPool> doc = new List<QPMasterPool>();
+            try
+            {
+                doc = (from d in Context.QPMasterPools where d.Status == "F" select d).ToList<QPMasterPool>();
+            }
+            catch (Exception)
+            {
+                doc = null;
+            }
+            return doc;
+        }
+
+
+        public bool QPAnchorSelectDoc(string qpDocId)
+        {
+            QPMasterPool doc = new QPMasterPool();
+            bool status = false;
+            try
+            {
+                doc = (from d in Context.QPMasterPools where d.QPDocId==qpDocId select d).FirstOrDefault();
+                Context.QPMasterPools.Remove(doc);
+                Context.SaveChanges();
+                status = true;
+            }
+            catch (Exception)
+            {
+                status = false;
+            }
+            return status;
+        }
+
+        public bool ReviewerAccept(QPMasterPool qpObj)
+        {
+            bool status = false;
+            QPMasterPool doc = new QPMasterPool();
+            try
+            {
+                doc = (from d in Context.QPMasterPools where d.QPDocId == qpObj.QPDocId select d).FirstOrDefault();
+                doc.Status = qpObj.Status;
+                doc.UpdationLog = qpObj.UpdationLog;
+                Context.SaveChanges();
+                status = true;
+            }
+            catch (Exception)
+            {
+                status = false;
+            }
+            return status;
+        }
+
+        public bool QualityAnchorAccept(QPMasterPool qpObj)
+        {
+            bool status = false;
+            QPMasterPool doc = new QPMasterPool();
+            try
+            {
+                doc = (from d in Context.QPMasterPools where d.QPDocId == qpObj.QPDocId select d).FirstOrDefault();
+                doc.Status = qpObj.Status;
+                doc.UpdationLog = qpObj.UpdationLog;
+                Context.SaveChanges();
+                status = true;
+            }
+            catch (Exception)
+            {
+                status = false;
+            }
+            return status;
         }
 
     }

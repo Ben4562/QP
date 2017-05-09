@@ -48,6 +48,9 @@
         <td>
             @Html.ActionLink("Download", "DownloadDoc", new { QPDocId = item.QPDocId })
         </td>
+        <td>
+            @Html.ActionLink("Accept", "ReviewerAccept", new { QPDocId = item.QPDocId })
+        </td>
     </tr>
 }
 
