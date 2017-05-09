@@ -252,6 +252,7 @@ namespace QP_Management_System.Controllers
         }
         #endregion
 
+        //Upload-Not Used
         #region
         //public ActionResult Upload()
         //{
@@ -500,6 +501,7 @@ namespace QP_Management_System.Controllers
         #endregion
 
         //Misc
+        #region
         public ActionResult ViewerEditor()
         {
             return View();
@@ -519,6 +521,7 @@ namespace QP_Management_System.Controllers
         {
             return View();
         }
+        #endregion
 
         //Method to convert
         #region
@@ -628,6 +631,9 @@ namespace QP_Management_System.Controllers
         }
         #endregion
 
+
+        //Reviewer Functions
+        #region
         public ActionResult ReviewerAccept(string qpDocId)
         {
             QPMapper<Models.QPMasterPool, QPMasterPool> mapObj = new QPMapper<Models.QPMasterPool, QPMasterPool>();
@@ -647,7 +653,11 @@ namespace QP_Management_System.Controllers
             }
 
         }
+        #endregion
 
+
+        //QualityAnchor Functions
+        #region
         public ActionResult QualityAnchorAccept(string qpDocId)
         {
             QPMapper<Models.QPMasterPool, QPMasterPool> mapObj = new QPMapper<Models.QPMasterPool, QPMasterPool>();
@@ -666,6 +676,9 @@ namespace QP_Management_System.Controllers
                 return View("Error");
             }
         }
+        #endregion
+
+
 
     }
 }
