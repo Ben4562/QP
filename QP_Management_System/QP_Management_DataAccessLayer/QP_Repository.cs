@@ -103,7 +103,7 @@ namespace QP_Management_DataAccessLayer
             List<QPMasterPool> doc = null;
             try
             {
-                doc = (from d in Context.QPMasterPools where d.QualityAnchor == qualityanchor && d.Status=="R" select d).ToList<QPMasterPool>();
+                doc = (from d in Context.QPMasterPools where d.QualityAnchor == qualityanchor select d).ToList<QPMasterPool>();
             }
             catch (Exception)
             {
@@ -210,5 +210,20 @@ namespace QP_Management_DataAccessLayer
             }
             return docId;
         }
+
+        public List<QPMasterPool> GetAssignedDocuments()
+        {
+            List<QPMasterPool> assigneddoc = new List<QPMasterPool>();
+            try
+            {
+                assigneddoc = (from ad in Context.QPMasterPools select ad).ToList<QPMasterPool>();
+            }
+            catch (Exception)
+            {
+                assigneddoc = null;
+            }
+            return assigneddoc;
+        }
+
     }
 }

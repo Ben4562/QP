@@ -26,6 +26,7 @@ CKEDITOR.editorConfig = function( config ) {
     { name: 'colors', items: ['TextColor', 'BGColor'] },
     { name: 'tools', items: ['UIColor', 'Maximize', 'ShowBlocks'] },
     { name: 'about', items: ['About'] }
+    //{ name: 'comment' , items: ['lite'] }
     ];
 
     config.toolbar = "Full";
@@ -34,4 +35,5 @@ CKEDITOR.editorConfig = function( config ) {
     config.width = "1000px"
     config.height = "400px"
     //config.readOnly = true; CKEDITOR.editor.setReadOnly 
+    //config.extraPlugins = 'lite';
 };

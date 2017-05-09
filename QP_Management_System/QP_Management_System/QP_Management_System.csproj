@@ -135,6 +135,26 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
+    <Content Include="Scripts\ckeditor\plugins\lite\css\lite.css" />
+    <Content Include="Scripts\ckeditor\plugins\lite\css\opentip.css" />
+    <Content Include="Scripts\ckeditor\plugins\lite\icons\hidpi\lite-acceptall.png" />
+    <Content Include="Scripts\ckeditor\plugins\lite\icons\hidpi\lite-acceptone.png" />
+    <Content Include="Scripts\ckeditor\plugins\lite\icons\hidpi\lite-rejectall.png" />
+    <Content Include="Scripts\ckeditor\plugins\lite\icons\hidpi\lite-rejectone.png" />
+    <Content Include="Scripts\ckeditor\plugins\lite\icons\hidpi\lite-toggleshow.png" />
+    <Content Include="Scripts\ckeditor\plugins\lite\icons\hidpi\lite-toggletracking.png" />
+    <Content Include="Scripts\ckeditor\plugins\lite\icons\lite-acceptall.png" />
+    <Content Include="Scripts\ckeditor\plugins\lite\icons\lite-acceptone.png" />
+    <Content Include="Scripts\ckeditor\plugins\lite\icons\lite-rejectall.png" />
+    <Content Include="Scripts\ckeditor\plugins\lite\icons\lite-rejectone.png" />
+    <Content Include="Scripts\ckeditor\plugins\lite\icons\lite-toggleshow.png" />
+    <Content Include="Scripts\ckeditor\plugins\lite\icons\lite-toggletracking.png" />
+    <Content Include="Scripts\ckeditor\plugins\lite\js\jquery.min.js" />
+    <Content Include="Scripts\ckeditor\plugins\lite\lang\de.js" />
+    <Content Include="Scripts\ckeditor\plugins\lite\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\lite\lite-interface.js" />
+    <Content Include="Scripts\ckeditor\plugins\lite\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\lite\readme.html" />
     <Content Include="Scripts\ckeditor\viewer_config.js" />
     <Content Include="Scripts\ckeditor\config.js" />
     <Content Include="Scripts\ckeditor\contents.css" />
@@ -480,6 +500,7 @@
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Scripts\ckeditor\plugins\imagebrowser\README.rst" />
+    <Content Include="Scripts\ckeditor\plugins\lite\LICENSE.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -718,6 +739,8 @@
     <Content Include="Views\User\ContactUs.cshtml" />
     <Content Include="Views\User\QPAnchor.cshtml" />
     <Content Include="Views\User\Reviewer.cshtml" />
+    <Content Include="Views\Shared\SomeError.cshtml" />
+    <Content Include="Views\Shared\DocumentError.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
