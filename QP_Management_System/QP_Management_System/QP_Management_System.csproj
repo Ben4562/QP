@@ -43,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aspose.Words, Version=17.4.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <HintPath>..\packages\Aspose.Words.17.4.0\lib\net40\Aspose.Words.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="AutoMapper">
       <HintPath>..\..\..\..\..\Desktop\DLL\AutoMapper.dll</HintPath>
     </Reference>
@@ -743,6 +747,7 @@
     <Content Include="Views\Shared\DocumentError.cshtml" />
     <Content Include="Views\User\QPAnchorDownload.cshtml" />
     <Content Include="Views\User\QPAnchorSelect.cshtml" />
+    <Content Include="Views\User\Aspose.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

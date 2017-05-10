@@ -11,6 +11,7 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml.CustomProperties;
+using Aspose.Words;
 
 namespace QP_Management_System.Controllers
 {
@@ -541,11 +542,11 @@ namespace QP_Management_System.Controllers
                         if (mainPart == null)
                         {
                             mainPart = package.AddMainDocumentPart();
-                            new Document(new Body()).Save(mainPart);
+                            new DocumentFormat.OpenXml.Wordprocessing.Document(new DocumentFormat.OpenXml.Wordprocessing.Body()).Save(mainPart);
                         }
 
                         HtmlConverter converter = new HtmlConverter(mainPart);
-                        Body body = mainPart.Document.Body;
+                        DocumentFormat.OpenXml.Wordprocessing.Body body = mainPart.Document.Body;
 
                         var paragraphs = converter.Parse(html);
                         for (int i = 0; i < paragraphs.Count; i++)
@@ -679,6 +680,47 @@ namespace QP_Management_System.Controllers
         #endregion
 
 
+        public ActionResult Aspose()
+        {
+            return View();
+        }
 
+        public ActionResult AsposePost()
+        {
+            try
+            {
+                // Open an existing document to add comments to a paragraph.
+                Aspose.Words.Document doc = new Aspose.Words.Document("C:\\Vinodh\\FMM.docx");
+                Node[] nodes = doc.GetChildNodes(NodeType.Paragraph, true).ToArray();
+
+                //E.g this is the Paragraph to which comments will added
+                Aspose.Words.Paragraph paragraph = (Aspose.Words.Paragraph)nodes[10];
+
+                DocumentBuilder builder = new DocumentBuilder(doc);
+
+
+                // Create a Comment.
+                Aspose.Words.Comment comment = new Aspose.Words.Comment(doc);
+                // Insert some text into the comment.
+                Aspose.Words.Paragraph commentParagraph = new Aspose.Words.Paragraph(doc);
+                commentParagraph.AppendChild(new Aspose.Words.Run(doc, "This is new comment!!!") );
+                comment.AppendChild(commentParagraph);
+
+
+                //Move to paragraph where comments will be added
+                builder.MoveTo(paragraph);
+                // Insert comment
+                builder.InsertNode(comment);
+
+                // Save output document.
+                doc.Save("C:\\Vinodh\\FMMOut1.docx");
+                return View("Success");
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+
+        }
     }
 }

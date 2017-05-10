@@ -119,3 +119,5 @@ C:\Users\pagidipala.trn\Source\Repos\QP\QP_Management_System\QP_Management_Syste
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\DocumentFormat.OpenXml.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\HtmlToOpenXml.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\HtmlToOpenXml.pdb
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Aspose.Words.dll
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Aspose.Words.xml

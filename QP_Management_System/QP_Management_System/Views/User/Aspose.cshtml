@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Aspose";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Aspose</h2>
+
+
+@using (Html.BeginForm("AsposePost", "User"))
+{
+    @Html.AntiForgeryToken()
+
+    <input type="submit" value="execute" class="btn btn-default" />
+
+}
