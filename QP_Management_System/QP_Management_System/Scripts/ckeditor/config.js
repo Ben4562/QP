@@ -32,7 +32,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.toolbar = "Full";
 
 
-    config.width = "1000px"
+    config.width = "940px"
     config.height = "400px"
     //config.readOnly = true; CKEDITOR.editor.setReadOnly 
     //config.extraPlugins = 'lite';

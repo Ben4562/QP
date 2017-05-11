@@ -23,7 +23,10 @@
             @Html.DisplayNameFor(model => model.Comments)
         </th>
         <th>
-            @Html.DisplayName("Action")
+
+        </th>
+        <th>
+            @Html.DisplayName("Actions")
         </th>
         <th>
 
@@ -46,6 +49,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Comments)
+        </td>
+        <td>
+            @Html.ActionLink("Review", "QualityAnchorReview", new { QPDocId = item.QPDocId })
         </td>
         <td>
             @Html.ActionLink("Download", "DownloadDoc", new { QPDocId = item.QPDocId })

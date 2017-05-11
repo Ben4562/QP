@@ -121,6 +121,8 @@ namespace QP_Management_System.Controllers
 
         #endregion
 
+        //Roles
+        #region
 
         //Author Page
         public ActionResult Author()
@@ -154,6 +156,67 @@ namespace QP_Management_System.Controllers
 
         }
 
+        //Reviewer
+        public ActionResult Reviewer()
+        {
+            if (Session["UserName"] == null || Session["Role"].ToString().ToLower() != "reviewer")
+            {
+                return View("SomeError");
+            }
+            else
+            {
+                try
+                {
+                    QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
+                    var dal = new QP_Repository();
+                    var doc = dal.GetDocumentsReviewer(Session["UserName"].ToString());
+                    List<Models.QPMasterPool> documentList = new List<Models.QPMasterPool>();
+                    if (doc.Any())
+                    {
+                        foreach (var item in doc)
+                        {
+                            documentList.Add(mapObj.Translate(item));
+                        }
+                    }
+                    return View(documentList);
+                }
+                catch (Exception)
+                {
+                    return View("DocumentError");
+                }
+            }
+        }
+
+        //Quality Anchor
+        public ActionResult QualityAnchor()
+        {
+            if (Session["UserName"] == null || Session["Role"].ToString().ToLower() != "quality anchor")
+            {
+                return View("SomeError");
+            }
+            else
+            {
+                try
+                {
+                    QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
+                    var dal = new QP_Repository();
+                    var doc = dal.GetDocumentsQualityAnchor(Session["UserName"].ToString());
+                    List<Models.QPMasterPool> documentList = new List<Models.QPMasterPool>();
+                    if (doc.Any())
+                    {
+                        foreach (var item in doc)
+                        {
+                            documentList.Add(mapObj.Translate(item));
+                        }
+                    }
+                    return View(documentList);
+                }
+                catch (Exception)
+                {
+                    return View("DocumentError");
+                }
+            }
+        }
 
         //QP-Anchor
         public ActionResult QPAnchor()
@@ -188,70 +251,8 @@ namespace QP_Management_System.Controllers
             }
         }
 
-        
-        //Quality Anchor
-        public ActionResult QualityAnchor()
-        {
-            if (Session["UserName"] == null || Session["Role"].ToString().ToLower()!= "quality anchor" )
-            {
-                return View("SomeError"); 
-            }
-            else
-            {
-                try
-                {
-                    QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
-                    var dal = new QP_Repository();
-                    var doc = dal.GetDocumentsQualityAnchor(Session["UserName"].ToString());
-                    List<Models.QPMasterPool> documentList = new List<Models.QPMasterPool>();
-                    if (doc.Any())
-                    {
-                        foreach (var item in doc)
-                        {
-                            documentList.Add(mapObj.Translate(item));
-                        }
-                    }
-                    return View(documentList);
-                }
-                catch (Exception)
-                {
-                    return View("DocumentError"); 
-                }
-            }
-        }
-
-        //Reviewer
-        #region
-        public ActionResult Reviewer()
-        {
-            if (Session["UserName"] == null || Session["Role"].ToString().ToLower() != "reviewer")
-            {
-                return View("SomeError");
-            }
-            else
-            {
-                try
-                {
-                    QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
-                    var dal = new QP_Repository();
-                    var doc = dal.GetDocumentsReviewer(Session["UserName"].ToString());
-                    List<Models.QPMasterPool> documentList = new List<Models.QPMasterPool>();
-                    if (doc.Any())
-                    {
-                        foreach (var item in doc)
-                        {
-                            documentList.Add(mapObj.Translate(item));
-                        }
-                    }
-                    return View(documentList);
-                }
-                catch (Exception)
-                {
-                    return View("DocumentError"); 
-                }
-            }
-        }
         #endregion
+
 
         //Upload-Not Used
         #region
@@ -296,8 +297,10 @@ namespace QP_Management_System.Controllers
 
         #endregion
 
+        //Download/Upload-Method
+        #region
 
-        //Download-Method
+        //download
         public ActionResult DownloadDoc(string qpDocId)
         {
             try
@@ -313,7 +316,6 @@ namespace QP_Management_System.Controllers
         }
 
         //Upload-Method 
-        #region
         public ActionResult ReUpload(Models.QPMasterPool qpDoc)
         {
             return View(qpDoc);
@@ -487,9 +489,10 @@ namespace QP_Management_System.Controllers
 
         //Editor
         #region
+
         public ActionResult Editor()
         {
-            return View(); 
+            return View();
         }
 
         [HttpPost]
@@ -566,8 +569,6 @@ namespace QP_Management_System.Controllers
             }
         }
         #endregion
-
-
 
         //QP-Anchor Functions
         #region
@@ -654,6 +655,18 @@ namespace QP_Management_System.Controllers
             }
 
         }
+
+        public ActionResult ReviewerReview(string qpDocId)
+        {
+            //var dal = new QP_Repository();
+            //var docDetails = dal.DocumentDetails(qpDocId);
+            //Models.Editor content = new Models.Editor();
+            //var file = File(docDetails.Document, System.Net.Mime.MediaTypeNames.Application.Octet,"File.Docx");
+            //DocumentFormat.OpenXml.Wordprocessing.Document doc = new DocumentFormat.OpenXml.Wordprocessing.Document();
+            //content.HtmlContent = 
+            return View();
+        }
+
         #endregion
 
 
@@ -677,9 +690,17 @@ namespace QP_Management_System.Controllers
                 return View("Error");
             }
         }
+
+        public ActionResult QualityAnchorReview(string qpDocId)
+        {
+            return View();
+        }
+
         #endregion
 
 
+        //Adding comments to documents
+        #region
         public ActionResult Aspose()
         {
             return View();
@@ -690,11 +711,11 @@ namespace QP_Management_System.Controllers
             try
             {
                 // Open an existing document to add comments to a paragraph.
-                Aspose.Words.Document doc = new Aspose.Words.Document("C:\\Vinodh\\FMM.docx");
+                Aspose.Words.Document doc = new Aspose.Words.Document("C:\\Vinodh\\Editor.docx");
                 Node[] nodes = doc.GetChildNodes(NodeType.Paragraph, true).ToArray();
 
                 //E.g this is the Paragraph to which comments will added
-                Aspose.Words.Paragraph paragraph = (Aspose.Words.Paragraph)nodes[10];
+                Aspose.Words.Paragraph paragraph = (Aspose.Words.Paragraph)nodes[5];
 
                 DocumentBuilder builder = new DocumentBuilder(doc);
 
@@ -703,7 +724,7 @@ namespace QP_Management_System.Controllers
                 Aspose.Words.Comment comment = new Aspose.Words.Comment(doc);
                 // Insert some text into the comment.
                 Aspose.Words.Paragraph commentParagraph = new Aspose.Words.Paragraph(doc);
-                commentParagraph.AppendChild(new Aspose.Words.Run(doc, "This is new comment!!!") );
+                commentParagraph.AppendChild(new Aspose.Words.Run(doc, "This is comment!!!") ); 
                 comment.AppendChild(commentParagraph);
 
 
@@ -713,14 +734,18 @@ namespace QP_Management_System.Controllers
                 builder.InsertNode(comment);
 
                 // Save output document.
-                doc.Save("C:\\Vinodh\\FMMOut1.docx");
+                doc.Save("C:\\Vinodh\\EditorOut.docx");
                 return View("Success");
             }
             catch (Exception)
             {
-                return View("Error");
+                return View("Error"); 
             }
 
         }
+
+        #endregion
+
+
     }
 }
