@@ -585,7 +585,7 @@
     <Content Include="Views\User\ContactUs.cshtml" />
     <Content Include="Views\User\QPAnchor.cshtml" />
     <Content Include="Views\User\Reviewer.cshtml" />
-    <Content Include="Views\Shared\SomeError.cshtml" />
+    <Content Include="Views\Shared\Authorization.cshtml" />
     <Content Include="Views\Shared\DocumentError.cshtml" />
     <Content Include="Views\User\QPAnchorDownload.cshtml" />
     <Content Include="Views\User\QPAnchorSelect.cshtml" />

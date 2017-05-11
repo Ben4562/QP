@@ -67,31 +67,41 @@ namespace QP_Management_System.Controllers
                     status = dal.CheckLogin(mapObj.Translate(user));
                     if (status != null)
                     {
-                        Session["UserName"] = user.UserName;
-                        Session["Role"] = status;
-                        if (status == "author")
+                        if (status == "not exists")
                         {
-                            return RedirectToAction("Author");
-                        }
-                        else if (status == "reviewer")
-                        {
-                            return RedirectToAction("Reviewer");
-                        }
-                        else if (status == "quality anchor")
-                        {
-                            return RedirectToAction("QualityAnchor");
-                        }
-                        else if (status == "qp anchor")
-                        {
-                            return RedirectToAction("QPAnchor");
+                            Session["user"] = "Couldn't find your account";
+                            return View("Login");
                         }
                         else
                         {
-                            return View("WrongPassword");
+                            Session["UserName"] = user.UserName;
+                            Session["Role"] = status;
+                            if (status == "author")
+                            {
+                                return RedirectToAction("Author");
+                            }
+                            else if (status == "reviewer")
+                            {
+                                return RedirectToAction("Reviewer");
+                            }
+                            else if (status == "quality anchor")
+                            {
+                                return RedirectToAction("QualityAnchor");
+                            }
+                            else if (status == "qp anchor")
+                            {
+                                return RedirectToAction("QPAnchor");
+                            }
+                            else
+                            {
+                                Session["password"] = "Wrong Password Try again";
+                                return View("Login");
+                            }
                         }
                     }
                     else
                     {
+
                         return View("Error");
                     }
                 }
@@ -129,7 +139,7 @@ namespace QP_Management_System.Controllers
         {
             if(Session["UserName"]==null || Session["Role"].ToString().ToLower()!= "author" )
             {
-                return View("SomeError");
+                return View("Authorization");
             }
             else
             {
@@ -161,7 +171,7 @@ namespace QP_Management_System.Controllers
         {
             if (Session["UserName"] == null || Session["Role"].ToString().ToLower() != "reviewer")
             {
-                return View("SomeError");
+                return View("Authorization");
             }
             else
             {
@@ -192,7 +202,7 @@ namespace QP_Management_System.Controllers
         {
             if (Session["UserName"] == null || Session["Role"].ToString().ToLower() != "quality anchor")
             {
-                return View("SomeError");
+                return View("Authorization");
             }
             else
             {
@@ -223,7 +233,7 @@ namespace QP_Management_System.Controllers
         {
             if(Session["UserName"]==null || Session["Role"].ToString().ToLower()!= "qp anchor")
             {
-                return View("SomeError");
+                return View("Authorization");
             }
             else
             {
@@ -252,7 +262,6 @@ namespace QP_Management_System.Controllers
         }
 
         #endregion
-
 
         //Upload-Not Used
         #region
@@ -410,7 +419,6 @@ namespace QP_Management_System.Controllers
         }
         #endregion
 
-
         //Methods for cascading dropdown
         #region
         
@@ -485,7 +493,6 @@ namespace QP_Management_System.Controllers
             return db.Users.Where(q => q.TrackId == trackId && q.RoleId == 3).ToList();
         }
         #endregion
-
 
         //Editor
         #region
@@ -697,7 +704,6 @@ namespace QP_Management_System.Controllers
         }
 
         #endregion
-
 
         //Adding comments to documents
         #region

@@ -4,14 +4,14 @@
     ViewBag.Title = "Login";
 }
 
-<h2 style="padding-left:485px;padding-top:50px" >Login</h2>
+<h2 style="padding-left:485px;padding-top:50px">Login</h2>
 
 
-@using (Html.BeginForm("PostLogin","User",Model)) 
+@using (Html.BeginForm("PostLogin", "User", Model))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal" style="padding-left:250px;padding-top:25px" >
+    <div class="form-horizontal" style="padding-left:250px;padding-top:25px">
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -19,15 +19,35 @@
             @Html.Label("UserName", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger"})
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                @{
+                    if (Session["user"] == null)
+                    {
+                        <p></p>
+                    }
+                    else
+                    {
+                        <p class="text-danger">@Session["user"]</p>
+                    }
+                }
             </div>
         </div>
 
         <div class="form-group">
             @Html.Label("Password", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control", @type = "password" } , @for = "inputSuccess" })
+                @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control", @type = "password" }, @for = "inputSuccess" })
                 @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
+                @{
+                    if (Session["password"] == null)
+                    {
+                        <p></p>
+                    }
+                    else
+                    { 
+                        <p class="text-danger">@Session["password"]</p>
+                    }
+                }
             </div>
         </div>
 
@@ -37,7 +57,7 @@
             </div>
         </div>
     </div>
-}
+                    }
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
