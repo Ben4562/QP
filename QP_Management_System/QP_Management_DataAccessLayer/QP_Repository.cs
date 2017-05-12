@@ -211,6 +211,19 @@ namespace QP_Management_DataAccessLayer
                 }
                 else
                 {
+                    int length=0;
+                    foreach (var item in ver)
+                    {
+                        if(item.Length>length)
+                        {
+                            length = item.Length;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    ver.RemoveAll(x => x.Length < length);
                     string vers = ver.Max();
                     string[] parts = vers.Split('.');
                     int i1 = int.Parse(parts[0]);
