@@ -18,7 +18,7 @@ namespace QP_Management_System.Models
         public string DocumentName { get; set; }
 
         [Required(ErrorMessage = "VersionId is Mandatory")]
-        public float VersionId { get; set; }
+        public string VersionId { get; set; }
 
         public System.DateTime CreationLog { get; set; }
 

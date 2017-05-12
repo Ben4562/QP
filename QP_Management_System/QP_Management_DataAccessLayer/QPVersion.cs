@@ -17,7 +17,7 @@ namespace QP_Management_DataAccessLayer
         public string DocId { get; set; }
         public byte[] Document { get; set; }
         public string DocumentName { get; set; }
-        public float VersionId { get; set; }
+        public string VersionId { get; set; }
         public System.DateTime CreationLog { get; set; }
         public Nullable<System.DateTime> UpdationLog { get; set; }
         public string Comments { get; set; }

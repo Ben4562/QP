@@ -53,8 +53,8 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\..\..\..\..\Desktop\DLL\AutoMapper.Net4.dll</HintPath>
     </Reference>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+    <Reference Include="DocumentFormat.OpenXml, Version=0.0.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.1\lib\net45\DocumentFormat.OpenXml.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework">
@@ -72,6 +72,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="OpenXmlPowerTools, Version=4.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenXmlPowerTools.4.5.3.1\lib\net45\OpenXmlPowerTools.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Spire.Doc, Version=5.8.76.4040, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
       <HintPath>..\packages\Spire.Doc.5.8.76\lib\net40\Spire.Doc.dll</HintPath>
       <Private>True</Private>
@@ -82,6 +86,10 @@
     </Reference>
     <Reference Include="Spire.Pdf, Version=3.8.233.4040, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
       <HintPath>..\packages\Spire.Doc.5.8.76\lib\net40\Spire.Pdf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Management.Automation.dll.10.0.10586.0\lib\net40\System.Management.Automation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
@@ -592,6 +600,16 @@
     <Content Include="Views\User\Aspose.cshtml" />
     <Content Include="Views\User\ReviewerReview.cshtml" />
     <Content Include="Views\User\QualityAnchorReview.cshtml" />
+    <Content Include="Views\Shared\UnableToLogin.cshtml" />
+    <Content Include="Views\Shared\UnableToLogout.cshtml" />
+    <Content Include="Views\Shared\UnableToDownload.cshtml" />
+    <Content Include="Views\Shared\InvalidFile.cshtml" />
+    <Content Include="Views\Shared\UnableToUpload.cshtml" />
+    <Content Include="Views\Shared\UnableToCreateQP.cshtml" />
+    <Content Include="Views\Shared\UnableToSelectQP.cshtml" />
+    <Content Include="Views\Shared\UnableToReviewerAccept.cshtml" />
+    <Content Include="Views\Shared\UnableToAcceptQA.cshtml" />
+    <Content Include="Views\Shared\UnableToReviewerReject.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

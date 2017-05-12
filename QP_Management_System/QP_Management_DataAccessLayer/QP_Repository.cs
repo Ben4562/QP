@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace QP_Management_DataAccessLayer
@@ -70,7 +71,7 @@ namespace QP_Management_DataAccessLayer
                 Context.SaveChanges();
                 status = true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 status = false;
                 
@@ -86,7 +87,7 @@ namespace QP_Management_DataAccessLayer
             {
                 
                 
-                    doc = (from d in Context.QPMasterPools where d.Author == author && d.Status=="A" select d).ToList<QPMasterPool>();
+                    doc = (from d in Context.QPMasterPools where d.Author == author select d).ToList<QPMasterPool>();
                 
               
             }
@@ -103,7 +104,7 @@ namespace QP_Management_DataAccessLayer
             List<QPMasterPool> doc = null;
             try
             {
-                doc = (from d in Context.QPMasterPools where d.QualityAnchor == qualityanchor && d.Status=="Q" select d).ToList<QPMasterPool>();
+                doc = (from d in Context.QPMasterPools where d.QualityAnchor == qualityanchor select d).ToList<QPMasterPool>();
             }
             catch (Exception)
             {
@@ -119,7 +120,7 @@ namespace QP_Management_DataAccessLayer
             List<QPMasterPool> doc = null;
             try
             {
-                doc = (from d in Context.QPMasterPools where d.Reviewer == reviewer && d.Status == "R" select d).ToList<QPMasterPool>();
+                doc = (from d in Context.QPMasterPools where d.Reviewer == reviewer select d).ToList<QPMasterPool>();
             }
             catch (Exception)
             {
@@ -169,11 +170,77 @@ namespace QP_Management_DataAccessLayer
                 oldDoc.UpdationLog = doc.UpdationLog;
                 oldDoc.Status = doc.Status;
                 Context.SaveChanges();
-                status = true;
+                bool status2 = this.UpdateDocumentVersion(doc);
+                if(status2)
+                {
+                    status = true;
+                }
+                else
+                {
+                    status = false;
+                }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 status = false;
+            }
+            return status;
+        }
+
+        public bool UpdateDocumentVersion(QPMasterPool doc)
+        {
+            QPVersion version = new QPVersion();
+            string versionId;
+            bool status = false;
+            try
+            {
+                var oldDoc = (from d in Context.QPMasterPools where d.QPDocId == doc.QPDocId select d).FirstOrDefault<QPMasterPool>();
+                var ver = (from v in Context.QPVersions where v.DocId == oldDoc.QPDocId select v.VersionId).ToList();
+                version.Comments = oldDoc.Comments;
+                version.CreationLog = oldDoc.CreationLog;
+                version.DocId = oldDoc.QPDocId;
+                version.Document = oldDoc.Document;
+                version.DocumentName = oldDoc.DocumentName;
+                version.UpdationLog = oldDoc.UpdationLog;
+                //-------------------------------------
+                if(ver.Count==0)
+                {
+                    versionId = Regex.Match(oldDoc.QPDocId, @"\d+").Value;
+                    versionId += ".1";
+                    version.VersionId = versionId;
+                }
+                else
+                {
+                    string vers = ver.Max();
+                    string[] parts = vers.Split('.');
+                    int i1 = int.Parse(parts[0]);
+                    int i2 = int.Parse(parts[1]);
+                    i2 += 1;
+                    vers = i1.ToString()+"." + i2.ToString();
+                    versionId = vers;
+                    version.VersionId = versionId;
+                }
+                //----------------------------------------
+                Context.QPVersions.Add(version);
+                Context.SaveChanges();
+                status = true;
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
             }
             return status;
         }
@@ -273,6 +340,25 @@ namespace QP_Management_DataAccessLayer
         }
 
         public bool ReviewerAccept(QPMasterPool qpObj)
+        {
+            bool status = false;
+            QPMasterPool doc = new QPMasterPool();
+            try
+            {
+                doc = (from d in Context.QPMasterPools where d.QPDocId == qpObj.QPDocId select d).FirstOrDefault();
+                doc.Status = qpObj.Status;
+                doc.UpdationLog = qpObj.UpdationLog;
+                Context.SaveChanges();
+                status = true;
+            }
+            catch (Exception)
+            {
+                status = false;
+            }
+            return status;
+        }
+
+        public bool QPReject(QPMasterPool qpObj)
         {
             bool status = false;
             QPMasterPool doc = new QPMasterPool();

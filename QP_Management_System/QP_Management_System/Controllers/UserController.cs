@@ -12,6 +12,7 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml.CustomProperties;
 using Aspose.Words;
+using OpenXmlPowerTools;
 
 namespace QP_Management_System.Controllers
 {
@@ -70,7 +71,7 @@ namespace QP_Management_System.Controllers
                         if (status == "not exists")
                         {
                             Session["user"] = "Couldn't find your account";
-                            return View("Login");
+                            return View("Login"); 
                         }
                         else
                         {
@@ -102,12 +103,12 @@ namespace QP_Management_System.Controllers
                     else
                     {
 
-                        return View("Error");
+                        return View("UnableToLogin");
                     }
                 }
                 catch (Exception)
                 {
-                    return View("SomeError");  
+                    return View("UnableToLogin");  
                 }
             }
             else
@@ -121,11 +122,11 @@ namespace QP_Management_System.Controllers
             try
             {
                 Session.Clear();
-                return RedirectToAction("Login");
+                return RedirectToAction("Login"); 
             }
             catch (Exception)
             {
-                return View("SomeError");
+                return View("UnableToLogout");
             }
         }
 
@@ -320,7 +321,7 @@ namespace QP_Management_System.Controllers
             }
             catch (Exception)
             {
-                return View("SomeError"); 
+                return View("UnableToDownload"); 
             } 
         }
 
@@ -336,7 +337,7 @@ namespace QP_Management_System.Controllers
         public ActionResult ReUploadDoc(Models.QPMasterPool qpObj, HttpPostedFileBase reUpload)
         {
             qpObj.UpdationLog = DateTime.Now;
-            qpObj.Status = "R";
+            qpObj.Status = "A";
             var dal = new QP_Repository();
             QPMapper<Models.QPMasterPool, QPMasterPool> mapObj = new QPMapper<Models.QPMasterPool, QPMasterPool>();
             try
@@ -349,23 +350,21 @@ namespace QP_Management_System.Controllers
                     bool status = dal.UpdateDocumentMaster(mapObj.Translate(qpObj));
                     if (status)
                     {
-
-                        return View("Success");
-                        
+                        return RedirectToAction("Author");                         
                     }
                     else
                     {
-                        return View("Error");
+                        return View("UnableToUpload");
                     }
                 }
                 else
                 {
-                    return View("Error");
+                    return View("Invalid File"); 
                 }
             }
             catch (Exception)
             {
-                return View("Error");
+                return View("UnableToUpload");
             }
         }
         #endregion
@@ -376,7 +375,7 @@ namespace QP_Management_System.Controllers
         {
             QP_ManagementDBContext db = new QP_ManagementDBContext();
             ViewBag.Track = new SelectList(db.Tracks, "TrackId", "TrackName");
-            return View();
+            return View(); 
         }
 
         [HttpPost]
@@ -405,16 +404,16 @@ namespace QP_Management_System.Controllers
                 bool status = dal.AddDocument(mapObj.Translate(obj));
                 if (status)
                 {
-                    return View("Success");
+                    return RedirectToAction("QPAnchor");
                 }
                 else
                 {
-                    return View("Error");
+                    return View("UnableToCreateQP"); 
                 }
             }
             catch (Exception)
             {
-                return View("SomeError");
+                return View("UnableToCreateQP"); 
             }
         }
         #endregion
@@ -497,17 +496,40 @@ namespace QP_Management_System.Controllers
         //Editor
         #region
 
-        public ActionResult Editor()
+        public ActionResult Editor(string qpDocId)
         {
-            return View();
+            var dal = new QP_Repository();
+            var mdl = new Models.Editor();
+            var docDetails = dal.DocumentDetails(qpDocId);
+            try
+            {
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    memoryStream.Write(docDetails.Document, 0, docDetails.Document.Length);
+                    using (WordprocessingDocument doc = WordprocessingDocument.Open(memoryStream, true))
+                    {
+                        HtmlConverterSettings settings = new HtmlConverterSettings()
+                        {
+                        };
+                        System.Xml.Linq.XElement html = OpenXmlPowerTools.HtmlConverter.ConvertToHtml(doc, settings);
+                        mdl.HtmlContent = html.ToStringNewLineOnAttributes();
+                    }
+                }
+                return View(mdl);
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+
         }
 
-        [HttpPost]
-        [ValidateInput(false)]
-        public FileResult Editor(Models.Editor doc)
-        {
-            return File(HtmlToWord(doc.HtmlContent), "application/vnd.openxmlformats-officedocument.wordprocessingml.document"); 
-        }
+        //[HttpPost]
+        //[ValidateInput(false)]
+        //public FileResult Editor(Models.Editor doc)
+        //{
+        //    return File(HtmlToWord(doc.HtmlContent), "application/vnd.openxmlformats-officedocument.wordprocessingml.document"); 
+        //}
 
         #endregion
 
@@ -536,63 +558,70 @@ namespace QP_Management_System.Controllers
 
         //Method to convert
         #region
-        public static byte[] HtmlToWord(String html)
-        {
-            try
-            {
-                //const string filename = "test.docx";
-                //string html = Properties.Resources.DemoHtml;
-                //if (File.Exists(filename)) File.Delete(filename);
+        //public static byte[] HtmlToWord(String html)
+        //{
+        //    try
+        //    {
+        //        //const string filename = "test.docx";
+        //        //string html = Properties.Resources.DemoHtml;
+        //        //if (File.Exists(filename)) File.Delete(filename);
 
-                using (MemoryStream generatedDocument = new MemoryStream())
-                {
-                    using (WordprocessingDocument package = WordprocessingDocument.Create(generatedDocument, WordprocessingDocumentType.Document))
-                    {
-                        MainDocumentPart mainPart = package.MainDocumentPart;
-                        if (mainPart == null)
-                        {
-                            mainPart = package.AddMainDocumentPart();
-                            new DocumentFormat.OpenXml.Wordprocessing.Document(new DocumentFormat.OpenXml.Wordprocessing.Body()).Save(mainPart);
-                        }
+        //        using (MemoryStream generatedDocument = new MemoryStream())
+        //        {
+        //            using (WordprocessingDocument package = WordprocessingDocument.Create(generatedDocument, WordprocessingDocumentType.Document))
+        //            {
+        //                MainDocumentPart mainPart = package.MainDocumentPart;
+        //                if (mainPart == null)
+        //                {
+        //                    mainPart = package.AddMainDocumentPart();
+        //                    new DocumentFormat.OpenXml.Wordprocessing.Document(new DocumentFormat.OpenXml.Wordprocessing.Body()).Save(mainPart);
+        //                }
 
-                        HtmlConverter converter = new HtmlConverter(mainPart);
-                        DocumentFormat.OpenXml.Wordprocessing.Body body = mainPart.Document.Body;
+        //                NotesFor.HtmlToOpenXml.HtmlConverter converter = new NotesFor.HtmlToOpenXml.HtmlConverter(mainPart);
+        //                DocumentFormat.OpenXml.Wordprocessing.Body body = mainPart.Document.Body;
 
-                        var paragraphs = converter.Parse(html);
-                        for (int i = 0; i < paragraphs.Count; i++)
-                        {
-                            body.Append(paragraphs[i]);
-                        }
+        //                var paragraphs = converter.Parse(html);
+        //                for (int i = 0; i < paragraphs.Count; i++)
+        //                {
+        //                    body.Append(paragraphs[i]);
+        //                }
 
-                        mainPart.Document.Save();
-                    }
+        //                mainPart.Document.Save();
+        //            }
 
-                    return generatedDocument.ToArray(); 
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        //            return generatedDocument.ToArray(); 
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
         #endregion
 
         //QP-Anchor Functions
         #region
         public ActionResult QPAnchorDownload()
         {
-            QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
-            var dal = new QP_Repository();
-            var doc = dal.QPAnchorDownload();
-            List<Models.QPMasterPool> downloadDoc = new List<Models.QPMasterPool>();
-            if(doc.Any())
+            try
             {
-                foreach (var item in doc)
+                QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
+                var dal = new QP_Repository();
+                var doc = dal.QPAnchorDownload();
+                List<Models.QPMasterPool> downloadDoc = new List<Models.QPMasterPool>();
+                if (doc.Any())
                 {
-                    downloadDoc.Add(mapObj.Translate(item));
+                    foreach (var item in doc)
+                    {
+                        downloadDoc.Add(mapObj.Translate(item));
+                    }
                 }
+                return View(downloadDoc);
             }
-            return View(downloadDoc);
+            catch (Exception)
+            {
+                return View("DocumentError");
+            } 
         }
 
         public ActionResult QPAnchorDownloadPost(string qpDocId)
@@ -601,28 +630,35 @@ namespace QP_Management_System.Controllers
             {
                 var dal = new QP_Repository();
                 var docDetails = dal.DocumentDetails(qpDocId);
-                return File(docDetails.Document, System.Net.Mime.MediaTypeNames.Application.Octet, docDetails.DocumentName + ".Docx");
+                return File(docDetails.Document, System.Net.Mime.MediaTypeNames.Application.Octet, docDetails.DocumentName + ".Docx"); 
             }
             catch (Exception)
             {
-                return View("SomeError"); 
+                return View("UnableToDownload"); 
             }
         }
 
         public ActionResult QPAnchorSelect()
         {
-            QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
-            var dal = new QP_Repository();
-            var doc = dal.QPAnchorSelect();
-            List<Models.QPMasterPool> downloadDoc = new List<Models.QPMasterPool>();
-            if (doc.Any())
+            try
             {
-                foreach (var item in doc)
+                QPMapper<QPMasterPool, Models.QPMasterPool> mapObj = new QPMapper<QPMasterPool, Models.QPMasterPool>();
+                var dal = new QP_Repository();
+                var doc = dal.QPAnchorSelect();
+                List<Models.QPMasterPool> downloadDoc = new List<Models.QPMasterPool>();
+                if (doc.Any())
                 {
-                    downloadDoc.Add(mapObj.Translate(item));
+                    foreach (var item in doc)
+                    {
+                        downloadDoc.Add(mapObj.Translate(item));
+                    }
                 }
+                return View(downloadDoc);
             }
-            return View(downloadDoc);
+            catch (Exception)
+            {
+                return View("DocumentError");
+            }
         }
 
         public ActionResult QPAnchorSelectPost(string qpDocId)
@@ -631,15 +667,14 @@ namespace QP_Management_System.Controllers
             bool status = dal.QPAnchorSelectDoc(qpDocId);
             if(status)
             {
-                return View("Success");
+                return RedirectToAction("QPAnchor");
             }
             else
             {
-                return View("Error"); 
+                return View("UnableToSelectQP"); 
             }
         }
         #endregion
-
 
         //Reviewer Functions
         #region
@@ -654,28 +689,40 @@ namespace QP_Management_System.Controllers
             bool status = dal.ReviewerAccept(mapObj.Translate(doc));
             if(status)
             {
-                return View("Success");
+                return RedirectToAction("Reviewer");
             }
             else
             {
-                return View("Error");
+                return View("UnableToReviewerAccept");
             }
 
+        }
+
+        public ActionResult ReviewerReject(string qpDocId)
+        {
+            QPMapper<Models.QPMasterPool, QPMasterPool> mapObj = new QPMapper<Models.QPMasterPool, QPMasterPool>();
+            var dal = new QP_Repository();
+            Models.QPMasterPool doc = new Models.QPMasterPool();
+            doc.QPDocId = qpDocId;
+            doc.Status = "A";
+            doc.UpdationLog = DateTime.Now;
+            bool status = dal.QPReject(mapObj.Translate(doc));
+            if (status)
+            {
+                return RedirectToAction("Reviewer");
+            }
+            else
+            {
+                return View("UnableToReviewerReject");
+            }
         }
 
         public ActionResult ReviewerReview(string qpDocId)
         {
-            //var dal = new QP_Repository();
-            //var docDetails = dal.DocumentDetails(qpDocId);
-            //Models.Editor content = new Models.Editor();
-            //var file = File(docDetails.Document, System.Net.Mime.MediaTypeNames.Application.Octet,"File.Docx");
-            //DocumentFormat.OpenXml.Wordprocessing.Document doc = new DocumentFormat.OpenXml.Wordprocessing.Document();
-            //content.HtmlContent = 
-            return View();
+            return View(); 
         }
 
         #endregion
-
 
         //QualityAnchor Functions
         #region
@@ -690,11 +737,29 @@ namespace QP_Management_System.Controllers
             bool status = dal.QualityAnchorAccept(mapObj.Translate(doc));
             if (status)
             {
-                return View("Success");
+                return RedirectToAction("QualityAnchor");
             }
             else
             {
-                return View("Error");
+                return View("UnableToAcceptQA"); 
+            }
+        }
+        public ActionResult QualityAnchorReject(string qpDocId)
+        {
+            QPMapper<Models.QPMasterPool, QPMasterPool> mapObj = new QPMapper<Models.QPMasterPool, QPMasterPool>();
+            var dal = new QP_Repository();
+            Models.QPMasterPool doc = new Models.QPMasterPool();
+            doc.QPDocId = qpDocId;
+            doc.Status = "A";
+            doc.UpdationLog = DateTime.Now;
+            bool status = dal.QPReject(mapObj.Translate(doc));
+            if (status)
+            {
+                return RedirectToAction("QualityAnchor");
+            }
+            else
+            {
+                return View("UnableToReviewerReject");
             }
         }
 
@@ -723,7 +788,7 @@ namespace QP_Management_System.Controllers
                 //E.g this is the Paragraph to which comments will added
                 Aspose.Words.Paragraph paragraph = (Aspose.Words.Paragraph)nodes[5];
 
-                DocumentBuilder builder = new DocumentBuilder(doc);
+                Aspose.Words.DocumentBuilder builder = new Aspose.Words.DocumentBuilder(doc);
 
 
                 // Create a Comment.

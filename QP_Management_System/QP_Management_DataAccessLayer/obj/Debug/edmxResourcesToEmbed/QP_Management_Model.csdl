@@ -5,7 +5,7 @@
       <PropertyRef Name="FAId" />
     </Key>
     <Property Name="FAId" Type="Int32" Nullable="false" />
-    <Property Name="FAName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FAName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="TotalMarks" Type="Single" />
     <Property Name="TrackId" Type="Int32" />
     <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
@@ -19,7 +19,7 @@
       <PropertyRef Name="ModuleId" />
     </Key>
     <Property Name="ModuleId" Type="Int32" Nullable="false" />
-    <Property Name="ModuleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ModuleName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="FAId" Type="Int32" />
     <Property Name="Marks" Type="Single" />
     <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
@@ -34,7 +34,7 @@
     </Key>
     <Property Name="QPDocId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Document" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-    <Property Name="DocumentName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DocumentName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Reviewer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="QualityAnchor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -56,8 +56,8 @@
     </Key>
     <Property Name="DocId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Document" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-    <Property Name="DocumentName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="VersionId" Type="Single" Nullable="false" />
+    <Property Name="DocumentName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="VersionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="UpdationLog" Type="DateTime" Precision="3" />
     <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -68,7 +68,7 @@
       <PropertyRef Name="RoleId" />
     </Key>
     <Property Name="RoleId" Type="Int32" Nullable="false" />
-    <Property Name="RoleName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RoleName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="UpdationLog" Type="DateTime" Precision="3" />
     <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -79,7 +79,7 @@
       <PropertyRef Name="TrackId" />
     </Key>
     <Property Name="TrackId" Type="Int32" Nullable="false" />
-    <Property Name="TrackName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TrackName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="UpdationLog" Type="DateTime" Precision="3" />
     <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />

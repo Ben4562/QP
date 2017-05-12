@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="12fc7263a25d45cebdfa203923270944" Name="Diagram1">
+      <Diagram DiagramId="95d06fd226c74c30803e6e2b9a873eac" Name="Diagram1">
         <EntityTypeShape EntityType="QP_Management_Model.FocusArea" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="QP_Management_Model.Module" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="QP_Management_Model.QPMasterPool" Width="1.5" PointX="7.5" PointY="4.375" IsExpanded="true" />

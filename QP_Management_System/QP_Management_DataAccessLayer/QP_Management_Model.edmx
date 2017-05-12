@@ -4,13 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="QP_Management_Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="QP_Management_Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="FocusArea">
           <Key>
             <PropertyRef Name="FAId" />
           </Key>
           <Property Name="FAId" Type="int" Nullable="false" />
-          <Property Name="FAName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FAName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="TotalMarks" Type="real" />
           <Property Name="TrackId" Type="int" />
           <Property Name="CreationLog" Type="datetime" Nullable="false" />
@@ -22,7 +22,7 @@
             <PropertyRef Name="ModuleId" />
           </Key>
           <Property Name="ModuleId" Type="int" Nullable="false" />
-          <Property Name="ModuleName" Type="varchar" MaxLength="100" />
+          <Property Name="ModuleName" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="FAId" Type="int" />
           <Property Name="Marks" Type="real" />
           <Property Name="CreationLog" Type="datetime" Nullable="false" />
@@ -35,7 +35,7 @@
           </Key>
           <Property Name="QPDocId" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Document" Type="varbinary(max)" Nullable="false" />
-          <Property Name="DocumentName" Type="varchar" MaxLength="150" />
+          <Property Name="DocumentName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Author" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Reviewer" Type="varchar" MaxLength="50" />
           <Property Name="QualityAnchor" Type="varchar" MaxLength="50" />
@@ -52,8 +52,8 @@
           </Key>
           <Property Name="DocId" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Document" Type="varbinary(max)" Nullable="false" />
-          <Property Name="DocumentName" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="VersionId" Type="real" Nullable="false" />
+          <Property Name="DocumentName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="VersionId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CreationLog" Type="datetime" Nullable="false" />
           <Property Name="UpdationLog" Type="datetime" />
           <Property Name="Comments" Type="varchar(max)" />
@@ -63,7 +63,7 @@
             <PropertyRef Name="RoleId" />
           </Key>
           <Property Name="RoleId" Type="int" Nullable="false" />
-          <Property Name="RoleName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="CreationLog" Type="datetime" Nullable="false" />
           <Property Name="UpdationLog" Type="datetime" />
           <Property Name="Comments" Type="varchar(max)" />
@@ -73,7 +73,7 @@
             <PropertyRef Name="TrackId" />
           </Key>
           <Property Name="TrackId" Type="int" Nullable="false" />
-          <Property Name="TrackName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="TrackName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CreationLog" Type="datetime" Nullable="false" />
           <Property Name="UpdationLog" Type="datetime" />
           <Property Name="Comments" Type="varchar(max)" />
@@ -198,7 +198,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="ufn_GenerateDocId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar" />
         <EntityContainer Name="QP_Management_ModelStoreContainer">
           <EntitySet Name="FocusArea" EntityType="Self.FocusArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />
@@ -244,7 +243,8 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QP_Management_Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -253,7 +253,7 @@
             <PropertyRef Name="FAId" />
           </Key>
           <Property Name="FAId" Type="Int32" Nullable="false" />
-          <Property Name="FAName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FAName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TotalMarks" Type="Single" />
           <Property Name="TrackId" Type="Int32" />
           <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
@@ -267,7 +267,7 @@
             <PropertyRef Name="ModuleId" />
           </Key>
           <Property Name="ModuleId" Type="Int32" Nullable="false" />
-          <Property Name="ModuleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ModuleName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FAId" Type="Int32" />
           <Property Name="Marks" Type="Single" />
           <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
@@ -282,7 +282,7 @@
           </Key>
           <Property Name="QPDocId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Document" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="DocumentName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Reviewer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="QualityAnchor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -304,8 +304,8 @@
           </Key>
           <Property Name="DocId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Document" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="DocumentName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="VersionId" Type="Single" Nullable="false" />
+          <Property Name="DocumentName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VersionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdationLog" Type="DateTime" Precision="3" />
           <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -316,7 +316,7 @@
             <PropertyRef Name="RoleId" />
           </Key>
           <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <Property Name="RoleName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RoleName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdationLog" Type="DateTime" Precision="3" />
           <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -327,7 +327,7 @@
             <PropertyRef Name="TrackId" />
           </Key>
           <Property Name="TrackId" Type="Int32" Nullable="false" />
-          <Property Name="TrackName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TrackName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreationLog" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdationLog" Type="DateTime" Precision="3" />
           <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />

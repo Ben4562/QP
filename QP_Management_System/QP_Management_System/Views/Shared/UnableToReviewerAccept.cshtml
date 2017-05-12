@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "UnableToReviewerAccept";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center" style="text-align:center">
+    <h3>Sorry !</h3>
+
+    <h4>Unable to accept the question paper currently. Please try again after sometime</h4>
+    @{
+        if (Session["Role"].ToString().ToLower() == "author")
+        {
+            @Html.ActionLink("Click here to go back", "Author", "User")
+        }
+        else if (Session["Role"].ToString().ToLower() == "reviewer")
+        {
+            @Html.ActionLink("Click here to go back", "Reviewer", "User")
+        }
+        else if (Session["Role"].ToString().ToLower() == "quality anchor")
+        {
+            @Html.ActionLink("Click here to go back", "QualityAnchor", "User")
+        }
+        else if (Session["Role"].ToString().ToLower() == "qp anchor")
+        {
+            @Html.ActionLink("Click here to go back", "QPAnchor", "User")
+        }
+    }
+</div>
+
+

@@ -1,66 +1,336 @@
 ﻿@model IEnumerable<QP_Management_System.Models.QPMasterPool>
-
 @{
     ViewBag.Title = "Reviewer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Question Papers</h3>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DocumentName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Author)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Reviewer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.QualityAnchor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Comments)
-        </th>
-        <th>
-            
-        </th>
-        <th>
-            @Html.DisplayName("Actions")
-        </th>
-        <th>
-
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DocumentName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Reviewer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.QualityAnchor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comments)
-        </td>
-        <td>
-            @Html.ActionLink("Download", "DownloadDoc", new { QPDocId = item.QPDocId })
-        </td>
-        <td>
-            @Html.ActionLink("Review", "ReviewerReview", new { QPDocId = item.QPDocId }) 
-        </td>
-        <td>
-            @Html.ActionLink("Accept", "ReviewerAccept", new { QPDocId = item.QPDocId })
-        </td>
-    </tr>
+@{
+    int aCount = 0, rCount = 0,qCount=0, fCount = 0;
+    foreach (var item in Model)
+    {
+        if (item.Status == "A")
+        {
+            aCount += 1;
+        }
+        else if (item.Status == "R")
+        {
+            rCount += 1;
+        }
+        else if(item.Status == "Q")
+        {
+            qCount += 1;
+        }
+        else if (item.Status == "F")
+        {
+            fCount += 1;
+        }
+    }
 }
 
-</table>
+
+@*<h4>Welcome @Session["UserName"]</h4>*@
+<h3>Dashboard</h3>
+
+<ul class="nav nav-tabs">    
+    <li class="active"><a href="#rd" data-toggle="tab" aria-expanded="false">Documents to be Reviewed <span class="badge">@rCount</span>  </a></li>
+    <li class=""><a href="#qd" data-toggle="tab" aria-expanded="false">Documents to be Accepted <span class="badge">@qCount</span>  </a></li>
+    <li class=""><a href="#ad" data-toggle="tab" aria-expanded="true">Documents Assigned for Authors <span class="badge">@aCount</span> </a></li>
+    <li class=""><a href="#acd" data-toggle="tab" aria-expanded="false">Accepted Documents <span class="badge">@fCount</span> </a></li>
+    @*<li class="disabled"><a>Disabled</a></li>*@
+    @*<li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+            Others <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li class=""><a href="#dropdown1" data-toggle="tab" aria-expanded="false">Remove Document</a></li>
+            <li class="divider"></li>
+            <li class=""><a href="#dropdown2" data-toggle="tab" aria-expanded="false">Advanced</a></li>
+        </ul>
+    </li>*@
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade active in" id="rd">
+        <br />
+        @{
+            if (rCount != 0)
+            {
+                <table class="table">
+                    <tr class="active">
+                        <th>
+                            @Html.DisplayName("DocumentName")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Author")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Reviewer")
+                        </th>
+                        <th>
+                            @Html.DisplayName("QualityAnchor")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Comments")
+                        </th>
+                        <th>
+
+                        </th>
+                        <th>
+                            @Html.DisplayName("Actions")
+                        </th>
+                        <th>
+
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                    @{
+                        foreach (var item1 in Model)
+                        {
+                            if (item1.Status == "R")
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.DocumentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Author)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Reviewer)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.QualityAnchor)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Comments)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Download", "DownloadDoc", new { QPDocId = item1.QPDocId })
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Review", "Editor", new { QPDocId = item1.QPDocId })
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Accept", "ReviewerAccept", new { QPDocId = item1.QPDocId }, new { onclick = "alert('Question paper is accepted')" })
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Reject", "ReviewerReject", new { QPDocId = item1.QPDocId }, new { onclick = "alert('Question paper is rejected and sent to Author for re-editing')" })
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                </table>
+                        }
+                        else
+                        {
+                            <p>No document for reviewing</p>
+                        }
+        }
+    </div>
+    <div class="tab-pane fade" id="qd">
+        <br />
+        @{
+            if (qCount != 0)
+            {
+                <table class="table">
+                    <tr class="active">
+                        <th>
+                            @Html.DisplayName("DocumentName")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Author")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Reviewer")
+                        </th>
+                        <th>
+                            @Html.DisplayName("QualityAnchor")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Comments")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Action")
+                        </th>
+                    </tr>
+                    @{
+                        foreach (var item1 in Model)
+                        {
+                            if (item1.Status == "Q")
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.DocumentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Author)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Reviewer)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.QualityAnchor)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Comments)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Download", "DownloadDoc", new { QPDocId = item1.QPDocId })
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                </table>
+                        }
+                        else
+                        {
+                            <p>No documents currently</p>
+                        }
+        }
+    </div>
+    <div class="tab-pane fade" id="ad">
+        <br />
+        @{
+            if (aCount != 0)
+            {
+                <table class="table">
+                    <tr class="active">
+                        <th>
+                            @Html.DisplayName("DocumentName")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Author")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Reviewer")
+                        </th>
+                        <th>
+                            @Html.DisplayName("QualityAnchor")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Comments")
+                        </th>
+                    </tr>
+                    @{
+                        foreach (var item1 in Model)
+                        {
+                            if (item1.Status == "A")
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.DocumentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Author)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Reviewer)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.QualityAnchor)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Comments)
+                                    </td>
+
+                                </tr>
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                </table>
+                        }
+                        else
+                        {
+                            <p>No documents assigned</p>
+                        }
+        }
+    </div>
+    <div class="tab-pane fade" id="acd">
+        <br />
+        @{
+            if (fCount != 0)
+            {
+                <table class="table">
+                    <tr class="active">
+                        <th>
+                            @Html.DisplayName("DocumentName")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Author")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Reviewer")
+                        </th>
+                        <th>
+                            @Html.DisplayName("QualityAnchor")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Comments")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Action")
+                        </th>
+                    </tr>
+                    @{
+                        foreach (var item1 in Model)
+                        {
+                            if (item1.Status == "F")
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.DocumentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Author)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Reviewer)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.QualityAnchor)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Comments)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Download", "DownloadDoc", new { QPDocId = item1.QPDocId })
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                </table>
+                        }
+                        else
+                        {
+                            <p>No finalised Documents</p>
+                        }
+        }
+
+    </div>
+    @*<div class="tab-pane fade" id="dropdown1">
+            <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
+        </div>
+        <div class="tab-pane fade" id="dropdown2">
+            <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater.</p>
+        </div>*@
+</div>

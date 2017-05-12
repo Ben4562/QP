@@ -5,6 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div>
+    @Html.ActionLink("Back", "QPAnchor")
+</div>
+
+
 @{
     if (Model.Any())
     {
@@ -79,7 +84,7 @@
                         @Html.DisplayFor(modelItem => item.Comments)
                     </td>
                     <td>
-                        @Html.ActionLink("Select", "QPAnchorSelectPost", new { QPDocId = item.QPDocId })
+                        @Html.ActionLink("Select", "QPAnchorSelectPost", new { QPDocId = item.QPDocId }, new { onclick="alert('Question paper is selected')" } ) 
                     </td>
                 </tr>
             }
@@ -94,5 +99,3 @@
         </h3>
     }
 }
-
-

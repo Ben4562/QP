@@ -25,6 +25,8 @@ CKEDITOR.editorConfig = function( config ) {
    ];
 
 
+
+
     config.width = "850px"
     config.height = "400px"
     config.readOnly = true; CKEDITOR.editor.setReadOnly 

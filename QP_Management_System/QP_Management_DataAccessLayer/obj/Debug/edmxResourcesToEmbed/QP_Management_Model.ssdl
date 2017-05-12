@@ -5,7 +5,7 @@
       <PropertyRef Name="FAId" />
     </Key>
     <Property Name="FAId" Type="int" Nullable="false" />
-    <Property Name="FAName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="FAName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="TotalMarks" Type="real" />
     <Property Name="TrackId" Type="int" />
     <Property Name="CreationLog" Type="datetime" Nullable="false" />
@@ -17,7 +17,7 @@
       <PropertyRef Name="ModuleId" />
     </Key>
     <Property Name="ModuleId" Type="int" Nullable="false" />
-    <Property Name="ModuleName" Type="varchar" MaxLength="100" />
+    <Property Name="ModuleName" Type="varchar" MaxLength="150" Nullable="false" />
     <Property Name="FAId" Type="int" />
     <Property Name="Marks" Type="real" />
     <Property Name="CreationLog" Type="datetime" Nullable="false" />
@@ -30,7 +30,7 @@
     </Key>
     <Property Name="QPDocId" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="Document" Type="varbinary(max)" Nullable="false" />
-    <Property Name="DocumentName" Type="varchar" MaxLength="150" />
+    <Property Name="DocumentName" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Author" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Reviewer" Type="varchar" MaxLength="50" />
     <Property Name="QualityAnchor" Type="varchar" MaxLength="50" />
@@ -47,8 +47,8 @@
     </Key>
     <Property Name="DocId" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="Document" Type="varbinary(max)" Nullable="false" />
-    <Property Name="DocumentName" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="VersionId" Type="real" Nullable="false" />
+    <Property Name="DocumentName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="VersionId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="CreationLog" Type="datetime" Nullable="false" />
     <Property Name="UpdationLog" Type="datetime" />
     <Property Name="Comments" Type="varchar(max)" />
@@ -58,7 +58,7 @@
       <PropertyRef Name="RoleId" />
     </Key>
     <Property Name="RoleId" Type="int" Nullable="false" />
-    <Property Name="RoleName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="RoleName" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="CreationLog" Type="datetime" Nullable="false" />
     <Property Name="UpdationLog" Type="datetime" />
     <Property Name="Comments" Type="varchar(max)" />
@@ -68,7 +68,7 @@
       <PropertyRef Name="TrackId" />
     </Key>
     <Property Name="TrackId" Type="int" Nullable="false" />
-    <Property Name="TrackName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="TrackName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="CreationLog" Type="datetime" Nullable="false" />
     <Property Name="UpdationLog" Type="datetime" />
     <Property Name="Comments" Type="varchar(max)" />
@@ -193,7 +193,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Function Name="ufn_GenerateDocId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar" />
   <EntityContainer Name="QP_Management_ModelStoreContainer">
     <EntitySet Name="FocusArea" EntityType="Self.FocusArea" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />

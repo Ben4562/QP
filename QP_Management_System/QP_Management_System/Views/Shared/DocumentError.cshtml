@@ -4,7 +4,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Sorry</h3>
+<div class="text-center" style="text-align:center">
+    <h3>Sorry</h3>
 
-<h4>Error occured in fetching document details. <br /> Try again after some time </h4>
+    <h4>Error occured in fetching document details<br /> Try again after some time </h4>
+        @{
+            if (Session["Role"].ToString().ToLower() == "author")
+            {
+                @Html.ActionLink("Click here to go back", "Author", "User")
+            }
+            else if (Session["Role"].ToString().ToLower() == "reviewer")
+            {
+                @Html.ActionLink("Click here to go back", "Reviewer", "User")
+            }
+            else if (Session["Role"].ToString().ToLower() == "quality anchor")
+            {
+                @Html.ActionLink("Click here to go back", "QualityAnchor", "User")
+            }
+            else if (Session["Role"].ToString().ToLower() == "qp anchor")
+            {
+                @Html.ActionLink("Click here to go back", "QPAnchor", "User")
+            }
+        }
+</div>
 
