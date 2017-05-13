@@ -337,7 +337,8 @@ namespace QP_Management_System.Controllers
         public ActionResult ReUploadDoc(Models.QPMasterPool qpObj, HttpPostedFileBase reUpload)
         {
             qpObj.UpdationLog = DateTime.Now;
-            qpObj.Status = "A";
+            qpObj.Status = "R";
+            qpObj.DocumentName = reUpload.FileName;
             var dal = new QP_Repository();
             QPMapper<Models.QPMasterPool, QPMasterPool> mapObj = new QPMapper<Models.QPMasterPool, QPMasterPool>();
             try
@@ -817,6 +818,32 @@ namespace QP_Management_System.Controllers
 
         #endregion
 
+        //View_Profile Functions
+        #region
+
+
+        public ActionResult ViewProfile(Models.Users userModel)
+        {
+            if(Session["UserName"]==null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                var dal = new QP_Repository();
+                QPMapper<User, Models.Users> mapObj = new QPMapper<User, Models.Users>();
+                var user = dal.GetUserDetails(Session["UserName"].ToString());
+                userModel = mapObj.Translate(user);
+                ViewBag.TrackName = dal.GetTrackName(Convert.ToInt32(userModel.TrackId));
+                ViewBag.QPAnchor = dal.GetQPAnchor(Convert.ToInt32(userModel.TrackId));
+                ViewBag.Count = dal.GetDocumentsForProfile(Session["UserName"].ToString());
+                return View(userModel);
+            }
+            
+        }
+
+
+        #endregion
 
     }
 }

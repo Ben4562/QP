@@ -167,6 +167,7 @@ namespace QP_Management_DataAccessLayer
                 var oldDoc = (from d in Context.QPMasterPools where d.QPDocId == doc.QPDocId select d).FirstOrDefault<QPMasterPool>();
                 oldDoc.Document = doc.Document;
                 oldDoc.Comments = doc.Comments;
+                oldDoc.DocumentName = doc.DocumentName;
                 oldDoc.UpdationLog = doc.UpdationLog;
                 oldDoc.Status = doc.Status;
                 Context.SaveChanges();
@@ -407,6 +408,63 @@ namespace QP_Management_DataAccessLayer
                 status = false;
             }
             return status;
+        }
+
+        public User GetUserDetails(string userId)
+        {
+            User userDetails = new User();
+            try
+            {
+                userDetails = (from u in Context.Users where u.UserName == userId select u).FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                userDetails = null;
+            }
+            return userDetails;
+        }
+
+        public string GetTrackName(int trackId)
+        {
+            string trackName;
+            try
+            {
+                trackName = (from t in Context.Tracks where t.TrackId == trackId select t.TrackName).FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                trackName = null;
+            }
+            return trackName;
+        }
+
+
+        public string GetQPAnchor(int trackId)
+        {
+            string qpAnchor;
+            try
+            {
+                qpAnchor = (from q in Context.Users where q.TrackId == trackId && q.RoleId == 4 select q.UserName).FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                qpAnchor = null;
+            }
+            return qpAnchor;
+        }
+
+        public int GetDocumentsForProfile(string userName)
+        {
+            List<QPMasterPool> docs = new List<QPMasterPool>();
+            try
+            {
+                docs = (from d in Context.QPMasterPools where d.Author == userName || d.Reviewer == userName || d.QualityAnchor == userName select d).ToList();
+            }
+            catch (Exception)
+            {
+                docs = null;
+            }
+            return docs.Count;
         }
 
     }

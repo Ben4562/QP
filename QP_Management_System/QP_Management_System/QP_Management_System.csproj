@@ -610,6 +610,7 @@
     <Content Include="Views\Shared\UnableToReviewerAccept.cshtml" />
     <Content Include="Views\Shared\UnableToAcceptQA.cshtml" />
     <Content Include="Views\Shared\UnableToReviewerReject.cshtml" />
+    <Content Include="Views\User\ViewProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

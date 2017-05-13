@@ -1,0 +1,96 @@
+﻿@model QP_Management_System.Models.Users
+
+@{
+    ViewBag.Title = "ViewProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    if (Session["UserName"] == null)
+    {
+        <div class="text-center" style="text-align:center">
+            <p>Please Login before proceeding</p>
+            @Html.ActionLink("Click here to login", "Login", "User")
+        </div>
+    }
+    else
+    {
+        <div style="text-align:center">
+            <h4>Hi! @Session["UserName"]</h4>
+            <br />
+        </div>
+
+        <div class="container">
+
+            <div class="row">
+                @*<div class="col-lg-8">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Work Details</h3>
+                            </div>
+                            <div class="panel-body">
+                                Panel content
+                            </div>
+                        </div>
+                    </div>*@
+
+                <div class="col-lg-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">My Details</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p><strong>Track</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;@ViewBag.TrackName</p>
+                            @{
+                                if (Session["Role"].ToString().ToLower() != "qp anchor")
+                                {
+                                    <p><strong>Documents Worked on</strong>&nbsp;&nbsp;:&nbsp;&nbsp;@ViewBag.Count</p>
+                                }
+                                else
+                                {
+                                    <p></p>
+                                }
+                            }
+
+                            <p>@Html.ActionLink("Change Password", "ChangePassword", "User")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Other Details</h3>
+                        </div>
+                        <div class="panel-body">
+                            @{
+                                if (Session["Role"].ToString().ToLower() != "qp anchor")
+                                {
+                                    <p><strong>QP Anchor</strong>&nbsp;&nbsp;:&nbsp;&nbsp;@ViewBag.QPAnchor</p>
+                                }
+                                else
+                                {
+                                    <p>Options</p>
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+
+                </div>
+
+                <div class="col-lg-4">
+
+                </div>
+
+            </div>
+
+        </div>
+
+                                }
+}
