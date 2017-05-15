@@ -527,9 +527,9 @@ namespace QP_Management_System.Controllers
 
         //[HttpPost]
         //[ValidateInput(false)]
-        //public FileResult Editor(Models.Editor doc)
+        //public FileResult Editor(Models.Editor doc,FormCollection frm)
         //{
-        //    return File(HtmlToWord(doc.HtmlContent), "application/vnd.openxmlformats-officedocument.wordprocessingml.document"); 
+        //    return File(HtmlToWord(doc.HtmlContent), "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
         //}
 
         #endregion
@@ -783,11 +783,11 @@ namespace QP_Management_System.Controllers
             try
             {
                 // Open an existing document to add comments to a paragraph.
-                Aspose.Words.Document doc = new Aspose.Words.Document("C:\\Vinodh\\Editor.docx");
+                Aspose.Words.Document doc = new Aspose.Words.Document("C:\\Vinodh\\EditorOut.docx");
                 Node[] nodes = doc.GetChildNodes(NodeType.Paragraph, true).ToArray();
 
                 //E.g this is the Paragraph to which comments will added
-                Aspose.Words.Paragraph paragraph = (Aspose.Words.Paragraph)nodes[5];
+                Aspose.Words.Paragraph paragraph = (Aspose.Words.Paragraph)nodes[1];
 
                 Aspose.Words.DocumentBuilder builder = new Aspose.Words.DocumentBuilder(doc);
 
@@ -796,7 +796,7 @@ namespace QP_Management_System.Controllers
                 Aspose.Words.Comment comment = new Aspose.Words.Comment(doc);
                 // Insert some text into the comment.
                 Aspose.Words.Paragraph commentParagraph = new Aspose.Words.Paragraph(doc);
-                commentParagraph.AppendChild(new Aspose.Words.Run(doc, "This is comment!!!") ); 
+                commentParagraph.AppendChild(new Aspose.Words.Run(doc, "This is comment after!!!") ); 
                 comment.AppendChild(commentParagraph);
 
 
@@ -806,7 +806,7 @@ namespace QP_Management_System.Controllers
                 builder.InsertNode(comment);
 
                 // Save output document.
-                doc.Save("C:\\Vinodh\\EditorOut.docx");
+                doc.Save("C:\\Vinodh\\EditorOut1.docx");
                 return View("Success");
             }
             catch (Exception)

@@ -148,6 +148,9 @@
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\JavaScript.js" />
+    <Content Include="Scripts\ckeditor\plugins\lineutils\dev\dnd.html" />
+    <Content Include="Scripts\ckeditor\plugins\lineutils\dev\magicfinger.html" />
+    <Content Include="Scripts\ckeditor\plugins\lineutils\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\lite\css\lite.css" />
     <Content Include="Scripts\ckeditor\plugins\lite\css\opentip.css" />
     <Content Include="Scripts\ckeditor\plugins\lite\icons\hidpi\lite-acceptall.png" />

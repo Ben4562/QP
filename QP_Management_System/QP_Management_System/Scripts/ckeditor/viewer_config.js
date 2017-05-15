@@ -13,7 +13,7 @@ CKEDITOR.editorConfig = function( config ) {
 
     config.toolbar_Fullx =
    [
-      ['Save','Copy', 'Print', 'SpellChecker', 'Find', '-', 'SelectAll', 'Maximize'],
+      ['Save', 'Copy', 'Print', 'SpellChecker', 'Find', '-', 'SelectAll', 'Maximize'],
       //['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
       //['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript'],
       //['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'Blockquote'],
@@ -29,5 +29,6 @@ CKEDITOR.editorConfig = function( config ) {
 
     config.width = "850px"
     config.height = "400px"
+    config.extraPlugins = 'lineutils';
     config.readOnly = true; CKEDITOR.editor.setReadOnly 
 };

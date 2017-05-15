@@ -4,7 +4,9 @@
     ViewBag.Title = "Editor";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div id="tc">
 
+</div>
 @{ 
     if(Session["Role"]==null)
     {
@@ -44,6 +46,7 @@
                         <textarea id="editor" name="editor"></textarea>
                         <script type="text/javascript">CKEDITOR.replace('editor');</script>
                     </div>*@
+                
                 <br />
                 <div class="form-group">
                     @*@Html.Label("Content", htmlAttributes: new { @class = "control-label col-md-2" })*@
@@ -62,7 +65,7 @@
                         }*@
 
                 </div>
-
+                
                 @*<div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
                             <input type="submit" value="Create" class="btn btn-default" />
@@ -89,6 +92,7 @@
                     <div class="col-lg-3">
                         <br />
                         @Html.TextAreaFor(model => model.HtmlContent, new { @class = "ckeditor", id = "ckeditor" })
+                       
                         <script type="text/javascript">
                     CKEDITOR.replace('ckeditor', {
                     customConfig: 'viewer_config.js'
@@ -117,7 +121,7 @@
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade" id="dropdown1">
                                 <br /><br />
-                                @Html.TextArea("Comment", new { @placeholder = "Enter comment here", @style = "height:300px;width:300px;" })
+                                @Html.TextArea("Comment" , new { @placeholder = "Enter comment here", @style = "height:300px;width:300px;"})
                             </div>
                         </div>
                     </div>
@@ -134,7 +138,17 @@
 
     }
 }
-
+<script type="text/javascript">
+                    window.onload = function () {
+                        var ta = document.getElementById('ta');
+                        ta.onclick = function (e) {
+                            var lineNo = ta.value.substr(0, ta.selectionStart).split(/\r?\n|\r/).length;
+                            var lineText = ta.value.split(/\r?\n|\r/)[lineNo - 1];
+                            var numOfSpaces = lineText.split(/\s/).length - 1;
+                            document.getElementById("tc").innerHTML = lineNo;
+                            }
+                        }
+</script>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
