@@ -1,0 +1,111 @@
+﻿@model IEnumerable<QP_Management_System.Models.QPVersion>
+
+@{
+    ViewBag.Title = "GetVersions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    WebGrid gridProducts = new WebGrid(Model, rowsPerPage: 10, canSort: true);
+}
+
+@{
+    if (Model.Any())
+    {
+        @Html.ActionLink("Back","QPAnchor","User")
+        <h3>Other versions of the selected document</h3>
+        <br />
+
+
+        @gridProducts.GetHtml(
+                 tableStyle: "table table-striped table-hover",
+                 fillEmptyRows: false,
+                 headerStyle: "gvRow",
+                 alternatingRowStyle: "alternate",
+                 rowStyle: "gvRow",
+                 footerStyle: "gvFooter",
+
+                 mode: WebGridPagerModes.All,
+                 firstText: "<< First",
+                 previousText: "< Prev",
+                 nextText: "Next >",
+                 lastText: "Last >>",
+                 columns: new[]
+                 {
+
+                 gridProducts.Column("DocumentName", header: "Document Name",canSort:false,
+                 format: @<text> <span class="display-mode"><label id="DocumentName">@item.DocumentName </label></span></text>, style: "col2Width"),
+
+                 gridProducts.Column("Version", header: "Version",canSort:false,
+                 format: @<text> <span class="display-mode"><label id="VersionId">@item.VersionId</label></span></text>, style: "col2Width"),
+
+                 gridProducts.Column("CreationLog", header: "Creation", canSort:false,
+                 format: @<text> <span class="display-mode"><label id="CreationLog">@item.CreationLog</label></span></text>, style: "col2Width"),
+
+                 gridProducts.Column("UpdationLog", header: "Last Update", canSort:false,
+                 format: @<text> <span class="display-mode"><label id="UpdationLog">@item.UpdationLog</label></span></text>, style: "col2Width"),
+
+                 gridProducts.Column("Comments", header: "Comments", canSort:false,
+                 format: @<text> <span class="display-mode"><label id="Comments">@item.Comments</label></span></text>, style: "col2Width"),
+
+                 gridProducts.Column("Action", header: "Action", canSort:false,
+                 format: @<text> <span class="display-mode"><label id="Action"> @Html.ActionLink("Download", "DownloadVersion", new { versionId = item.VersionId }) </label></span></text>, style: "col2Width")
+                 })
+
+
+
+        @*<table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DocumentName)
+                </th>
+                <th>
+                    @Html.DisplayName("Version")
+                </th>
+                <th>
+                    @Html.DisplayName("Creation")
+                </th>
+                <th>
+                    @Html.DisplayName("Last Update")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comments)
+                </th>
+                <th>
+                    @Html.DisplayName("Action")
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DocumentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VersionId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreationLog)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpdationLog)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comments)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Download", "DownloadVersion", new { versionId = item.VersionId })
+                    </td>
+                </tr>
+            }
+
+        </table>*@
+    }
+    else
+    {
+        <div class="text-center" style="text-align:center">
+            <h3>No versions are available for the selected document</h3>
+            @Html.ActionLink("Click here to go back","QPAnchor","User")
+        </div>
+    }
+}
+
+

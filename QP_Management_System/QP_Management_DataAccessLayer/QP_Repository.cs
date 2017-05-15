@@ -16,6 +16,8 @@ namespace QP_Management_DataAccessLayer
             Context = new QP_ManagementDBContext();
         }
 
+        #region
+
         public string CheckLogin(User usr)
         {
             string status = null;
@@ -480,6 +482,36 @@ namespace QP_Management_DataAccessLayer
             }
             return moduleName;
         }
+
+        public List<QPVersion> GetVersions(string qpDocId)
+        {
+            List<QPVersion> versions = new List<QPVersion>();
+            try
+            {
+                versions = (from v in Context.QPVersions where v.DocId == qpDocId orderby v.UpdationLog select v).ToList();
+            }
+            catch (Exception)
+            {
+                versions = null;
+            }
+            return versions;
+        }
+
+        public QPVersion VersionDetails(string versionId)
+        {
+            QPVersion ver = new QPVersion();
+            try
+            {
+                ver = (from v in Context.QPVersions where v.VersionId == versionId select v ).FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                ver = null;
+            }
+            return ver;
+        }
+        #endregion
+
 
     }
 }

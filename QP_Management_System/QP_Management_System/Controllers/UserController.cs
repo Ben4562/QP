@@ -327,6 +327,20 @@ namespace QP_Management_System.Controllers
             } 
         }
 
+        public ActionResult DownloadVersion(string versionId)
+        {
+            try
+            {
+                var dal = new QP_Repository();
+                var versionDetails = dal.VersionDetails(versionId);
+                return File(versionDetails.Document, System.Net.Mime.MediaTypeNames.Application.Octet, versionDetails.DocumentName + ".docx");
+            }
+            catch (Exception)
+            {
+                return View("UnableToDownload");
+            }
+        }
+
         //Upload-Method 
         public ActionResult ReUpload(Models.QPMasterPool qpDoc)
         {
@@ -879,10 +893,35 @@ namespace QP_Management_System.Controllers
             }
             
         }
-        
+
 
 
         #endregion
+
+        //Get-Versions of Documents
+        #region
+        public ActionResult GetVersions(string qpDocId)
+        {
+            QPMapper<QPVersion, Models.QPVersion> mapObj = new QPMapper<QPVersion, Models.QPVersion>();
+            var dal = new QP_Repository();
+            List<Models.QPVersion> qpVersion = new List<Models.QPVersion>();
+            try
+            {
+                var versionList = dal.GetVersions(qpDocId);
+                foreach (var item in versionList)
+                {
+                    qpVersion.Add(mapObj.Translate(item));
+                }
+            }
+            catch (Exception)
+            {
+                qpVersion = null;
+            }
+            return View(qpVersion);
+        }
+        #endregion
+
+
 
     }
 }
