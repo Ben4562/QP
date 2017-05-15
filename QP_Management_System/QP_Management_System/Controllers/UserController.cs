@@ -562,8 +562,23 @@ namespace QP_Management_System.Controllers
             QPMasterPool qpObj = new QPMasterPool();
             qpObj = dal.DocumentDetails(doc.DocId);
             qpObj.UpdationLog = DateTime.Now;
-            qpObj.Status = "R";
             QPMapper<Models.QPMasterPool, QPMasterPool> mapObj = new QPMapper<Models.QPMasterPool, QPMasterPool>();
+
+            try
+            {
+                if (Session["Role"].ToString().ToLower() == "author")
+                {
+                    qpObj.Status = "R";
+                }
+                else
+                {
+                    qpObj.Status = "A";
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Login");
+            }
 
             try
             {
@@ -575,26 +590,53 @@ namespace QP_Management_System.Controllers
                 ComponentInfo.FreeLimitReached += (sender, e) => e.FreeLimitReachedAction = FreeLimitReachedAction.ContinueAsTrial;
                 DocumentModel.Load(htmlPath).Save(docxPath);
 
+                if (frm.Count == 5 && frm["Comment"] != null)
+                {
+                    docxPath = AsposePost(docxPath, frm["Comment"]);
+                    if (docxPath == "undone")
+                    {
+                        return View("Error");
+                    }
+                }
 
                 var docbytes = System.IO.File.ReadAllBytes(docxPath);
                 qpObj.Document = docbytes;
+
                 bool status = dal.UpdateDocumentMaster(qpObj);
 
                 if (status)
                 {
-                    return RedirectToAction("Author");
+                    if (Session["Role"].ToString().ToLower() == "author")
+                    {
+                        return RedirectToAction("Author");
+                    }
+                    else if (Session["Role"].ToString().ToLower() == "reviewer")
+                    {
+                        return RedirectToAction("Reviewer");
+                    }
+                    else if (Session["Role"].ToString().ToLower() == "quality anchor")
+                    {
+                        return RedirectToAction("QualityAnchor");
+                    }
+                    else
+                    {
+                        return View("Authorization");
+                    }
                 }
                 else
                 {
-                    return View("UnableToUpload"); 
+                    return View("UnableToUpload");
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return View("UnableToUpload");
             }
 
         }
+
+
+
 
         #endregion
 
@@ -842,12 +884,12 @@ namespace QP_Management_System.Controllers
             return View();
         }
 
-        public ActionResult AsposePost()
+        public string AsposePost(string docxPath, string cmt)
         {
             try
             {
                 // Open an existing document to add comments to a paragraph.
-                Aspose.Words.Document doc = new Aspose.Words.Document("C:\\Vinodh\\EditorOut.docx");
+                Aspose.Words.Document doc = new Aspose.Words.Document(docxPath);
                 Node[] nodes = doc.GetChildNodes(NodeType.Paragraph, true).ToArray();
 
                 //E.g this is the Paragraph to which comments will added
@@ -860,7 +902,7 @@ namespace QP_Management_System.Controllers
                 Aspose.Words.Comment comment = new Aspose.Words.Comment(doc);
                 // Insert some text into the comment.
                 Aspose.Words.Paragraph commentParagraph = new Aspose.Words.Paragraph(doc);
-                commentParagraph.AppendChild(new Aspose.Words.Run(doc, "This is comment after!!!") ); 
+                commentParagraph.AppendChild(new Aspose.Words.Run(doc, cmt));
                 comment.AppendChild(commentParagraph);
 
 
@@ -868,17 +910,18 @@ namespace QP_Management_System.Controllers
                 builder.MoveTo(paragraph);
                 // Insert comment
                 builder.InsertNode(comment);
-
+                var newDocxPath = Path.GetTempFileName().Replace(".tmp", ".docx");
                 // Save output document.
-                doc.Save("C:\\Vinodh\\EditorOut1.docx");
-                return View("Success");
+                doc.Save(newDocxPath);
+                return newDocxPath;
             }
             catch (Exception)
             {
-                return View("Error"); 
+                return "undone";
             }
 
         }
+
 
         #endregion
 
