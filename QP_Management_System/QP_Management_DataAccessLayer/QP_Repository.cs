@@ -340,7 +340,7 @@ namespace QP_Management_DataAccessLayer
         public bool QPAnchorSelectDoc(string qpDocId)
         {
             QPMasterPool doc = new QPMasterPool();
-            bool status = false;
+            bool status;
             try
             {
                 doc = (from d in Context.QPMasterPools where d.QPDocId==qpDocId select d).FirstOrDefault();
