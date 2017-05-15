@@ -63,6 +63,10 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\..\..\..\..\Desktop\DLL\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="GemBox.Document, Version=27.3.30.1016, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
+      <HintPath>..\packages\GemBox.Document.27.3.30.1016\lib\net30\GemBox.Document.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="HtmlToOpenXml, Version=1.5.0.0, Culture=neutral, PublicKeyToken=6ad79d83e2b60e63, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlToOpenXml.dll.1.5.0\lib\net45\HtmlToOpenXml.dll</HintPath>
       <Private>True</Private>
@@ -74,6 +78,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="OpenXmlPowerTools, Version=4.5.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenXmlPowerTools.4.5.3.1\lib\net45\OpenXmlPowerTools.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SautinSoft.RtfToHtml, Version=6.1.12.20, Culture=neutral, PublicKeyToken=c666a5e96a3d5457, processorArchitecture=MSIL">
+      <HintPath>..\packages\sautinsoft.rtftohtml.6.1.12.20\lib\net45\SautinSoft.RtfToHtml.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Spire.Doc, Version=5.8.76.4040, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">

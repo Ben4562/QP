@@ -11,5 +11,8 @@ namespace QP_Management_System.Models
     {
         [AllowHtml]
         public string HtmlContent { get; set; }
+
+        public string DocId { get; set; }
+
     }
 }

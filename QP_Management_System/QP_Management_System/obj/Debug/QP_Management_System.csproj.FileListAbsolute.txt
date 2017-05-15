@@ -124,3 +124,6 @@ C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\b
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\obj\Debug\QP_Management_System.csprojResolveAssemblyReference.cache
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\obj\Debug\QP_Management_System.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\obj\Debug\QP_Management_System.pdb
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\GemBox.Document.dll
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\SautinSoft.RtfToHtml.dll
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\GemBox.Document.xml

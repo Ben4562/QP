@@ -13,6 +13,8 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml.CustomProperties;
 using Aspose.Words;
 using OpenXmlPowerTools;
+using SautinSoft;
+using GemBox.Document;
 
 namespace QP_Management_System.Controllers
 {
@@ -502,35 +504,72 @@ namespace QP_Management_System.Controllers
             var dal = new QP_Repository();
             var mdl = new Models.Editor();
             var docDetails = dal.DocumentDetails(qpDocId);
+            //var docxPath = Path.GetTempFileName().Replace(".tmp", ".docx");
+            //System.IO.File.WriteAllBytes(docxPath, docDetails.Document);
+            var htmlPath = Path.GetTempFileName().Replace(".tmp", ".html");
+            mdl.DocId = qpDocId;
             try
             {
-                using (MemoryStream memoryStream = new MemoryStream())
+                RtfToHtml r = new RtfToHtml();
+                r.OpenDocx(docDetails.Document);
+                r.ToHtml(htmlPath);
+                using (StreamReader sr = new StreamReader(htmlPath))
                 {
-                    memoryStream.Write(docDetails.Document, 0, docDetails.Document.Length);
-                    using (WordprocessingDocument doc = WordprocessingDocument.Open(memoryStream, true))
-                    {
-                        HtmlConverterSettings settings = new HtmlConverterSettings()
-                        {
-                        };
-                        System.Xml.Linq.XElement html = OpenXmlPowerTools.HtmlConverter.ConvertToHtml(doc, settings);
-                        mdl.HtmlContent = html.ToStringNewLineOnAttributes();
-                    }
+                    String line = sr.ReadToEnd();
+                    mdl.HtmlContent = line;
+                    return View(mdl);
                 }
-                return View(mdl);
             }
             catch (Exception)
             {
-                return View();
+                return View(mdl);
+            }
+            
+            
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Editor(Models.Editor doc, FormCollection frm)
+        {
+            var dal = new QP_Repository();
+            QPMasterPool qpObj = new QPMasterPool();
+            qpObj = dal.DocumentDetails(doc.DocId);
+            qpObj.UpdationLog = DateTime.Now;
+            qpObj.Status = "R";
+            QPMapper<Models.QPMasterPool, QPMasterPool> mapObj = new QPMapper<Models.QPMasterPool, QPMasterPool>();
+
+            try
+            {
+
+                var htmlPath = Path.GetTempFileName().Replace(".tmp", ".htm");
+                var docxPath = Path.GetTempFileName().Replace(".tmp", ".docx");
+                System.IO.File.WriteAllText(htmlPath, doc.HtmlContent);
+                ComponentInfo.SetLicense("FREE-LIMITED-KEY");
+                ComponentInfo.FreeLimitReached += (sender, e) => e.FreeLimitReachedAction = FreeLimitReachedAction.ContinueAsTrial;
+                DocumentModel.Load(htmlPath).Save(docxPath);
+
+
+                var docbytes = System.IO.File.ReadAllBytes(docxPath);
+                qpObj.Document = docbytes;
+                bool status = dal.UpdateDocumentMaster(qpObj);
+
+
+                if (status)
+                {
+                    return View("Author");
+                }
+                else
+                {
+                    return View("UnableToUpload"); 
+                }
+            }
+            catch(Exception)
+            {
+                return View("UnableToUpload");
             }
 
         }
-
-        //[HttpPost]
-        //[ValidateInput(false)]
-        //public FileResult Editor(Models.Editor doc,FormCollection frm)
-        //{
-        //    return File(HtmlToWord(doc.HtmlContent), "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-        //}
 
         #endregion
 
