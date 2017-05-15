@@ -15,11 +15,15 @@ using Aspose.Words;
 using OpenXmlPowerTools;
 using SautinSoft;
 using GemBox.Document;
+using log4net;
 
 namespace QP_Management_System.Controllers
 {
     public class UserController : Controller
     {
+        private static log4net.ILog Log { get; set; }
+
+        ILog log = log4net.LogManager.GetLogger(typeof(UserController));
         public ActionResult Index()
         {
             return View(); 
@@ -29,6 +33,7 @@ namespace QP_Management_System.Controllers
         #region
         public ActionResult Login()
         {
+            
             if(Session["UserName"]==null)
             {
                 return View();
@@ -72,6 +77,7 @@ namespace QP_Management_System.Controllers
                     {
                         if (status == "not exists")
                         {
+                            log.Error("Invalid Account");
                             Session["user"] = "Couldn't find your account";
                             return View("Login"); 
                         }
@@ -81,22 +87,27 @@ namespace QP_Management_System.Controllers
                             Session["Role"] = status;
                             if (status == "author")
                             {
+                                log.Info("Logged in as Author");
                                 return RedirectToAction("Author");
                             }
                             else if (status == "reviewer")
                             {
+                                log.Info("Logged in as Reviewer");
                                 return RedirectToAction("Reviewer");
                             }
                             else if (status == "quality anchor")
                             {
+                                log.Info("Logged in as QualityAnchor");
                                 return RedirectToAction("QualityAnchor");
                             }
                             else if (status == "qp anchor")
                             {
+                                log.Info("Logged in as QPAnchor");
                                 return RedirectToAction("QPAnchor");
                             }
                             else
                             {
+                                log.Error("Invalid Password");
                                 Session["password"] = "Wrong Password Try again";
                                 return View("Login");
                             }
@@ -123,6 +134,7 @@ namespace QP_Management_System.Controllers
         {
             try
             {
+                
                 Session.Clear();
                 return RedirectToAction("Login"); 
             }

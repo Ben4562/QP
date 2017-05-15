@@ -127,3 +127,5 @@ C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\o
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\GemBox.Document.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\SautinSoft.RtfToHtml.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\GemBox.Document.xml
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\log4net.dll
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\log4net.xml
