@@ -467,5 +467,19 @@ namespace QP_Management_DataAccessLayer
             return docs.Count;
         }
 
+        public string GetModuleName(int moduleId)
+        {
+            string moduleName;
+            try
+            {
+                moduleName = (from m in Context.Modules where m.ModuleId == moduleId select m.ModuleName).FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                moduleName = null;
+            }
+            return moduleName;
+        }
+
     }
 }

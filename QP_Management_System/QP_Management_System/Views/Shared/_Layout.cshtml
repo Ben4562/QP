@@ -34,9 +34,9 @@
                                         @Html.ActionLink("Login", "Login", "User")
                                     </li>
                                 </ul>
-                                    }
-                                    else
-                                    {
+                            }
+                            else
+                            {
                                 <ul class="nav navbar-nav">
                                     <li>
 
@@ -65,10 +65,28 @@
                                     <ul class="nav navbar-nav navbar-right">
                                         <li>
                                         <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@Session["UserName"] <span class="caret"></span></a>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                                @Session["UserName"] @{ if (ViewBag.tc == 1)
+                {
+                                                        <span id="notinum" class="badge" style="background-color:white;color:black"> @ViewBag.tc </span>
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+                                                }
+                                            </a>
                                             <ul class="dropdown-menu" role="menu">
-                                                <li>@Html.ActionLink("View Profile","ViewProfile","User")</li>
-                                                <li><a href="#">Settings</a></li>
+                                                <li>@Html.ActionLink("View Profile", "ViewProfile", "User")</li>
+                                                <li><a href="#" onclick="document.getElementById('noti').style.display = 'block'; document.getElementById('notinum').style.display = 'none'; document.getElementById('notinumb').style.display = 'none';">Notifications  @{ if (ViewBag.tc == 1)
+                {
+                                                        <span id="notinumb" class="badge" style="background-color:white;color:black"> @ViewBag.tc </span>
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+                                                }</a></li>
                                                 <li class="divider"></li>
                                                 <li>@Html.ActionLink("Logout", "LogOut", "User")</li>
                                             </ul>
@@ -79,7 +97,7 @@
 
                             //------------------------------------------------
 
-
+                            
 
                         }
                         else if (Session["Role"].ToString().ToLower() == "author")
@@ -146,6 +164,10 @@
     </div>
 
     <div class="container body-content">
+        <div id="noti" class="alert alert-dismissible alert-danger" style="display:none;z-index:10 ">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Heads up!</strong> Number of question papers are below the threshold  @Html.ActionLink("Click here to create question paper", "CreateQP", "User", new { @class= "alert-link" })
+        </div>
         @RenderBody()
         @RenderSection("scripts", required:false )
         <div class="navbar-fixed-bottom panel-footer">

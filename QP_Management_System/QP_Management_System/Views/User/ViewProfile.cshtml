@@ -6,6 +6,26 @@
 }
 
 @{
+
+    if (Session["Role"].ToString().ToLower() == "author")
+    {
+        @Html.ActionLink("Back", "Author", "User")
+    }
+    else if (Session["Role"].ToString().ToLower() == "reviewer")
+    {
+        @Html.ActionLink("Back", "Reviewer", "User")
+    }
+    else if (Session["Role"].ToString().ToLower() == "quality anchor")
+    {
+        @Html.ActionLink("Back", "QualityAnchor", "User")
+    }
+    else if (Session["Role"].ToString().ToLower() == "qp anchor")
+    {
+        @Html.ActionLink("Back", "QPAnchor", "User")
+    }
+}
+
+@{
     if (Session["UserName"] == null)
     {
         <div class="text-center" style="text-align:center">
@@ -51,8 +71,6 @@
                                     <p></p>
                                 }
                             }
-
-                            <p>@Html.ActionLink("Change Password", "ChangePassword", "User")</p>
                         </div>
                     </div>
                 </div>
