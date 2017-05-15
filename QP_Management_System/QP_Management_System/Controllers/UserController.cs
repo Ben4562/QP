@@ -554,10 +554,9 @@ namespace QP_Management_System.Controllers
                 qpObj.Document = docbytes;
                 bool status = dal.UpdateDocumentMaster(qpObj);
 
-
                 if (status)
                 {
-                    return View("Author");
+                    return RedirectToAction("Author");
                 }
                 else
                 {
