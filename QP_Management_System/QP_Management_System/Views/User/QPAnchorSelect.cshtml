@@ -86,7 +86,7 @@
                         @Html.DisplayFor(modelItem => item.Comments)
                     </td>
                     <td>
-                        @Html.ActionLink("Select", "QPAnchorSelectPost", new { QPDocId = item.QPDocId }, new { onclick="alert('Question paper is selected')" } ) 
+                        @Html.ActionLink("Select", "QPAnchorSelectPost", new { QPDocId = item.QPDocId }@*, new { onclick="alert('Question paper is selected')" }*@ ) 
                     </td>
                 </tr>
             }

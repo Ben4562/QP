@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using QP_Management_System.Repository;
 using QP_Management_DataAccessLayer;
 using NotesFor.HtmlToOpenXml;
@@ -42,7 +43,7 @@ namespace QP_Management_System.Controllers
             {
                 if(Session["Role"].ToString().ToLower()=="author")
                 {
-                    return RedirectToAction("Author");
+                    return RedirectToAction("Author"); 
                 }
                 else if(Session["Role"].ToString().ToLower() == "qp anchor")
                 {
@@ -134,7 +135,8 @@ namespace QP_Management_System.Controllers
         {
             try
             {
-                
+                log.Info("Logged out");
+                FormsAuthentication.SignOut();
                 Session.Clear();
                 return RedirectToAction("Login"); 
             }
@@ -154,6 +156,7 @@ namespace QP_Management_System.Controllers
         {
             if(Session["UserName"]==null || Session["Role"].ToString().ToLower()!= "author" )
             {
+                log.Warn("Author trying to access other roles");
                 return View("Authorization");
             }
             else
@@ -175,6 +178,7 @@ namespace QP_Management_System.Controllers
                 }
                 catch (Exception)
                 {
+                    log.Error("Could not fetch documents for Author");
                     return View("DocumentError"); 
                 }
             }
@@ -186,6 +190,7 @@ namespace QP_Management_System.Controllers
         {
             if (Session["UserName"] == null || Session["Role"].ToString().ToLower() != "reviewer")
             {
+                log.Warn("Reviewer trying to access other roles");
                 return View("Authorization");
             }
             else
@@ -207,6 +212,7 @@ namespace QP_Management_System.Controllers
                 }
                 catch (Exception)
                 {
+                    log.Error("Could not fetch documents for Reviewer");
                     return View("DocumentError");
                 }
             }
@@ -217,6 +223,7 @@ namespace QP_Management_System.Controllers
         {
             if (Session["UserName"] == null || Session["Role"].ToString().ToLower() != "quality anchor")
             {
+                log.Warn("Quality Anchor trying to access other roles");
                 return View("Authorization");
             }
             else
@@ -238,6 +245,7 @@ namespace QP_Management_System.Controllers
                 }
                 catch (Exception)
                 {
+                    log.Error("Could not fetch documents for Quality Anchor");
                     return View("DocumentError");
                 }
             }
@@ -248,6 +256,7 @@ namespace QP_Management_System.Controllers
         {
             if(Session["UserName"]==null || Session["Role"].ToString().ToLower()!= "qp anchor")
             {
+                log.Warn("QP Anchor trying to access other roles");
                 return View("Authorization");
             }
             else
@@ -335,6 +344,7 @@ namespace QP_Management_System.Controllers
             }
             catch (Exception)
             {
+                log.Error("Download failed");
                 return View("UnableToDownload"); 
             } 
         }
@@ -349,6 +359,7 @@ namespace QP_Management_System.Controllers
             }
             catch (Exception)
             {
+                log.Error("Download failed");
                 return View("UnableToDownload");
             }
         }
@@ -364,6 +375,9 @@ namespace QP_Management_System.Controllers
 
         public ActionResult ReUploadDoc(Models.QPMasterPool qpObj, HttpPostedFileBase reUpload)
         {
+            var allowedExtensions = new[] { ".docx" };
+            var extension = Path.GetExtension(reUpload.FileName);
+
             qpObj.UpdationLog = DateTime.Now;
             qpObj.Status = "R";
             qpObj.DocumentName = reUpload.FileName;
@@ -371,7 +385,7 @@ namespace QP_Management_System.Controllers
             QPMapper<Models.QPMasterPool, QPMasterPool> mapObj = new QPMapper<Models.QPMasterPool, QPMasterPool>();
             try
             {
-                if (reUpload != null)
+                if (reUpload != null && allowedExtensions.Contains(extension))
                 {
                 
                     qpObj.Document = new byte[reUpload.ContentLength];
@@ -379,20 +393,24 @@ namespace QP_Management_System.Controllers
                     bool status = dal.UpdateDocumentMaster(mapObj.Translate(qpObj));
                     if (status)
                     {
+                        log.Info("Document uploaded successfully");
                         return RedirectToAction("Author");                         
                     }
                     else
                     {
+                        log.Error("Document failed to upload");
                         return View("UnableToUpload");
                     }
                 }
                 else
                 {
-                    return View("Invalid File"); 
+                    log.Error("Document failed to upload because of invalid file");
+                    return View("InvalidFile"); 
                 }
             }
             catch (Exception)
             {
+                log.Error("Document failed to upload");
                 return View("UnableToUpload");
             }
         }

@@ -92,11 +92,14 @@ C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\b
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\QP_Management_System.pdb
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Aspose.Words.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\DocumentFormat.OpenXml.dll
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\GemBox.Document.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\HtmlToOpenXml.dll
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\log4net.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\OpenXmlPowerTools.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\QP_Management_DataAccessLayer.dll
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\SautinSoft.RtfToHtml.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Spire.Doc.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Spire.License.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Spire.Pdf.dll
@@ -111,7 +114,9 @@ C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\b
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\QP_Management_DataAccessLayer.pdb
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Aspose.Words.xml
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\DocumentFormat.OpenXml.xml
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\GemBox.Document.xml
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\HtmlToOpenXml.pdb
+C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\log4net.xml
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Spire.Doc.xml
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\Spire.License.xml
@@ -124,8 +129,3 @@ C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\b
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\obj\Debug\QP_Management_System.csprojResolveAssemblyReference.cache
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\obj\Debug\QP_Management_System.dll
 C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\obj\Debug\QP_Management_System.pdb
-C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\GemBox.Document.dll
-C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\SautinSoft.RtfToHtml.dll
-C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\GemBox.Document.xml
-C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\log4net.dll
-C:\Users\kvinodh.TRN\Source\Repos\QP\QP_Management_System\QP_Management_System\bin\log4net.xml

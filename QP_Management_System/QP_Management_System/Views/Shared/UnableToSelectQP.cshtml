@@ -1,13 +1,17 @@
 ﻿
 @{
-    ViewBag.Title = "UnableToSelectQP";
+    ViewBag.Title = "SelectQP";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="text-center" style="text-align:center">
-    <h3>Sorry !</h3>
+    <br /><br />
+    <h4>Do you want to select this Question paper for next hands-on?</h4>
 
-    <h4>Unable to select the question paper. Please try again after sometime</h4>
+    @Html.ActionLink("Yes","") or @Html.ActionLink("No","")
+    <br />
+    <br />
+    @*<h4>Unable to select the question paper. Please try again after sometime</h4>*@
     @{
         if (Session["Role"].ToString().ToLower() == "author")
         {

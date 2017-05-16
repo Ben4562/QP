@@ -1,14 +1,17 @@
 ﻿
 @{
-    ViewBag.Title = "SomeError";
+    ViewBag.Title = "Error";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @{
     if (Session["Role"] == null)
     {
-        <p>Please sign in before proceeding</p>
+        <div class="text-center" style="text-align:center">
+            <h4>Please sign in before proceeding</h4>
             @Html.ActionLink("Click here", "Login", "User")
+        </div>
+        
     }
     else
     {
